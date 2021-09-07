@@ -204,14 +204,6 @@
         v-on:closeWorkout="closeWorkout"
       />
     </GridLayout>
-    <!-- <GridLayout rows="auto" columns="*" v-show="selectedTabViewWb == 1">
-      <wbExerciseBrowser
-        ref="exerciseBrowser"
-        row="0"
-        col="0"
-        v-on:closeExerciseBrowser="addExercises($event, exercisesToAdd)"
-      />
-    </GridLayout> -->
   </Page>
 </template>
 
