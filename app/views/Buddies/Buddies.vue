@@ -1,0 +1,245 @@
+<template>
+  <Page
+  @loaded="pageLoaded($event)"
+
+    class="page"
+    actionBarHidden="false"
+    backgroundSpanUnderStatusBar="true"
+    xmlns:="http://www.nativescript.org/tns.xsd"
+  >
+    <ActionBar  @loaded="onActionBarLoaded($event)" class="actionBar" title="Buddies">
+      <ActionItem
+        icon="~/assets/images/ic_menu.png"
+        ios.position="left"
+        @tap="onToggleDrawerTap()"
+      ></ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto,*,auto" columns="auto">
+      <GridLayout
+        ref="navTab"
+        class="navTab"
+        width="100%"
+        rows="auto"
+        columns="auto,auto"
+        row="0"
+      >
+        <GridLayout
+          class="tabview"
+          :class="selectedTabview == 0 ? 'active' : ''"
+          @tap="showYours"
+          col="0"
+          width="50%"
+        >
+          <Label
+            :class="selectedTabview == 0 ? 'active' : ''"
+            text="Yours"
+            class="tabviewText"
+          ></Label>
+        </GridLayout>
+        <GridLayout
+          class="tabview"
+          :class="selectedTabview == 1 ? 'active' : ''"
+          @tap="showSearch"
+          cols="auto"
+          col="1"
+          width="50%"
+        >
+          <Label
+            :class="selectedTabview == 1 ? 'active' : ''"
+            text="Search"
+            class="tabviewText"
+          ></Label>
+        </GridLayout>
+      </GridLayout>
+
+      <GridLayout v-show="selectedTabview == 0" row="1" width="100%">
+        <ScrollView>
+       
+          <ListView
+                  ref="listview"
+                  for="user in users"
+                  :key="index"
+                  backgroundColor="transparent"
+                >
+                  <v-template>
+                    <buddySummary
+                      :user="user"
+                      @clicked="showUser(user)"
+                    />
+                  </v-template>
+                </ListView>
+              
+     
+        </ScrollView>
+      </GridLayout>
+
+      <GridLayout v-show="selectedTabview == 1" row="1" width="100%">
+        <StackLayout verticalAlignment="top">
+          <GridLayout rows="*,auto">
+            <StackLayout row="0">
+              <SearchBar
+                class="searchbar"
+                hint="Search users..."
+                [text]="searchPhrase"
+                (textChange)="onTextChanged($event)"
+                (clear)="onClear($event)"
+                (submit)="onSubmit($event)"
+                @loaded="searchBarLoaded($event)"
+                textFieldHintColor="rgb(151,151,151)"
+                textFieldBackgroundColor="white"
+                color="black"
+              ></SearchBar>
+
+
+
+              <GridLayout>
+                <ListView
+                  ref="listview"
+                  for="user in users"
+                  :key="index"
+                  backgroundColor="transparent"
+                >
+                  <v-template>
+                    <buddySummary
+                      :user="user"
+                      @clicked="showUser(user)"
+                    />
+                  </v-template>
+                </ListView>
+              </GridLayout>
+            </StackLayout>
+          </GridLayout>
+        </StackLayout>
+      </GridLayout>
+      <navBottom row="2"></navBottom>
+    </GridLayout>
+  </Page>
+</template>
+<script>
+import navBottom from "../../components/navBottom";
+import buddySummary from "./buddySummary/buddySummary";
+import buddyDetail from "./buddyDetail/buddyDetail";
+
+import navControls from "../../mixins/navControls";
+
+import { Frame, Color, isIOS } from "@nativescript/core";
+
+export default {
+  mixins: [navControls],
+  components: { navBottom, buddySummary, buddyDetail },
+  computed: {},
+
+  mounted() {
+    // SwissArmyKnife.setAndroidStatusBarColor("#b51213");
+  },
+  methods: {
+    showUser(payload) {
+      this.$navigateTo(buddyDetail, {
+        props: {
+          user: payload,
+        },
+        animated: true,
+        transition: {
+          name: "slideLeft",
+          duration: 300,
+          curve: "easeIn",
+        },
+      });
+    },
+
+    searchBarLoaded(args) {
+      let sb = args.object;
+
+      sb.ios.searchBarStyle = UISearchBarStyle.Prominent;
+      sb.ios.backgroundImage = UIImage.new();
+    },
+
+    pageLoaded(args) {
+      const page = args.object;
+    },
+
+    onActionBarLoaded(args) {
+      if (isIOS) {
+        const navigationBar = Frame.topmost().ios.controller.navigationBar;
+
+        const gradient = CAGradientLayer.layer();
+        const bounds = navigationBar.bounds;
+        gradient.frame = bounds;
+
+        gradient.colors = [
+          new Color("red").ios.CGColor,
+          new Color("hsl(352.5, 100%, 25%)").ios.CGColor,
+        ];
+        gradient.startPoint = CGPointMake(0, 0);
+        gradient.endPoint = CGPointMake(1, 0);
+        const size = CGSizeMake(bounds.size.width, bounds.size.height);
+        UIGraphicsBeginImageContext(size);
+        gradient.renderInContext(UIGraphicsGetCurrentContext());
+        const gradientImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        // doesn't work without this setTimeout
+        setTimeout(() => {
+          navigationBar.setBackgroundImageForBarMetrics(
+            gradientImage,
+            UIBarMetrics.de
+          );
+        });
+      }
+    },
+
+    showYours() {
+      this.selectedTabview = 0;
+    },
+    showSearch() {
+      this.selectedTabview = 1;
+    },
+
+    home() {
+      this.selectedTab = 0;
+    },
+  },
+  data() {
+    return {
+      index: 0,
+      lastDelY: 0,
+      headerCollapsed: false,
+      selectedTab: 0,
+      selectedTabview: 0,
+      users: [
+        {
+          userid: "WOP0000000001",
+          userName: "John Doe",
+          location: "Munich, Germany",
+          workoutCount: "30",
+        },
+        {
+          userid: "WOP0000000002",
+          userName: "Damian Smith",
+          location: "San Francisco, US",
+          workoutCount: "59",
+        },
+        {
+          userid: "WOP0000000003",
+          userName: "Keith Davidson",
+          location: "London, UK",
+          workoutCount: "70",
+        },
+      ],
+    };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+// Start custom common variables
+@import "../../_app-variables";
+// End custom common variables
+
+// Custom styles
+
+.searchbar {
+  margin-top: 10;
+}
+</style>

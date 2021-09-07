@@ -1,0 +1,48 @@
+$background-color: hsl(0, 0%, 0%);
+$background-gradient-dark: hsl(0, 0%, 4.7%);
+$background-gradient-mid: hsl(0, 0%, 9%);
+$background-gradient-light: hsl(0, 0%, 18%);
+
+$container-gradient-dark: #111111;
+$container-gradient-light: #3d3d3d;
+
+$gradient-active-dark: hsl(0, 95.9%, 28.4%);
+$gradient-active-light: hsl(352.5, 100%, 40.6%);
+
+$gradient-inactive-dark: hsl(0, 4.2%, 18.8%);
+$gradient-inactive-light: hsl(0, 0%, 56.5%);
+
+$primary-color: hsl(0, 100%, 50%);
+$primary-color-dark: hsl(0, 95.4%, 42.9%);
+$primary-color-darker: hsl(0, 95.4%, 42.9%);
+$secondary-color: hsl(0, 0%, 88.6%);
+$secondary-color-dark: hsl(0, 0%, 70%);
+$secondary-color-darkest: hsl(0, 0%, 88.6%);
+$neutral-color: hsl(0, 0%, 0%);
+
+$border-color: hsl(0, 0%, 88.6%);
+
+$text-color: hsl(0, 0%, 100%);
+$text-color-primary: hsl(0, 100%, 50%);
+$text-color-secondary: rgb(194, 194, 194);
+$text-box-color: hsl(0, 0%, 21.6%);
+
+$font-logo: "./fonts/Gotham_Rounded_Bold.otf";
+$font-text: "./fonts/SF-Pro-Display-Regular.otf";
+$font-main: "./fonts/SF-Pro-Display-Semibold.otf";
+$font-heavy: "./fonts/SF-Pro-Display-Bold.otf";
+
+$btn-primary-height: 50;
+$btn-secondary-height: 40;
+$btn-radius: 10;
+$btn-disabled-opacity: 0.5;
+$btn-primary-color: $primary-color;
+$btn-primary-gradient-light: $primary-color;
+$btn-primary-gradient-dark: $gradient-active-dark;
+$btn-primary-text: $text-color;
+$btn-primary-text-size: 18;
+$btn-primary-text-margin: 30 5 15 5;
+$btn-primary-font-weight: bold;
+
+$border-width: 0.5;
+$border-radius: 10;

@@ -1,21 +1,288 @@
-@import '@nativescript/theme/core';
-@import '@nativescript/theme/default';
+@import "app-variables";
+@import "app-common";
 
-// Place any CSS rules you want to apply on both iOS and Android here.
-// This is where the vast majority of your CSS code goes.
-
-// Font icon class
-.fab {
-  font-family: 'Font Awesome 5 Brands', 'fa-brands-400';
-  font-weight: 400;
+.Page {
+  background-color: black;
 }
 
-.fas {
-  font-family: 'Font Awesome 5 Free', 'fa-solid-900';
-  font-weight: 900;
+
+.actionBar {
+  background-color: $primary-color;
+  color: $text-color;
+  background-image: linear-gradient(to bottom,
+      $btn-primary-gradient-light,
+      $btn-primary-gradient-dark);
 }
 
-.far {
-  font-family: 'Font Awesome 5 Free', 'fa-regular-400';
-  font-weight: 400;
+.actionBar_simple_dark {
+  background-color: black;
+  color: $text-color;
 }
+
+.btn-primary {
+  height: $btn-primary-height;
+  border-radius: $border-radius;
+  background-color: $btn-primary-color;
+  background-image: linear-gradient(to bottom,
+      $btn-primary-gradient-light,
+      $btn-primary-gradient-dark);
+  color: $secondary-color;
+  font-size: $btn-primary-text-size;
+  font-family: $font-main;
+  font-weight: bold;
+  font-size: 20;
+}
+
+.btn-primary-dark {
+  height: $btn-primary-height;
+  border-radius: $border-radius;
+  background-color: $primary-color-dark;
+  background-image: linear-gradient(to bottom,
+      $primary-color-darker,
+      $btn-primary-gradient-dark);
+  color: $secondary-color;
+  font-size: $btn-primary-text-size;
+  font-family: $font-main;
+  font-weight: bold;
+  font-size: 16;
+}
+
+.btn-secondary {
+  height: $btn-primary-height;
+  border-radius: $border-radius;
+  background-color: $text-box-color;
+  background-image: linear-gradient(to bottom,
+      $text-box-color,
+      $background-gradient-dark);
+  color: $text-color-secondary;
+  font-size: $btn-primary-text-size;
+  font-family: $font-main;
+  font-weight: bold;
+  font-size: 16;
+}
+
+.btn-primary:disabled {
+  opacity: $btn-disabled-opacity;
+}
+
+.searchbar {
+  width: 94%;
+  height: 40;
+  font-size: 16;
+  font-weight: 300;
+  border-radius: $border-radius;
+  background-color: transparent;
+  padding: 0;
+  margin-top: 20;
+  margin-bottom: 15;
+}
+
+.btn-list {
+  height: $btn-secondary-height;
+  background-color: #404040;
+  border: $border-color;
+  border-width: 1;
+  border-color: $border-color;
+  color: $text-color;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: $border-radius;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
+  width: 42%;
+  margin-bottom: 10;
+}
+
+.btn-list:highlighted {
+  background-color: $primary-color;
+}
+
+.page {
+  background-image: linear-gradient(to bottom,
+      $background-gradient-light,
+      $background-gradient-dark);
+  align-items: center;
+  flex-direction: column;
+  background-color: $background-color;
+}
+
+.page_simple {
+  align-items: center;
+  flex-direction: column;
+  background-color: $background-color;
+}
+
+.navtab {}
+
+.tabview {
+  height: 40;
+  vertical-align: center;
+  margin-bottom: 0;
+}
+
+.tabview.active {
+  border-bottom-color: $primary-color;
+  border-bottom-width: 3;
+  margin: 5;
+}
+
+.tabviewText {
+  margin-top: 10;
+  margin-bottom: 5;
+  font-size: 16;
+  color: $secondary-color-dark;
+  text-align: center;
+  vertical-align: center;
+}
+
+.tabviewText.active {
+  margin-top: 10;
+  margin-bottom: 5;
+  font-weight: bold;
+  color: $text-color;
+  vertical-align: center;
+}
+
+.workoutrecord--heading {
+  vertical-align: center;
+  text-align: center;
+}
+
+.-h0 {
+  @extend .workoutrecord--heading;
+  font-size: 60;
+  font-weight: bold;
+}
+
+.-h1 {
+  @extend .workoutrecord--heading;
+  font-size: 48;
+  font-weight: bold;
+}
+
+.-h2 {
+  @extend .workoutrecord--heading;
+  font-size: 42;
+  font-weight: bold;
+}
+
+.-h3 {
+  @extend .workoutrecord--heading;
+  font-size: 36;
+  font-weight: bold;
+}
+
+.-h4 {
+  @extend .workoutrecord--heading;
+  font-size: 24;
+  font-weight: normal;
+}
+
+.-h5 {
+  @extend .workoutrecord--heading;
+  font-size: 30;
+  font-weight: normal;
+}
+
+.-primary {
+  @extend .workoutrecord--heading;
+  color: $text-color-primary;
+}
+
+.-secondary {
+  @extend .workoutrecord--heading;
+  color: $text-color-secondary;
+}
+
+.-default {
+  @extend .workoutrecord--heading;
+  color: $text-color;
+}
+
+.text {
+  vertical-align: center;
+}
+
+.-xlarge {
+  @extend .text;
+  font-size: 20;
+}
+
+.-large {
+  @extend .text;
+  font-size: 18;
+}
+
+.-medium {
+  @extend .text;
+  font-size: 16;
+}
+
+.-small {
+  @extend .text;
+  font-size: 14;
+}
+
+.-xsmall {
+  @extend .text;
+  font-size: 12;
+}
+
+.-primary {
+  @extend .text;
+  color: $text-color-primary;
+}
+
+.-secondary {
+  @extend .text;
+  color: $text-color-secondary;
+}
+
+.-default {
+  @extend .text;
+  color: $text-color;
+}
+
+.-bold {
+  @extend .text;
+  font-weight: bold;
+}
+
+.-left {
+  @extend .text;
+  text-align: left;
+}
+
+.-right {
+  @extend .text;
+  text-align: right;
+}
+
+//60
+// workoutrecord--heading -h0 -primary
+// workoutrecord--heading -h0 -secondary
+// workoutrecord--heading -h0 -default
+
+//48
+// workoutrecord--heading -h1 -primary
+// workoutrecord--heading -h1 -secondary
+// workoutrecord--heading -h1 -default
+
+//42
+// workoutrecord--heading -h2 -primary
+// workoutrecord--heading -h2 -secondary
+// workoutrecord--heading -h2 -default
+
+//36
+// workoutrecord--heading -h3 -primary
+// workoutrecord--heading -h3 -secondary
+// workoutrecord--heading -h3 -default
+
+//24
+// workoutrecord--heading -h4 -primary
+// workoutrecord--heading -h4 -secondary
+// workoutrecord--heading -h4 -default
