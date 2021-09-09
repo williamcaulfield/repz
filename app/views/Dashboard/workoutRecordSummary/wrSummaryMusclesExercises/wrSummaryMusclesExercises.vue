@@ -13,43 +13,44 @@
             rowspan="7"
             :breakdownMuscleZones="this.breakdownMuscleZones"
           />
+          <!-- <wrExercise col="1" row="0" :image="'caa'" :count="10" />
+          <wrExercise col="1" row="1" :image="'caasdv'" :count="12" /> -->
 
-          <!-- <RadListView
+          <ListView
             row="0"
             col="1"
+            ref="listview"
             for="exercise in breakdownExercisesOdd"
-            layout="list"
+            :key="index"
             backgroundColor="transparent"
             marginTop="20"
             height="180"
           >
             <v-template>
-              <GridLayout columns="auto, *, 180">
-                <wrExercise
-                  :image="exercise.exerciseIcon"
-                  :count="exercise.totalVolume"
-                />
-              </GridLayout>
+              <wrExercise
+                :image="exercise.exerciseIcon"
+                :count="exercise.totalVolume"
+              />
             </v-template>
-          </RadListView>
-          <RadListView
+          </ListView>
+
+          <ListView
             row="0"
             col="2"
+            ref="listview"
             for="exercise in breakdownExercisesEven"
-            layout="list"
+            :key="index"
             backgroundColor="transparent"
             marginTop="20"
             height="180"
           >
             <v-template>
-              <GridLayout columns="auto, *, 180">
-                <wrExercise
-                  :image="exercise.exerciseIcon"
-                  :count="exercise.totalVolume"
-                />
-              </GridLayout>
+              <wrExercise
+                :image="exercise.exerciseIcon"
+                :count="exercise.totalVolume"
+              />
             </v-template>
-          </RadListView> -->
+          </ListView>
         </GridLayout>
       </ContentView>
     </StackLayout>
@@ -69,12 +70,11 @@ export default {
   mounted() {
     for (var i = 0; i < this.breakdownExercises.length; i++) {
       if (i % 2 === 0) {
-        this.breakdownExercisesEven.push(this.breakdownExercises[i]);
-      } else {
         this.breakdownExercisesOdd.push(this.breakdownExercises[i]);
+      } else {
+        this.breakdownExercisesEven.push(this.breakdownExercises[i]);
       }
     }
-    //console.log(this.breakdownExercises);
   },
   methods: {
     onClickButton() {
