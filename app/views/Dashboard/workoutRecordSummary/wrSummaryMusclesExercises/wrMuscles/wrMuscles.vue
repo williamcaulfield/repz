@@ -99,56 +99,57 @@
 export default {
   props: ["breakdownMuscleZones"],
   mounted() {
+    console.log(this.breakdownMuscleZones);
     this.breakdownMuscleZones.forEach((element) => {
       var multiplier = 2.0;
 
       if (element.category == "Arms") {
-        this.front_arms = (element.categoryValue * multiplier) / 100;
-        this.back_arms = (element.categoryValue * multiplier) / 100;
+        this.front_arms = (element.categoryPercent * multiplier) / 100;
+        this.back_arms = (element.categoryPercent * multiplier) / 100;
         if (this.front_arms > 1.0) {
           this.front_arms = 1.0;
           this.back_arms = 1.0;
         }
       }
       if (element.category == "Legs") {
-        this.front_legs = (element.categoryValue * multiplier) / 100;
-        this.back_legs = (element.categoryValue * multiplier) / 100;
+        this.front_legs = (element.categoryPercent * multiplier) / 100;
+        this.back_legs = (element.categoryPercent * multiplier) / 100;
         if (this.front_legs > 1.0) {
           this.front_legs = 1.0;
           this.back_legs = 1.0;
         }
       }
       if (element.category == "Chest") {
-        this.front_chest = (element.categoryValue * multiplier) / 100;
+        this.front_chest = (element.categoryPercent * multiplier) / 100;
         if (this.front_chest > 1.0) {
           this.front_chest = 1.0;
         }
       }
       if (element.category == "Glutes") {
-        this.back_glutes = (element.categoryValue * multiplier) / 100;
+        this.back_glutes = (element.categoryPercent * multiplier) / 100;
         if (this.back_glutes > 1.0) {
           this.back_glutes = 1.0;
         }
       }
       if (element.category == "Back") {
-        this.back_lower_back = (element.categoryValue * multiplier) / 100;
-        this.back_upper_back = (element.categoryValue * multiplier) / 100;
+        this.back_lower_back = (element.categoryPercent * multiplier) / 100;
+        this.back_upper_back = (element.categoryPercent * multiplier) / 100;
         if (this.back_lower_back > 1.0) {
           this.back_lower_back = 1.0;
           this.back_upper_back = 1.0;
         }
       }
       if ((element.category = "Shoulders")) {
-        this.front_shoulders = (element.categoryValue * multiplier) / 100;
-        this.back_shoulders = (element.categoryValue * multiplier) / 100;
+        this.front_shoulders = (element.categoryPercent * multiplier) / 100;
+        this.back_shoulders = (element.categoryPercent * multiplier) / 100;
         if (this.front_shoulders > 1.0) {
           this.front_shoulders = 1.0;
           this.back_shoulders = 1.0;
         }
       }
       if (element.category == "Core") {
-        this.front_core = (element.categoryValue * multiplier) / 100;
-        this.back_core = (element.categoryValue * multiplier) / 100;
+        this.front_core = (element.categoryPercent * multiplier) / 100;
+        this.back_core = (element.categoryPercent * multiplier) / 100;
         if (this.front_core > 1.0) {
           this.front_core = 1.0;
           this.back_core = 1.0;
@@ -170,20 +171,25 @@ export default {
     this.back_upper_back_tint = tintColour + this.back_upper_back + ")";
     this.back_arms_tint = tintColour + this.back_arms + ")";
     this.back_shoulders_tint = tintColour + this.back_shoulders + ")";
+
+    console.log(this.front_arms);
+    console.log(this.back_arms);
+    console.log(this.front_arms_tint);
+    console.log(this.back_arms_tint);
   },
   data() {
     return {
-      front_legs: "",
-      front_core: "",
-      front_arms: "",
-      front_chest: "",
-      front_shoulders: "",
-      back_legs: "",
-      back_glutes: "",
-      back_lower_back: "",
-      back_upper_back: "",
-      back_arms: "",
-      back_shoulders: "",
+      front_legs: 0.0,
+      front_core: 0.0,
+      front_arms: 0.0,
+      front_chest: 0.0,
+      front_shoulders: 0.0,
+      back_legs: 0.0,
+      back_glutes: 0.0,
+      back_lower_back: 0.0,
+      back_upper_back: 0.0,
+      back_arms: 0.0,
+      back_shoulders: 0.0,
 
       front_legs_tint: "",
       front_core_tint: "",

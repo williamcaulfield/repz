@@ -13,8 +13,8 @@
         /> -->
 
         <wrSummaryMusclesExercises
-          v-show="workout.includesImage == false"
-          marginTop="20"
+          row="0"
+          col="0"
           :breakdownMuscleZones="workout.breakdownMuscleZones"
           :breakdownExercises="workout.breakdownExercises"
         />
@@ -282,6 +282,14 @@ export default {
 };
 </script>
 <style scoped>
+.workoutRecordSummary-muscles {
+  width: 95%;
+  height: 210;
+  margin: auto;
+
+  border-color: rgb(151, 151, 151);
+  border-width: 1;
+}
 .workoutRecordSummary-imageArray {
   width: 95%;
   height: 238;

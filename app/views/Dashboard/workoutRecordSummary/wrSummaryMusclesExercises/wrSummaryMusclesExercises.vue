@@ -14,7 +14,7 @@
             :breakdownMuscleZones="this.breakdownMuscleZones"
           />
 
-          <RadListView
+          <!-- <RadListView
             row="0"
             col="1"
             for="exercise in breakdownExercisesOdd"
@@ -49,7 +49,7 @@
                 />
               </GridLayout>
             </v-template>
-          </RadListView>
+          </RadListView> -->
         </GridLayout>
       </ContentView>
     </StackLayout>
@@ -74,6 +74,7 @@ export default {
         this.breakdownExercisesOdd.push(this.breakdownExercises[i]);
       }
     }
+    //console.log(this.breakdownExercises);
   },
   methods: {
     onClickButton() {
