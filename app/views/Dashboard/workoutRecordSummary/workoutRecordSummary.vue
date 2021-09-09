@@ -3,7 +3,7 @@
     <StackLayout>
       <GridLayout rows="auto,auto" columns="*">
         <!-- <Image
-          v-show="workout.includesImage == true"
+          v-show="workout.includesImages == true"
           class="workoutRecordSummary-imageArray"
           row="0"
           col="0"
@@ -11,12 +11,13 @@
           @tap="onClickButton()"
           :src="workout.workoutImages[0]"
         /> -->
-        <!-- <wrSummaryMusclesExercises
+
+        <wrSummaryMusclesExercises
           v-show="workout.includesImage == false"
           marginTop="20"
           :breakdownMuscleZones="workout.breakdownMuscleZones"
           :breakdownExercises="workout.breakdownExercises"
-        /> -->
+        />
       </GridLayout>
 
       <GridLayout

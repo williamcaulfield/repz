@@ -241,10 +241,12 @@
   </StackLayout>
 </template>
 <script>
-const TimerModule = require("@nativescript/core");
+import { Utils } from "@nativescript/core";
+import { TNSPlayer } from "nativescript-audio";
+//const Timer = require("timer");
 
-const audio = require("nativescript-audio");
-const player = new audio.TNSPlayer();
+//const audio = require("nativescript-audio");
+const player = new TNSPlayer();
 const playerOptions = {
   audioFile: "~/assets/sounds/beep.mp3",
   loop: false,
@@ -312,12 +314,12 @@ export default {
         this.timerActive = true;
         this.togglePlay();
 
-        countId = TimerModule.setInterval(() => {
+        countId = Utils.setInterval(() => {
           if (this.timeCompleted < this.targetTime) {
             this.timeCompleted++;
           } else {
             this.togglePlay();
-            TimerModule.clearInterval(countId);
+            Utils.clearInterval(countId);
             this.timerActive = false;
             this.exerciseCompleted = true;
           }
@@ -326,12 +328,12 @@ export default {
     },
 
     countdownPause() {
-      TimerModule.clearInterval(countId);
+      Utils.clearInterval(countId);
       this.timerActive = false;
       this.exerciseCompleted = true;
     },
     countdownReset() {
-      TimerModule.clearInterval(countId);
+      Utils.clearInterval(countId);
       this.timerActive = false;
       this.timeCompleted = 0;
       this.exerciseCompleted = false;

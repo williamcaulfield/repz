@@ -213,7 +213,7 @@ import {
   Frame,
   Color,
   ApplicationSettings,
-  TimerModule,
+  Timer,
 } from "@nativescript/core";
 
 import navControls from "../../../mixins/navControls";
