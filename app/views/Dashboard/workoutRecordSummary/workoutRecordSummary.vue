@@ -2,7 +2,7 @@
   <StackLayout class="main">
     <StackLayout>
       <GridLayout rows="auto,auto" columns="*">
-        <!-- <Image
+        <Image
           v-show="workout.includesImages == true"
           class="workoutRecordSummary-imageArray"
           row="0"
@@ -10,9 +10,10 @@
           stretch="aspectFill"
           @tap="onClickButton()"
           :src="workout.workoutImages[0]"
-        /> -->
+        />
 
         <wrSummaryMusclesExercises
+          v-show="workout.includesImages == false"
           row="0"
           col="0"
           :breakdownMuscleZones="workout.breakdownMuscleZones"

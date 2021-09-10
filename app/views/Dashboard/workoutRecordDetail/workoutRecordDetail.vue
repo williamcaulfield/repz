@@ -2,6 +2,62 @@
   <Page actionBarHidden="true" class="page">
     <ScrollView>
       <StackLayout class="main">
+        <wrHeader width="95%" marginTop="5" />
+        <workoutRecordPhotos
+          v-show="workoutRecorded.includesImages == false"
+          :images="workoutRecorded.workoutImages"
+          width="100%"
+          marginTop="10"
+        />
+        <wrStatistics margin="20" :workoutRecorded="workoutRecorded" />
+        <wrSummaryMusclesExercises
+          marginTop="20"
+          :breakdownMuscleZones="
+            workoutRecorded.workoutRecordedAnalysis.breakdownMuscleZones
+          "
+          :breakdownExercises="
+            workoutRecorded.workoutRecordedAnalysis.breakdownExercises
+          "
+        />
+        <wrGraphExercise
+          margin="20"
+          :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"
+        />
+        <Label
+          text="Achievements"
+          class="text -default -bold -large"
+          horizontalAlignment="left"
+          verticalAlignment="top"
+          marginTop="0"
+          marginBottom="10"
+        />
+        <RadListView
+          for="achievement in achievements"
+          layout="list"
+          backgroundColor="transparent"
+          marginTop="5"
+          height="210"
+        >
+          <v-template>
+            <wrAchievement
+              :achievementName="achievement.achievementName"
+              :description="achievement.description"
+            >
+            </wrAchievement>
+          </v-template>
+        </RadListView>
+        <Button
+          row="8"
+          class="btn-primary"
+          text="Done"
+          marginTop="30"
+          width="95%"
+          @tap="$navigateBack"
+        />
+      </StackLayout>
+    </ScrollView>
+    <!-- <ScrollView>
+      <StackLayout class="main">
         <GridLayout rows="*" columns="*,*">
           <Label
             row="0"
@@ -28,12 +84,18 @@
         <wrStatistics margin="20" />
         <wrGraphExercise margin="20" />
       </StackLayout>
-    </ScrollView>
+    </ScrollView> -->
   </Page>
 </template>
 
 <script>
-import { Frame, Color, isIOS } from "@nativescript/core";
+import {
+  Frame,
+  Color,
+  isIOS,
+  ApplicationSettings,
+  Http,
+} from "@nativescript/core";
 
 import wrSummaryMusclesExercises from "../workoutRecordSummary/wrSummaryMusclesExercises/wrSummaryMusclesExercises";
 import wrHeader from "./wrHeader/wrHeader";
@@ -43,7 +105,7 @@ import wrGraphExercise from "./wrGraphExercise/wrGraphExercise";
 import workoutRecordPhotos from "./workoutRecordPhotos/workoutRecordPhotos";
 
 export default {
-  props: ["workout"],
+  props: ["workoutRecorded"],
   components: {
     workoutRecordPhotos,
     wrSummaryMusclesExercises,
@@ -53,7 +115,34 @@ export default {
   },
   computed: {},
   created() {},
-  mounted() {},
+  mounted() {
+    // const userId = ApplicationSettings.getNumber("userId");
+    // const authToken = ApplicationSettings.getString("userToken");
+    // Http.request({
+    //   url:
+    //     "https://api.repz.app/user/" +
+    //     userId +
+    //     "/workoutrecorded/" +
+    //     workoutRecordedID +
+    //     "/workoutrecordeddetail",
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: "Bearer " + authToken,
+    //   },
+    // }).then(
+    //   (response) => {
+    //     this.workoutRecorded = response.content.toJSON();
+    //     console.log(
+    //       this.workoutRecorded.workoutRecordedAnalysis.breakdownMuscleZones
+    //     );
+    //     console.log(
+    //       this.workoutRecorded.workoutRecordedAnalysis.breakdownExercises
+    //     );
+    //   },
+    //   (e) => {}
+    // );
+  },
   methods: {
     close() {
       this.$navigateBack();
@@ -96,7 +185,9 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      //workoutRecorded: ,
+    };
   },
 };
 </script>
