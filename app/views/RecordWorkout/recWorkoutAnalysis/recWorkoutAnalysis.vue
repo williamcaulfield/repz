@@ -4,15 +4,15 @@
       <StackLayout class="main">
         <wrHeader width="95%" marginTop="5" />
         <wrStatistics margin="20" :workoutRecorded="workoutRecorded" />
-        <wrSummaryMusclesExercises
+        <!-- <wrSummaryMusclesExercises
           marginTop="20"
-          :breakdownMuscleZones="
+          :breakdownMuscles="
             workoutRecorded.workoutRecordedAnalysis.breakdownMuscleZones
           "
           :breakdownExercises="
-            workoutRecorded.workoutRecordedAnalysis.breakdownExercises
+            workoutRecorded.workoutRecordedAnalysis.breakdownExerciseZones
           "
-        />
+        /> -->
         <wrGraphExercise
           margin="20"
           :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"

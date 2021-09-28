@@ -3,7 +3,7 @@
     <StackLayout>
       <GridLayout rows="auto,auto" columns="*">
         <Image
-          v-show="workout.includesImages == true"
+          v-if="workout.includesImages == true"
           class="workoutRecordSummary-imageArray"
           row="0"
           col="0"
