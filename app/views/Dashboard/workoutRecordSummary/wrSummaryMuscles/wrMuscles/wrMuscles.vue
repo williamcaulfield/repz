@@ -1,95 +1,94 @@
 <template>
   <StackLayout class="main">
-    <GridLayout rows="auto" columns="*,*" class="wrMuscles__grid">
+    <GridLayout rows="auto" columns="auto,auto" class="wrMuscles__grid">
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_base@3x.png"
+        src="~/assets/images/muscleMap/male_front_base@3x.png"
       />
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.front_chest_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_chest@3x.png"
+        src="~/assets/images/muscleMap/male_front_chest@3x.png"
       />
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.front_core_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_core@3x.png"
+        src="~/assets/images/muscleMap/male_front_core@3x.png"
       />
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.front_arms_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_arms@3x.png"
+        src="~/assets/images/muscleMap/male_front_arms@3x.png"
       />
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.front_shoulders_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_shoulders@3x.png"
+        src="~/assets/images/muscleMap/male_front_shoulders@3x.png"
       />
       <Image
         col="0"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.front_legs_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_front_legs@3x.png"
+        src="~/assets/images/muscleMap/male_front_legs@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_base@3x.png"
+        src="~/assets/images/muscleMap/male_back_base@3x.png"
       />
-
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_upper_back_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_upper_back@3x.png"
+        src="~/assets/images/muscleMap/male_back_upper_back@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_lower_back_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_lower_back@3x.png"
+        src="~/assets/images/muscleMap/male_back_lower_back@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_glutes_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_glutes@3x.png"
+        src="~/assets/images/muscleMap/male_back_glutes@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_arms_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_arms@3x.png"
+        src="~/assets/images/muscleMap/male_back_arms@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_shoulders_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_shoulders@3x.png"
+        src="~/assets/images/muscleMap/male_back_shoulders@3x.png"
       />
       <Image
         col="1"
         row="0"
         class="image-muscleGroups"
         :tintColor="this.back_legs_tint"
-        src="https://repz-resources.ams3.digitaloceanspaces.com/muscleMap/male_back_legs@3x.png"
+        src="~/assets/images/muscleMap/male_back_legs@3x.png"
       />
     </GridLayout>
   </StackLayout>
@@ -99,7 +98,6 @@
 export default {
   props: ["breakdownMuscleZones"],
   mounted() {
-    console.log(this.breakdownMuscleZones);
     this.breakdownMuscleZones.forEach((element) => {
       var multiplier = 2.0;
 

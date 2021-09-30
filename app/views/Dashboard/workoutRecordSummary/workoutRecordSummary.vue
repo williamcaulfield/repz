@@ -1,24 +1,37 @@
 <template>
   <StackLayout class="main">
     <StackLayout>
-      <GridLayout rows="auto,auto" columns="*">
+      <GridLayout rows="auto,*" columns="auto,auto,*">
         <Image
           v-if="workout.includesImages == true"
           class="workoutRecordSummary-imageArray"
           row="0"
           col="0"
+          colSpan="3"
           stretch="aspectFill"
           @tap="onClickButton()"
           :src="workout.workoutImages[0]"
         />
-
-        <wrSummaryMusclesExercises
-          v-show="workout.includesImages == false"
-          row="0"
-          col="0"
-          :breakdownMuscleZones="workout.breakdownMuscleZones"
-          :breakdownExercises="workout.breakdownExercises"
-        />
+        <GridLayout row="0" col="0" rows="auto" columns="auto,auto">
+          <wrSummaryMuscles
+            v-show="workout.includesImages == false"
+            row="0"
+            col="0"
+            :breakdownMuscleZones="workout.breakdownMuscleZones"
+          />
+          <!-- <wrMuscles
+            v-show="workout.includesImages == false"
+            row="0"
+            col="0"
+            :breakdownMuscleZones="workout.breakdownMuscleZones"
+          /> -->
+          <wrSummaryExercises
+            v-show="workout.includesImages == false"
+            row="0"
+            col="1"
+            :breakdownExercises="workout.breakdownExercises"
+          />
+        </GridLayout>
       </GridLayout>
 
       <GridLayout
@@ -105,11 +118,15 @@
 
 
 <script>
-import wrSummaryMusclesExercises from "../workoutRecordSummary/wrSummaryMusclesExercises/wrSummaryMusclesExercises";
+import wrSummaryMuscles from "../workoutRecordSummary/wrSummaryMuscles/wrSummaryMuscles";
+import wrMuscles from "../workoutRecordSummary/wrSummaryMuscles/wrMuscles/wrMuscles";
+import wrSummaryExercises from "../workoutRecordSummary/wrSummaryExercises/wrSummaryExercises";
 export default {
   props: ["workout"],
   components: {
-    wrSummaryMusclesExercises,
+    wrMuscles,
+    wrSummaryMuscles,
+    wrSummaryExercises,
   },
   computed: {
     // categoryIcon() {
@@ -136,7 +153,9 @@ export default {
     // this.isLike =  this.workout.isLike
     // this.isHeart =  this.workout.isFavorite
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.workout.breakdownExercises);
+  },
   methods: {
     // animateLike() {
     //   if (isIOS) {
@@ -284,7 +303,6 @@ export default {
 </script>
 <style scoped>
 .workoutRecordSummary-muscles {
-  width: 95%;
   height: 210;
   margin: auto;
 
@@ -292,7 +310,6 @@ export default {
   border-width: 1;
 }
 .workoutRecordSummary-imageArray {
-  width: 95%;
   height: 238;
   margin: auto;
   border-radius: 10;

@@ -1,6 +1,6 @@
 <template>
   <StackLayout class="main">
-    <GridLayout rows="auto" columns="*,*" class="wrexercise__grid">
+    <GridLayout rows="40" columns="20,20" class="wrexercise__grid">
       <Image
         col="0"
         row="0"
@@ -30,7 +30,6 @@ export default {
 
 // Custom styles
 .wrexercise__grid {
-  width: 40;
 }
 .exercise-icon {
   height: 20;

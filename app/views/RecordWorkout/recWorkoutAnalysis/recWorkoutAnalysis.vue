@@ -54,7 +54,8 @@
 </template>
 
 <script>
-import wrSummaryMusclesExercises from "../../Dashboard/workoutRecordSummary/wrSummaryMusclesExercises/wrSummaryMusclesExercises";
+import wrSummaryMuscles from "../../Dashboard/workoutRecordSummary/wrSummaryMuscles/wrSummaryMuscles";
+import wrSummaryExercises from "../../Dashboard/workoutRecordSummary/wrSummaryExercises/wrSummaryExercises";
 import wrHeader from "../../Dashboard/workoutRecordDetail/wrHeader/wrHeader";
 import wrStatistics from "../../Dashboard/workoutRecordDetail/wrSummaryStatistics/wrStatistics";
 import wrGraphExercise from "../../Dashboard/workoutRecordDetail/wrGraphExercise/wrGraphExercise";
@@ -66,7 +67,8 @@ export default {
   mixins: [navControls],
   props: ["workoutRecorded"],
   components: {
-    wrSummaryMusclesExercises,
+    wrSummaryMuscles,
+    wrSummaryExercises,
     wrStatistics,
     wrGraphExercise,
     wrHeader,

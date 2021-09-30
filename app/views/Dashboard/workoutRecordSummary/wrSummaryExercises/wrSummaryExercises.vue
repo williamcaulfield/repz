@@ -3,28 +3,43 @@
     <StackLayout class="main">
       <ContentView class="wrsummarymusclesexercises__container">
         <GridLayout
-          rows="auto,auto,auto,auto,auto,auto,auto"
-          columns="auto,*,*"
+          rows="auto,auto,auto,auto"
+          columns="40,40,*"
           class="wrsummarymusclesexercises__grid"
         >
-          <wrMuscles
+          <wrExercise row="0" col="0" image="xerciseIcon" count="10" />
+          <wrExercise row="1" col="0" image="xerciseIcon" count="10" />
+          <wrExercise row="2" col="0" image="xerciseIcon" count="10" />
+          <wrExercise row="3" col="0" image="xerciseIcon" count="10" />
+
+          <wrExercise row="0" col="1" image="xerciseIcon" count="10" />
+          <wrExercise row="1" col="1" image="xerciseIcon" count="10" />
+          <wrExercise row="2" col="1" image="xerciseIcon" count="10" />
+          <wrExercise row="3" col="1" image="xerciseIcon" count="10" />
+
+          <!-- <ListView
+            isUserInteractionEnabled="false"
             row="0"
             col="0"
-            rowspan="7"
-            :breakdownMuscleZones="this.breakdownMuscleZones"
-          />
-          <!-- <wrExercise col="1" row="0" :image="'caa'" :count="10" />
-          <wrExercise col="1" row="1" :image="'caasdv'" :count="12" /> -->
+            ref="listviewodd"
+            for="exercise in breakdownExercises"
+            backgroundColor="transparent"
+          >
+            <v-template>
+              <wrExercise
+                :image="exercise.exerciseIcon"
+                :count="exercise.totalVolume"
+              />
+            </v-template>
+          </ListView>
 
           <ListView
+            isUserInteractionEnabled="false"
             row="0"
             col="1"
-            ref="listview"
-            for="exercise in breakdownExercisesOdd"
-            :key="index"
+            ref="listvieweven"
+            for="exercise in breakdownExercises"
             backgroundColor="transparent"
-            marginTop="20"
-            height="180"
           >
             <v-template>
               <wrExercise
@@ -32,25 +47,7 @@
                 :count="exercise.totalVolume"
               />
             </v-template>
-          </ListView>
-
-          <ListView
-            row="0"
-            col="2"
-            ref="listview"
-            for="exercise in breakdownExercisesEven"
-            :key="index"
-            backgroundColor="transparent"
-            marginTop="20"
-            height="180"
-          >
-            <v-template>
-              <wrExercise
-                :image="exercise.exerciseIcon"
-                :count="exercise.totalVolume"
-              />
-            </v-template>
-          </ListView>
+          </ListView> -->
         </GridLayout>
       </ContentView>
     </StackLayout>
@@ -59,13 +56,11 @@
 
 <script>
 import wrExercise from "./wrExercise/wrExercise";
-import wrMuscles from "./wrMuscles/wrMuscles";
 
 export default {
-  props: ["breakdownMuscleZones", "breakdownExercises"],
+  props: ["breakdownExercises"],
   components: {
     wrExercise,
-    wrMuscles,
   },
   mounted() {
     for (var i = 0; i < this.breakdownExercises.length; i++) {
@@ -75,6 +70,7 @@ export default {
         this.breakdownExercisesEven.push(this.breakdownExercises[i]);
       }
     }
+    console.log(this.breakdownExercises);
   },
   methods: {
     onClickButton() {

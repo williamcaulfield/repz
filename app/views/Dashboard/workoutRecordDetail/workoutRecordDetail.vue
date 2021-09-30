@@ -10,7 +10,7 @@
           marginTop="10"
         />
         <wrStatistics margin="20" :workoutRecorded="workoutRecorded" />
-        <wrSummaryMusclesExercises
+        <!-- <wrSummaryMusclesExercises
           marginTop="20"
           :breakdownMuscleZones="
             workoutRecorded.workoutRecordedAnalysis.breakdownMuscleZones
@@ -18,7 +18,7 @@
           :breakdownExercises="
             workoutRecorded.workoutRecordedAnalysis.breakdownExercises
           "
-        />
+        /> -->
         <wrGraphExercise
           margin="20"
           :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"
@@ -97,7 +97,8 @@ import {
   Http,
 } from "@nativescript/core";
 
-import wrSummaryMusclesExercises from "../workoutRecordSummary/wrSummaryMusclesExercises/wrSummaryMusclesExercises";
+import wrSummaryMuscles from "../workoutRecordSummary/wrSummaryMuscles/wrSummaryMuscles";
+import wrSummaryExercises from "../workoutRecordSummary/wrSummaryExercises/wrSummaryExercises";
 import wrHeader from "./wrHeader/wrHeader";
 import wrStatistics from "./wrSummaryStatistics/wrStatistics";
 import wrGraphExercise from "./wrGraphExercise/wrGraphExercise";
@@ -108,7 +109,8 @@ export default {
   props: ["workoutRecorded"],
   components: {
     workoutRecordPhotos,
-    wrSummaryMusclesExercises,
+    wrSummaryMuscles,
+    wrSummaryExercises,
     wrStatistics,
     wrGraphExercise,
     wrHeader,

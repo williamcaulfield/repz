@@ -59,9 +59,9 @@
 
       <GridLayout v-show="selectedTabview == 0" row="1" width="100%">
         <ListView
-          ref="listview"
+          height="1200"
+          ref="listviewfollow"
           for="workout in workoutRecordSummariesFollowing"
-          :key="index"
           backgroundColor="transparent"
         >
           <v-template>
@@ -75,9 +75,9 @@
 
       <GridLayout v-show="selectedTabview == 1" row="1" width="100%">
         <ListView
-          ref="listview"
+          height="1200"
+          ref="listviewyou"
           for="workout in workoutRecordSummaries"
-          :key="index"
           backgroundColor="transparent"
         >
           <v-template>
