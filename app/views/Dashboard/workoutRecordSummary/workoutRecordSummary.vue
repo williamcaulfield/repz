@@ -1,5 +1,5 @@
 <template>
-  <StackLayout class="main">
+  <StackLayout class="main" @tap="onClickButton()">
     <StackLayout>
       <GridLayout rows="auto,*" columns="auto,auto,*" width="95%">
         <Image
@@ -134,176 +134,16 @@ export default {
     wrSummaryMuscles,
     wrSummaryExercises,
   },
-  computed: {
-    // categoryIcon() {
-    //   switch (this.workout.category) {
-    //     case "Burger":
-    //       return "fa-cutlery";
-    //       break;
-    //     case "Beer":
-    //       return "fa-beer";
-    //       break;
-    //     case "Pancake":
-    //       return "fa-coffee";
-    //       break;
-    //     case "Cake":
-    //       return "fa-birthday-cake";
-    //       break;
-    //     default:
-    //       return "fa-fire";
-    //       break;
-    //   }
-    // }
-  },
-  created() {
-    // this.isLike =  this.workout.isLike
-    // this.isHeart =  this.workout.isFavorite
-  },
-  mounted() {
-    // console.log(this.workout.breakdownExercises);
-  },
+  computed: {},
+  created() {},
+  mounted() {},
   methods: {
-    // animateLike() {
-    //   if (isIOS) {
-    //     return;
-    //   }
-    //   let imgLogo = this.$refs.like.nativeView;
-    //   imgLogo
-    //     .animate({
-    //       scale: {
-    //         x: 0.6,
-    //         y: 0.6
-    //       },
-    //       duration: 100,
-    //       delay: 0
-    //     })
-    //     .then(function() {
-    //       return imgLogo.animate({
-    //         scale: {
-    //           x: 1.2,
-    //           y: 1.2,
-    //           duration: 50
-    //         }
-    //       });
-    //     })
-    //     .then(function() {
-    //       return imgLogo.animate({
-    //         scale: {
-    //           x: 1,
-    //           y: 1,
-    //           duration: 100
-    //         }
-    //       });
-    //     })
-    //     .then(function() {});
-    // },
-    // animateFavorite() {
-    //   if (isIOS) {
-    //     return;
-    //   }
-    //   let imgLogo = this.$refs.favorite.nativeView;
-    //   imgLogo
-    //     .animate({
-    //       scale: {
-    //         x: 0.6,
-    //         y: 0.6
-    //       },
-    //       duration: 50,
-    //       delay: 0
-    //     })
-    //     .then(function() {
-    //       return imgLogo.animate({
-    //         scale: {
-    //           x: 1.2,
-    //           y: 1.2,
-    //           duration: 50
-    //         }
-    //       });
-    //     })
-    //     .then(function() {
-    //       return imgLogo.animate({
-    //         scale: {
-    //           x: 1,
-    //           y: 1,
-    //           duration: 100
-    //         }
-    //       });
-    //     })
-    //     .then(function() {});
-    // },
-    // toggleLike() {
-    //   this.animateLike();
-    //   this.workout.isLike = !this.workout.isLike;
-    //   if (this.workout.isLike) {
-    //     this.workout.likes += 1;
-    //   } else {
-    //     this.workout.likes -= 1;
-    //   }
-    // },
-    // toggleHeart() {
-    //   this.animateFavorite();
-    //   this.workout.isFavorite = !this.workout.isFavorite;
-    // },
     onClickButton() {
       this.$emit("clicked", this.workout);
     },
   },
   data() {
-    return {
-      //  [ {
-      //       "workoutRecordedID": 135,
-      //       "userID": 1,
-      //       "workoutPlanID": 10,
-      //       "workoutPlanName": "Arm Builder",
-      //       "author": "abaser",
-      //       "authorID": 78,
-      //       "muscleZones": [
-      //           "Arms",
-      //           "Chest",
-      //           "Back"
-      //       ],
-      //       "difficultyLevels": [
-      //           "Foundation",
-      //           "Intermediate"
-      //       ],
-      //       "equipment": [
-      //           "Pull-up bar",
-      //           "Paralettes"
-      //       ],
-      //       "setsPlannedTotal": 8,
-      //       "exercisesPlannedTotal": 40,
-      //       "objectivesDescription": "abandonment",
-      //       "projectedDuration": 120,
-      //       "projectedCalories": 3993,
-      //       "timeStart": "2020-11-11T14:02:47.005159Z",
-      //       "timeEnd": "2020-11-11T14:03:50.437Z",
-      //       "timeEstimatedCompleted": 14,
-      //       "progressPercentage": 12,
-      //       "currentDuration": 0,
-      //       "timeRemaining": 2,
-      //       "exercisesCompleted": 16,
-      //       "setsCompleted": 7,
-      //       "energyBurned": 666,
-      //       "exercisesRecorded": null,
-      //       "workoutRecordedAnalysis": {
-      //           "workoutRecordedID": 0,
-      //           "time": 0,
-      //           "calories": 0,
-      //           "muscles": "",
-      //           "breakdownExercises": null,
-      //           "breakdownDifficultyLevels": null,
-      //           "breakdownMuscleZones": null,
-      //           "progressTrackVolume": null,
-      //           "progressTrackMaxReps": null,
-      //           "progressTrackMaxWeight": null,
-      //           "userComment": "",
-      //           "achievements": null
-      //       },
-      //       "workoutImages": null
-      //   },]
-      // isLike: false,
-      // isHeart: false
-    };
+    return {};
   },
 };
 </script>

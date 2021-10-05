@@ -4,7 +4,7 @@
       <StackLayout class="main">
         <wrHeader width="95%" marginTop="5" />
         <workoutRecordPhotos
-          v-show="workoutRecorded.includesImages == false"
+          v-show="workoutRecorded.includesImages == true"
           :images="workoutRecorded.workoutImages"
           width="100%"
           marginTop="10"
@@ -24,6 +24,9 @@
           :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"
         />
         <Label
+          v-show="
+            workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1
+          "
           text="Achievements"
           class="text -default -bold -large"
           horizontalAlignment="left"
@@ -32,6 +35,9 @@
           marginBottom="10"
         />
         <RadListView
+          v-show="
+            workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1
+          "
           for="achievement in achievements"
           layout="list"
           backgroundColor="transparent"

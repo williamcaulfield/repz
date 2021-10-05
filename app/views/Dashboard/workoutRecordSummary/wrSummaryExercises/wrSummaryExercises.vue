@@ -163,14 +163,13 @@ export default {
     wrExercise,
   },
   mounted() {
-    for (var i = 0; i < this.breakdownExercises.length; i++) {
-      if (i % 2 === 0) {
-        this.breakdownExercisesOdd.push(this.breakdownExercises[i]);
-      } else {
-        this.breakdownExercisesEven.push(this.breakdownExercises[i]);
-      }
-    }
-    console.log(this.breakdownExercises);
+    // for (var i = 0; i < this.breakdownExercises.length; i++) {
+    //   if (i % 2 === 0) {
+    //     this.breakdownExercisesOdd.push(this.breakdownExercises[i]);
+    //   } else {
+    //     this.breakdownExercisesEven.push(this.breakdownExercises[i]);
+    //   }
+    // }
   },
   methods: {
     onClickButton() {
@@ -179,8 +178,8 @@ export default {
   },
   data() {
     return {
-      breakdownExercisesOdd: [],
-      breakdownExercisesEven: [],
+      // breakdownExercisesOdd: [],
+      // breakdownExercisesEven: [],
     };
   },
 };
