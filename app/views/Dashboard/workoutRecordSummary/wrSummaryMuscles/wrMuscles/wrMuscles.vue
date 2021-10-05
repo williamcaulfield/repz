@@ -213,6 +213,6 @@ export default {
 // Custom styles
 
 .image-muscleGroups {
-  height: 210;
+  height: 230;
 }
 </style>
