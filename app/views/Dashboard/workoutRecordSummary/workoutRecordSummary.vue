@@ -1,7 +1,7 @@
 <template>
   <StackLayout class="main">
     <StackLayout>
-      <GridLayout rows="auto,*" columns="auto,auto,*">
+      <GridLayout rows="auto,*" columns="auto,auto,*" width="95%">
         <Image
           v-if="workout.includesImages == true"
           class="workoutRecordSummary-imageArray"
@@ -12,26 +12,32 @@
           @tap="onClickButton()"
           :src="workout.workoutImages[0]"
         />
-        <GridLayout row="0" col="0" rows="auto" columns="auto,auto">
-          <wrSummaryMuscles
-            v-show="workout.includesImages == false"
+        <ContentView
+          class="wrsummarymusclesexercises__container"
+          v-show="workout.includesImages == false"
+          width="100%"
+        >
+          <GridLayout
+            class="wrsummarymusclesexercises__grid"
             row="0"
             col="0"
-            :breakdownMuscleZones="workout.breakdownMuscleZones"
-          />
-          <!-- <wrMuscles
-            v-show="workout.includesImages == false"
-            row="0"
-            col="0"
-            :breakdownMuscleZones="workout.breakdownMuscleZones"
-          /> -->
-          <wrSummaryExercises
-            v-show="workout.includesImages == false"
-            row="0"
-            col="1"
-            :breakdownExercises="workout.breakdownExercises"
-          />
-        </GridLayout>
+            rows="auto"
+            columns="auto,12,auto"
+          >
+            <wrSummaryMuscles
+              v-show="workout.includesImages == false"
+              row="0"
+              col="0"
+              :breakdownMuscleZones="workout.breakdownMuscleZones"
+            />
+            <wrSummaryExercises
+              v-show="workout.includesImages == false"
+              row="0"
+              col="2"
+              :breakdownExercises="workout.breakdownExercises"
+            />
+          </GridLayout>
+        </ContentView>
       </GridLayout>
 
       <GridLayout
@@ -301,16 +307,18 @@ export default {
   },
 };
 </script>
-<style scoped>
+
+<style scoped lang="scss">
+@import "../../../_app-variables";
 .workoutRecordSummary-muscles {
-  height: 210;
+  height: 254;
   margin: auto;
 
   border-color: rgb(151, 151, 151);
   border-width: 1;
 }
 .workoutRecordSummary-imageArray {
-  height: 238;
+  height: 250;
   margin: auto;
   border-radius: 10;
 
@@ -371,5 +379,24 @@ export default {
   height: 28;
   width: 28;
   margin-bottom: 10;
+}
+
+.wrsummarymusclesexercises__container {
+  height: 254;
+  margin: auto;
+  border-width: $border-width;
+  border-color: $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  background-image: linear-gradient(
+    to bottom,
+    $background-gradient-light,
+    $background-gradient-dark
+  );
+  width: 95%;
+}
+
+.wrsummarymusclesexercises__grid {
+  padding: 12;
 }
 </style>
