@@ -170,10 +170,10 @@ export default {
     this.back_arms_tint = tintColour + this.back_arms + ")";
     this.back_shoulders_tint = tintColour + this.back_shoulders + ")";
 
-    console.log(this.front_arms);
-    console.log(this.back_arms);
-    console.log(this.front_arms_tint);
-    console.log(this.back_arms_tint);
+    // console.log(this.front_arms);
+    // console.log(this.back_arms);
+    // console.log(this.front_arms_tint);
+    // console.log(this.back_arms_tint);
   },
   data() {
     return {
