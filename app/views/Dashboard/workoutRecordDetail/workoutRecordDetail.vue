@@ -24,9 +24,7 @@
           :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"
         />
         <Label
-          v-show="
-            workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1
-          "
+          v-show="includesAchievements"
           text="Achievements"
           class="text -default -bold -large"
           horizontalAlignment="left"
@@ -35,9 +33,7 @@
           marginBottom="10"
         />
         <RadListView
-          v-show="
-            workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1
-          "
+          v-show="includesAchievements"
           for="achievement in achievements"
           layout="list"
           backgroundColor="transparent"
@@ -124,6 +120,9 @@ export default {
   computed: {},
   created() {},
   mounted() {
+    if (this.workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1) {
+      this.includesAchievements = true;
+    }
     // const userId = ApplicationSettings.getNumber("userId");
     // const authToken = ApplicationSettings.getString("userToken");
     // Http.request({
@@ -150,6 +149,12 @@ export default {
     //   },
     //   (e) => {}
     // );
+  },
+  data() {
+    return {
+      includesAchievements: false,
+      // breakdownExercisesEven: [],
+    };
   },
   methods: {
     close() {
