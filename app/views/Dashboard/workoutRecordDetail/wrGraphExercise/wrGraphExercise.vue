@@ -272,7 +272,7 @@
       class="text -default -bold -large"
       horizontalAlignment="left"
       verticalAlignment="center"
-      marginTop="20"
+      marginTop="40"
       marginBottom="10"
     />
     <ListPicker
@@ -292,6 +292,8 @@
       height="400"
       marginRight="0"
       marginLeft="-10"
+      marginTop="0"
+      marginBottom="10"
     >
       <AreaSeries
         v-tkCartesianSeries

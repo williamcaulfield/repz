@@ -19,12 +19,36 @@
             workoutRecorded.workoutRecordedAnalysis.breakdownExercises
           "
         /> -->
+        <ContentView class="wrsummarymusclesexercises__container">
+          <GridLayout
+            class="wrsummarymusclesexercises__grid"
+            row="0"
+            col="0"
+            rows="auto"
+            columns="auto,12,auto"
+          >
+            <wrSummaryMuscles
+              row="0"
+              col="0"
+              :breakdownMuscleZones="
+                workoutRecorded.workoutRecordedAnalysis.breakdownMuscleZones
+              "
+            />
+            <wrSummaryExercises
+              row="0"
+              col="2"
+              :breakdownExercises="
+                workoutRecorded.workoutRecordedAnalysis.breakdownExercises
+              "
+            />
+          </GridLayout>
+        </ContentView>
         <wrGraphExercise
           margin="20"
           :workoutRecordedAnalysis="workoutRecorded.workoutRecordedAnalysis"
         />
         <Label
-          v-show="includesAchievements"
+          v-show="(includesAchievements = true)"
           text="Achievements"
           class="text -default -bold -large"
           horizontalAlignment="left"
@@ -33,7 +57,7 @@
           marginBottom="10"
         />
         <RadListView
-          v-show="includesAchievements"
+          v-show="(includesAchievements = true)"
           for="achievement in achievements"
           layout="list"
           backgroundColor="transparent"
@@ -208,7 +232,7 @@ export default {
 @import "../../../_app-variables.scss";
 
 .wrsummarymusclesexercises__container {
-  height: 238;
+  height: 254;
   margin: auto;
   border-width: $border-width;
   border-color: $border-color;
@@ -219,7 +243,7 @@ export default {
     $background-gradient-light,
     $background-gradient-dark
   );
-  width: 90%;
+  width: 95%;
 }
 .wrsummarymusclesexercises__grid {
   padding: 15;
