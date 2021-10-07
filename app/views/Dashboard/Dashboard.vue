@@ -4,6 +4,7 @@
     class="page"
     actionBarHidden="false"
     backgroundSpanUnderStatusBar="true"
+    @loaded="pageLoaded($event)"
   >
     <ActionBar
       @loaded="onActionBarLoaded($event)"

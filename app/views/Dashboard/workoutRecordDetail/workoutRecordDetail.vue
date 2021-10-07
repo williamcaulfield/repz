@@ -55,14 +55,15 @@
           verticalAlignment="top"
           marginTop="0"
           marginBottom="10"
+          marginLeft="20"
         />
-        <RadListView
+        <ListView
           v-show="(includesAchievements = true)"
+          ref="listViewAchievements"
           for="achievement in achievements"
-          layout="list"
+          :key="index"
           backgroundColor="transparent"
-          marginTop="5"
-          height="210"
+          height="340"
         >
           <v-template>
             <wrAchievement
@@ -71,7 +72,7 @@
             >
             </wrAchievement>
           </v-template>
-        </RadListView>
+        </ListView>
         <Button
           row="8"
           class="btn-primary"
@@ -128,6 +129,7 @@ import wrSummaryExercises from "../workoutRecordSummary/wrSummaryExercises/wrSum
 import wrHeader from "./wrHeader/wrHeader";
 import wrStatistics from "./wrSummaryStatistics/wrStatistics";
 import wrGraphExercise from "./wrGraphExercise/wrGraphExercise";
+import wrAchievement from "./wrAchievement/wrAchievement.vue";
 
 import workoutRecordPhotos from "./workoutRecordPhotos/workoutRecordPhotos";
 
@@ -140,12 +142,15 @@ export default {
     wrStatistics,
     wrGraphExercise,
     wrHeader,
+    wrAchievement,
   },
   computed: {},
   created() {},
   mounted() {
     if (this.workoutRecorded.workoutRecordedAnalysis.achievements.length >= 1) {
       this.includesAchievements = true;
+      this.achievements =
+        this.workoutRecorded.workoutRecordedAnalysis.achievements;
     }
     // const userId = ApplicationSettings.getNumber("userId");
     // const authToken = ApplicationSettings.getString("userToken");
@@ -177,6 +182,7 @@ export default {
   data() {
     return {
       includesAchievements: false,
+      achievements: [],
       // breakdownExercisesEven: [],
     };
   },
@@ -220,11 +226,6 @@ export default {
         });
       }
     },
-  },
-  data() {
-    return {
-      //workoutRecorded: ,
-    };
   },
 };
 </script>

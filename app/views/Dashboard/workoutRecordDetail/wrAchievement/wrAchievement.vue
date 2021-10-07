@@ -34,6 +34,7 @@
           marginLeft="10"
           width="95%"
           horizontalAlignment="center"
+          height="50"
         />
       </GridLayout>
     </ContentView>
