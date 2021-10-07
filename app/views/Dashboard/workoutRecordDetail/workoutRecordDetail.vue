@@ -2,7 +2,16 @@
   <Page actionBarHidden="true" class="page">
     <ScrollView>
       <StackLayout class="main">
-        <wrHeader width="95%" marginTop="5" />
+        <wrHeader
+          width="95%"
+          marginTop="5"
+          :workoutPlanName="workoutRecorded.workoutPlanName"
+          :profilePicture="workoutRecorded.profilePicture"
+          :userName="workoutRecorded.userName"
+          :energyBurned="workoutRecorded.energyBurned"
+          :currentDuration="workoutRecorded.currentDuration"
+          :timeEnd="workoutRecorded.timeEnd"
+        />
         <workoutRecordPhotos
           v-show="workoutRecorded.includesImages == true"
           :images="workoutRecorded.workoutImages"

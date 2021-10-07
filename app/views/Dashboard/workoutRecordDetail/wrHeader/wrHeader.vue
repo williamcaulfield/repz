@@ -11,7 +11,7 @@
       col="0"
       row="1"
       class="workoutRecordSummary-titleBar__profilePic"
-      :src="workout.userProfilePic"
+      :src="profilePicture"
     />
 
     <Label
@@ -19,7 +19,7 @@
       row="0"
       class="workoutRecordSummary-titleBar__workoutName"
       textwrap="false"
-      :text="workout.workoutName"
+      :text="workoutPlanName"
     />
     <Label row="0" class="line" col="1" />
     <Label
@@ -27,40 +27,38 @@
       row="1"
       class="workoutRecordSummary-titleBar__dateTime"
       textwrap="false"
-      :text="workout.dateTime"
+      :text="timeEnd"
     />
     <Label
       col="1"
       row="1"
       class="workoutRecordSummary-titleBar__userName"
       textwrap="false"
-      :text="workout.userName"
+      :text="userName"
     />
     <Label
       row="0"
       col="1"
       class="workoutRecordSummary-titleBar__caloriesBurnedDuration"
       textwrap="false"
-      :text="workout.duration + ' min'"
+      :text="currentDuration + ' min'"
     />
   </GridLayout>
 </template>
 
 <script>
 export default {
+  props: [
+    "workoutPlanName",
+    "profilePicture",
+    "userName",
+    "energyBurned",
+    "currentDuration",
+    "timeEnd",
+  ],
   data() {
-    return {
-      workout: {
-        workoutName: "Morning Park Session",
-        userName: "John Doe",
-        userProfilePic:
-          "~/assets/images/users/USR000000001/USR000000001_Profile.png",
-        dateTime: "01/12/19 12:09:09",
-        duration: "22",
-        caloriesBurned: "234"
-      }
-    };
-  }
+    return {};
+  },
 };
 </script>
 
