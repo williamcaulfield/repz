@@ -14,7 +14,7 @@
           class="user-image-thumbnail"
           stretch="aspectFill"
           horizontalAlignment="left"
-          src="~/assets/images/users/USR000000002/USR000000002_Profile.png"
+          :src="user.profilePicture"
           @tap="onClickButton()"
         />
         <Label
@@ -79,7 +79,7 @@
           <Switch
             row="0"
             col="1"
-            checked="false"
+            :checked="user.isFollowing"
             loaded="onSwitchLoaded"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
@@ -104,6 +104,9 @@ export default {
     onClickButton() {
       this.$emit("clicked");
     },
+    toggleFollowing(args) {
+      this.$emit("toggleFollowing");
+    },
     addFollowing(args) {
       this.$emit("clicked");
     },
@@ -112,10 +115,7 @@ export default {
     },
   },
   data() {
-    return {
-      // isLike: false,
-      // isHeart: false
-    };
+    return {};
   },
 };
 </script>

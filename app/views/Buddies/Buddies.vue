@@ -58,7 +58,7 @@
        
           <ListView
                   ref="listview"
-                  for="user in users"
+                  for="user in usersFollowing"
                   :key="index"
                   backgroundColor="transparent"
                 >
@@ -123,7 +123,13 @@ import buddyDetail from "./buddyDetail/buddyDetail";
 
 import navControls from "../../mixins/navControls";
 
-import { Frame, Color, isIOS } from "@nativescript/core";
+import {
+  Frame,
+  Color,
+  isIOS,
+  Http,
+  ApplicationSettings,
+} from "@nativescript/core";
 
 export default {
   mixins: [navControls],
@@ -131,7 +137,38 @@ export default {
   computed: {},
 
   mounted() {
-    // SwissArmyKnife.setAndroidStatusBarColor("#b51213");
+    const userId = ApplicationSettings.getNumber("userId");
+    const authToken = ApplicationSettings.getString("userToken");
+
+    Http.request({
+      url: "https://api.repz.app/user/" + userId + "/following",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+    }).then(
+      (response) => {
+        this.usersFollowing = response.content.toJSON();
+        console.log(this.usersFollowing);
+      },
+      (e) => {}
+    );
+
+    Http.request({
+      url: "https://api.repz.app/users",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+    }).then(
+      (response) => {
+        this.users = response.content.toJSON();
+        console.log(this.users);
+      },
+      (e) => {}
+    );
   },
   methods: {
     showUser(payload) {
@@ -207,25 +244,26 @@ export default {
       headerCollapsed: false,
       selectedTab: 0,
       selectedTabview: 0,
-      users: [
-        {
-          userid: "WOP0000000001",
-          userName: "John Doe",
-          location: "Munich, Germany",
-          workoutCount: "30",
-        },
-        {
-          userid: "WOP0000000002",
-          userName: "Damian Smith",
-          location: "San Francisco, US",
-          workoutCount: "59",
-        },
-        {
-          userid: "WOP0000000003",
-          userName: "Keith Davidson",
-          location: "London, UK",
-          workoutCount: "70",
-        },
+      users: [],
+      usersFollowing: [
+        // {
+        //   userid: "WOP0000000001",
+        //   userName: "John Doe",
+        //   location: "Munich, Germany",
+        //   workoutCount: "30",
+        // },
+        // {
+        //   userid: "WOP0000000002",
+        //   userName: "Damian Smith",
+        //   location: "San Francisco, US",
+        //   workoutCount: "59",
+        // },
+        // {
+        //   userid: "WOP0000000003",
+        //   userName: "Keith Davidson",
+        //   location: "London, UK",
+        //   workoutCount: "70",
+        // },
       ],
     };
   },
