@@ -65,6 +65,7 @@
                   <v-template>
                     <buddySummary
                       :user="user"
+                      :following="user.following"
                       @clicked="showUser(user)"
                     />
                   </v-template>
@@ -103,6 +104,7 @@
                   <v-template>
                     <buddySummary
                       :user="user"
+                      :following="user.following"
                       @clicked="showUser(user)"
                     />
                   </v-template>
@@ -150,6 +152,9 @@ export default {
     }).then(
       (response) => {
         this.usersFollowing = response.content.toJSON();
+        this.usersFollowing.forEach((user) => {
+          Object.assign(user, { following: true });
+        });
         console.log(this.usersFollowing);
       },
       (e) => {}
@@ -165,6 +170,9 @@ export default {
     }).then(
       (response) => {
         this.users = response.content.toJSON();
+        this.users.forEach((user) => {
+          Object.assign(user, { following: false });
+        });
         console.log(this.users);
       },
       (e) => {}
