@@ -141,7 +141,7 @@ export default {
     const authToken = ApplicationSettings.getString("userToken");
 
     Http.request({
-      url: "https://api.repz.app/user/" + userId + "/following",
+      url: "https://api.repz.app/user/" + userId + "/users/following",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export default {
     );
 
     Http.request({
-      url: "https://api.repz.app/users",
+      url: "https://api.repz.app/user/" + userId + "/users",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -171,6 +171,46 @@ export default {
     );
   },
   methods: {
+    followUser(payload) {
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+      const userIdFollow = payload.userIdFollow;
+
+      Http.request({
+        url: "https://api.repz.app/user/" + userIdFollow + "/" + userId,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          console.log(`Response Status Code: ${response.statusCode}`);
+        },
+        (e) => {}
+      );
+    },
+
+    unfollowUser(payload) {
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+      const userIdFollow = payload.userIdFollow;
+
+      Http.request({
+        url: "https://api.repz.app/user/" + userId + "/" + userIdFollow,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          console.log(`Response Status Code: ${response.statusCode}`);
+        },
+        (e) => {}
+      );
+    },
+
     showUser(payload) {
       this.$navigateTo(buddyDetail, {
         props: {

@@ -30,7 +30,7 @@
           row="1"
           col="1"
           class="text -small -secondary -left"
-          :text="user.location"
+          :text="user.city"
           marginTop="0"
           marginLeft="7"
           verticalAlignment="top"
@@ -57,7 +57,7 @@
             row="0"
             col="1"
             class="text -small -primary -bold -left"
-            :text="user.workoutCount"
+            :text="user.workoutsCount"
             @tap="onClickButton()"
           />
         </GridLayout>
@@ -79,7 +79,7 @@
           <Switch
             row="0"
             col="1"
-            :checked="user.isFollowing"
+            checked="true"
             loaded="onSwitchLoaded"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
