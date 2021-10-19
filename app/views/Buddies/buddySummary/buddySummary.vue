@@ -79,7 +79,7 @@
           <Switch
             row="0"
             col="1"
-            checked="true"
+            :checked="following"
             loaded="onSwitchLoaded"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
@@ -95,7 +95,7 @@
 <script>
 export default {
   components: {},
-  props: ["user"],
+  props: ["user", "following"],
   components: {},
   computed: {},
   created() {},
