@@ -152,9 +152,9 @@ export default {
     }).then(
       (response) => {
         this.usersFollowing = response.content.toJSON();
-        this.usersFollowing.forEach((user) => {
-          Object.assign(user, { following: true });
-        });
+        // this.usersFollowing.forEach((user) => {
+        //   Object.assign(user, { following: true });
+        // });
         console.log(this.usersFollowing);
       },
       (e) => {}
@@ -170,9 +170,9 @@ export default {
     }).then(
       (response) => {
         this.users = response.content.toJSON();
-        this.users.forEach((user) => {
-          Object.assign(user, { following: false });
-        });
+        // this.users.forEach((user) => {
+        //   Object.assign(user, { following: false });
+        // });
         console.log(this.users);
       },
       (e) => {}
