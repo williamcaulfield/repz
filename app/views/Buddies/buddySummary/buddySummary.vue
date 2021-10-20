@@ -85,6 +85,7 @@
             color="rgb(194, 194, 194)"
             backgroundColor="red"
             horizontalAlignment="right"
+            @tap="toggleFollowing()"
           />
         </GridLayout>
       </GridLayout>
@@ -104,15 +105,15 @@ export default {
     onClickButton() {
       this.$emit("clicked");
     },
-    toggleFollowing(args) {
+    toggleFollowing() {
       this.$emit("toggleFollowing");
     },
-    addFollowing(args) {
-      this.$emit("clicked");
-    },
-    removeFollowing(args) {
-      this.$emit("clicked");
-    },
+    // addFollowing(args) {
+    //   this.$emit("clicked");
+    // },
+    // removeFollowing(args) {
+    //   this.$emit("clicked");
+    // },
   },
   data() {
     return {};

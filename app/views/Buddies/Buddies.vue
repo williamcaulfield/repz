@@ -67,6 +67,7 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
+                      @toggleFollowing="toggleFollowing(user)"
                     />
                   </v-template>
                 </ListView>
@@ -106,6 +107,7 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
+                      @toggleFollowing="toggleFollowing(user)"
                     />
                   </v-template>
                 </ListView>
@@ -179,18 +181,32 @@ export default {
     );
   },
   methods: {
+    toggleFollowing(payload) {
+      var user = payload;
+      if (user.following == true) {
+        this.unfollowUser(user);
+        user.following = false;
+      } else {
+        this.followUser(user);
+        user.following = true;
+      }
+    },
     followUser(payload) {
       const userId = ApplicationSettings.getNumber("userId");
       const authToken = ApplicationSettings.getString("userToken");
-      const userIdFollow = payload.userIdFollow;
+      const userIdFollow = payload.userID;
 
       Http.request({
-        url: "https://api.repz.app/user/" + userIdFollow + "/" + userId,
-        method: "GET",
+        url: "https://api.repz.app/user/" + userId + "/follow/" + userIdFollow,
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + authToken,
         },
+        content: JSON.stringify({
+          userID: userIdFollow,
+          userIDFollower: userId,
+        }),
       }).then(
         (response) => {
           console.log(`Response Status Code: ${response.statusCode}`);
@@ -202,15 +218,19 @@ export default {
     unfollowUser(payload) {
       const userId = ApplicationSettings.getNumber("userId");
       const authToken = ApplicationSettings.getString("userToken");
-      const userIdFollow = payload.userIdFollow;
+      const userIdFollow = payload.userID;
 
       Http.request({
-        url: "https://api.repz.app/user/" + userId + "/" + userIdFollow,
+        url: "https://api.repz.app/user/" + userId + "/follow/" + userIdFollow,
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + authToken,
         },
+        content: JSON.stringify({
+          userID: userIdFollow,
+          userIDFollower: userId,
+        }),
       }).then(
         (response) => {
           console.log(`Response Status Code: ${response.statusCode}`);
