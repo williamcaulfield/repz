@@ -242,6 +242,21 @@ export default {
       },
       (e) => {}
     );
+
+    // Http.request({
+    //   url: "https://api.repz.app/user//exercises",
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: "Bearer " + authToken,
+    //   },
+    // }).then(
+    //   (response) => {
+    //     this.exercises = response.content.toJSON();
+    //     console.log(this.exercises);
+    //   },
+    //   (e) => {}
+    // );
   },
   methods: {
     showExercise(payload) {

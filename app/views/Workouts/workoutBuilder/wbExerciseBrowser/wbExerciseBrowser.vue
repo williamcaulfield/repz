@@ -206,12 +206,12 @@
         </GridLayout>
       </StackLayout>
     </GridLayout>
-    <navBottom row="2" col="0" v-on:add="addExercisesToWorkout" />
+    <ebNavBottom row="2" col="0" v-on:add="addExercisesToWorkout" />
   </GridLayout>
   <!-- </Page> -->
 </template>
 <script>
-import navBottom from "../../../../components/navBottom";
+import ebNavBottom from "./ebNavBottom/ebNavBottom";
 import wbExerciseSummary from "./wbExerciseSummary/wbExerciseSummary";
 import exerciseCategory from "../../../Exercises/exerciseCategory/exerciseCategory";
 import exerciseDetail from "../../../Exercises/exerciseDetail/exerciseDetail";
@@ -229,7 +229,7 @@ import {
 export default {
   mixins: [navControls],
   components: {
-    navBottom,
+    ebNavBottom,
     exerciseCategory,
     wbExerciseSummary,
     exerciseDetail,
@@ -251,6 +251,7 @@ export default {
 
     const userId = ApplicationSettings.getNumber("userId");
     const authToken = ApplicationSettings.getString("userToken");
+
     this.newExercisesToAdd = [];
 
     Http.request({
@@ -267,15 +268,38 @@ export default {
       },
       (e) => {}
     );
+
+    // Http.request({
+    //   url: "https://api.repz.app/user//exercises",
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: "Bearer " + authToken,
+    //   },
+    // }).then(
+    //   (response) => {
+    //     this.exercises = response.content.toJSON();
+    //     console.log(this.exercises);
+    //   },
+    //   (e) => {}
+    // );
   },
   methods: {
     async getSelectedExerciseData(exerciseId) {
+      const authToken = ApplicationSettings.getString("userToken");
+
       try {
-        let result = await Http.getJSON(
-          "https://api.repz.app/exercise/" +
+        let result = await Http.getJSON({
+          url:
+            "https://api.repz.app/exercise/" +
             exerciseId +
-            "/createExercisePlanned"
-        );
+            "/createExercisePlanned",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authToken,
+          },
+        });
         return result;
       } catch (e) {
         // just in case if an error thrown for whatever reason, can be handled / logged here
@@ -400,6 +424,8 @@ export default {
       this.selectedTabview = 1;
     },
     showBrowse() {
+      const authToken = ApplicationSettings.getString("userToken");
+
       Http.request({
         url: "https://api.repz.app/exercises",
         method: "GET",
