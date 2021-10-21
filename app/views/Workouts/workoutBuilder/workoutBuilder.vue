@@ -5,7 +5,7 @@
     backgroundSpanUnderStatusBar="true"
     backgroundColor="black"
   >
-    <GridLayout rows="auto,auto,auto" columns="*">
+    <GridLayout rows="auto,*,auto" columns="*">
       <GridLayout
         row="0"
         col="0"
