@@ -50,7 +50,7 @@
         >
           <Label
             :class="selectedTabview == 1 ? 'active' : ''"
-            text="Week Plan"
+            text="Workout Planner"
             class="tabviewText"
           ></Label>
         </GridLayout>
@@ -106,6 +106,11 @@
       >
         <ScrollView marginTop="10"> </ScrollView>
       </GridLayout>
+      <GridLayout v-show="selectedTabview == 1" row="1" width="100%">
+        <StackLayout verticalAlignment="top">
+          <GridLayout rows="*,auto">
+            <RadCalendar row="0"></RadCalendar> </GridLayout></StackLayout
+      ></GridLayout>
 
       <GridLayout v-show="selectedTabview == 2" row="1" width="100%">
         <StackLayout verticalAlignment="top">
@@ -159,6 +164,7 @@ import workoutPlanDetail from "./workoutPlanDetail/workoutPlanDetail";
 import workoutAdd from "./workoutAdd/workoutAdd";
 import workoutCreate from "./workoutCreate/workoutCreate";
 import navControls from "../../mixins/navControls";
+import CalendarView from "nativescript-ui-calendar/vue";
 
 import {
   Http,

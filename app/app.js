@@ -6,6 +6,7 @@ import sideDrawer from "./store/modules/sideDrawer";
 import RadChart from "nativescript-ui-chart/vue";
 import RadListView from "nativescript-ui-listview/vue";
 import RadGauge from "nativescript-ui-gauge/vue";
+import CalendarView from 'nativescript-ui-calendar/vue';
 
 // import ApplicationSettings from "@nativescript/core"
 
@@ -30,6 +31,7 @@ Vue.use(RadChart);
 Vue.use(Vuex);
 Vue.use(RadListView);
 Vue.use(RadGauge);
+Vue.use(CalendarView);
 
 let store = new Vuex.Store({
   modules: {
@@ -48,6 +50,12 @@ Vue.prototype.$backendService = backendService;
 Vue.registerElement(
   "RadSideDrawer",
   () => require("nativescript-ui-sidedrawer").RadSideDrawer
+);
+
+
+Vue.registerElement(
+  "RadCalendar",
+  () => require("nativescript-ui-calendar").RadCalendar
 );
 
 Vue.registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
