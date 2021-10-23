@@ -8,6 +8,7 @@ import RadListView from "nativescript-ui-listview/vue";
 import RadGauge from "nativescript-ui-gauge/vue";
 import CalendarView from 'nativescript-ui-calendar/vue';
 
+
 // import ApplicationSettings from "@nativescript/core"
 
 // import { Http } from "@nativescript/core";

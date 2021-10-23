@@ -109,7 +109,12 @@
       <GridLayout v-show="selectedTabview == 1" row="1" width="100%">
         <StackLayout verticalAlignment="top">
           <GridLayout rows="*,auto">
-            <RadCalendar row="0"></RadCalendar> </GridLayout></StackLayout
+            <RadCalendar
+              row="0"
+              :monthViewStyle="monthViewStyle"
+              viewMode="Month"
+            >
+            </RadCalendar> </GridLayout></StackLayout
       ></GridLayout>
 
       <GridLayout v-show="selectedTabview == 2" row="1" width="100%">
@@ -165,6 +170,21 @@ import workoutAdd from "./workoutAdd/workoutAdd";
 import workoutCreate from "./workoutCreate/workoutCreate";
 import navControls from "../../mixins/navControls";
 import CalendarView from "nativescript-ui-calendar/vue";
+import {
+  AllDayEventsViewStyle,
+  CalendarMonthViewStyle,
+  CalendarWeekViewStyle,
+  CalendarYearViewStyle,
+  CalendarMonthNamesViewStyle,
+  CalendarSelectionShape,
+  CalendarCellAlignment,
+  CalendarDayViewStyle,
+  CellStyle,
+  DayCellStyle,
+  DayEventsViewStyle,
+  MonthCellStyle,
+  CalendarFontStyle,
+} from "nativescript-ui-calendar";
 
 import {
   Http,
@@ -183,7 +203,112 @@ export default {
     workoutAdd,
     workoutCreate,
   },
-  computed: {},
+  computed: {
+    monthViewStyle() {
+      const monthViewStyle = new CalendarMonthViewStyle();
+      monthViewStyle.backgroundColor = this.grayColor;
+      monthViewStyle.showTitle = true;
+      monthViewStyle.showWeekNumbers = true;
+      monthViewStyle.showDayNames = true;
+      monthViewStyle.selectionShape = CalendarSelectionShape.Round;
+      monthViewStyle.selectionShapeSize = 15;
+      monthViewStyle.selectionShapeColor = this.redColor;
+
+      const todayCellStyle = new DayCellStyle();
+      todayCellStyle.cellBackgroundColor = this.greenBlueColor;
+      todayCellStyle.cellBorderWidth = 2;
+      todayCellStyle.cellBorderColor = this.lightYellowColor;
+      todayCellStyle.cellTextColor = this.darkBrownColor;
+      todayCellStyle.cellTextFontName = this.preferredFontName;
+      todayCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      todayCellStyle.cellTextSize = 14;
+      monthViewStyle.todayCellStyle = todayCellStyle;
+
+      const dayCellStyle = new DayCellStyle();
+      dayCellStyle.showEventsText = true;
+      dayCellStyle.eventTextColor = this.whiteColor;
+      dayCellStyle.eventFontName = this.preferredFontName;
+      dayCellStyle.eventFontStyle = CalendarFontStyle.BoldItalic;
+      dayCellStyle.eventTextSize = 8;
+      dayCellStyle.cellAlignment = CalendarCellAlignment.VerticalCenter;
+      dayCellStyle.cellPaddingHorizontal = 10;
+      dayCellStyle.cellPaddingVertical = 5;
+      dayCellStyle.cellBackgroundColor = this.lightGreenColor;
+      dayCellStyle.cellBorderWidth = 1;
+      dayCellStyle.cellBorderColor = this.lightYellowColor;
+      dayCellStyle.cellTextColor = this.brownColor;
+      dayCellStyle.cellTextFontName = this.preferredFontName;
+      dayCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      dayCellStyle.cellTextSize = 10;
+      monthViewStyle.dayCellStyle = dayCellStyle;
+
+      const weekendCellStyle = new DayCellStyle();
+      weekendCellStyle.eventTextColor = this.blueVioletColor;
+      weekendCellStyle.eventFontName = this.preferredFontName;
+      weekendCellStyle.eventFontStyle = CalendarFontStyle.BoldItalic;
+      weekendCellStyle.eventTextSize = 8;
+      weekendCellStyle.cellAlignment = CalendarCellAlignment.VerticalCenter;
+      weekendCellStyle.cellPaddingHorizontal = 10;
+      weekendCellStyle.cellPaddingVertical = 5;
+      weekendCellStyle.cellBackgroundColor = this.orangeColor;
+      weekendCellStyle.cellBorderWidth = 1;
+      weekendCellStyle.cellBorderColor = this.lightYellowColor;
+      weekendCellStyle.cellTextColor = this.brownColor;
+      weekendCellStyle.cellTextFontName = this.preferredFontName;
+      weekendCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      weekendCellStyle.cellTextSize = 12;
+      monthViewStyle.weekendCellStyle = weekendCellStyle;
+
+      const selectedCellStyle = new DayCellStyle();
+      selectedCellStyle.eventTextColor = this.blueColor;
+      selectedCellStyle.eventFontName = this.preferredFontName;
+      selectedCellStyle.eventFontStyle = CalendarFontStyle.Bold;
+      selectedCellStyle.eventTextSize = 8;
+      selectedCellStyle.cellAlignment = CalendarCellAlignment.VerticalCenter;
+      selectedCellStyle.cellPaddingHorizontal = 10;
+      selectedCellStyle.cellPaddingVertical = 5;
+      selectedCellStyle.cellBackgroundColor = this.lightBrownColor;
+      selectedCellStyle.cellBorderWidth = 2;
+      selectedCellStyle.cellBorderColor = this.brownColor;
+      selectedCellStyle.cellTextColor = this.blackColor;
+      selectedCellStyle.cellTextFontName = this.preferredFontName;
+      selectedCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      selectedCellStyle.cellTextSize = 18;
+      monthViewStyle.selectedDayCellStyle = selectedCellStyle;
+
+      const weekNumberCellStyle = new CellStyle();
+      weekNumberCellStyle.cellBackgroundColor = this.lightGrayColor;
+      weekNumberCellStyle.cellBorderWidth = 1;
+      weekNumberCellStyle.cellBorderColor = this.lightYellowColor;
+      weekNumberCellStyle.cellTextColor = this.brownColor;
+      weekNumberCellStyle.cellTextFontName = this.preferredFontName;
+      weekNumberCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      weekNumberCellStyle.cellTextSize = 8;
+      monthViewStyle.weekNumberCellStyle = weekNumberCellStyle;
+
+      const dayNameCellStyle = new CellStyle();
+      dayNameCellStyle.cellBackgroundColor = this.lightYellowColor;
+      dayNameCellStyle.cellBorderWidth = 1;
+      dayNameCellStyle.cellBorderColor = this.brownColor;
+      dayNameCellStyle.cellTextColor = this.brownColor;
+      dayNameCellStyle.cellTextFontName = this.preferredFontName;
+      dayNameCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      dayNameCellStyle.cellTextSize = 10;
+      monthViewStyle.dayNameCellStyle = dayNameCellStyle;
+
+      const titleCellStyle = new DayCellStyle();
+      titleCellStyle.cellBackgroundColor = this.lightGrayColor;
+      titleCellStyle.cellBorderWidth = 1;
+      titleCellStyle.cellBorderColor = this.brownColor;
+      titleCellStyle.cellTextColor = this.orangeColor;
+      titleCellStyle.cellTextFontName = this.preferredFontName;
+      titleCellStyle.cellTextFontStyle = CalendarFontStyle.Bold;
+      titleCellStyle.cellTextSize = 18;
+      monthViewStyle.titleCellStyle = titleCellStyle;
+
+      return monthViewStyle;
+    },
+  },
 
   mounted() {
     const userId = ApplicationSettings.getNumber("userId");
@@ -302,6 +427,26 @@ export default {
       selectedTabview: 0,
       workoutPlanFavourites: [],
       workoutPlansAll: [],
+
+      brownColor: new Color("#745151"),
+      lightYellowColor: new Color("#f1e8ca"),
+      greenBlueColor: new Color("#66bbae"),
+      darkBrownColor: new Color("#5b391e"),
+      lightGreenColor: new Color("#9ebd9e"),
+      orangeColor: new Color("#dd855c"),
+      lightBrownColor: new Color("#dbcbbb"),
+      lightGrayColor: new Color("#bbcbdb"),
+      lightBlueColor: new Color("#B5B5F9"),
+      brightBlueColor: new Color("#0023ff"),
+      cyanColor: new Color("#00ffff"),
+      whiteColor: new Color("White"),
+      blackColor: new Color("Black"),
+      grayColor: new Color("Gray"),
+      redColor: new Color("Red"),
+      blueColor: new Color("Blue"),
+      blueVioletColor: new Color("BlueViolet"),
+      preferredFontName: "Times New Roman",
+      title: "Styling",
     };
   },
 };

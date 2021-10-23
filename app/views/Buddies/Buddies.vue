@@ -313,26 +313,7 @@ export default {
       selectedTab: 0,
       selectedTabview: 0,
       users: [],
-      usersFollowing: [
-        // {
-        //   userid: "WOP0000000001",
-        //   userName: "John Doe",
-        //   location: "Munich, Germany",
-        //   workoutCount: "30",
-        // },
-        // {
-        //   userid: "WOP0000000002",
-        //   userName: "Damian Smith",
-        //   location: "San Francisco, US",
-        //   workoutCount: "59",
-        // },
-        // {
-        //   userid: "WOP0000000003",
-        //   userName: "Keith Davidson",
-        //   location: "London, UK",
-        //   workoutCount: "70",
-        // },
-      ],
+      usersFollowing: [],
     };
   },
 };
