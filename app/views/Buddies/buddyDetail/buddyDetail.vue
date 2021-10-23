@@ -39,7 +39,7 @@
               col="0"
               row="2"
               class="text -default -bold -small"
-              :text="user.city + ' ,' + user.country"
+              :text="userProfile.city + ' ,' + userProfile.country"
               textWrap="true"
               margin="0"
             />
