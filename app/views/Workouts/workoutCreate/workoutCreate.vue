@@ -6,14 +6,14 @@
           col="1"
           row="0"
           class="icon-add-grey"
-          src="~/assets/images/icons/icon_add_grey.png"
+          src="~/assets/images/icons/icon_add_white.png"
           verticalAlignment="center"
           marginTop="10"
         />
         <Label
           col="1"
           row="1"
-          class="text -xlarge -bold -secondary"
+          class="text -large -bold -default"
           text="Create a Workout"
           marginTop="0"
         />
@@ -39,22 +39,21 @@ export default {
 // Custom styles
 .wo-add__container {
   width: 90%;
-  height: 238;
   margin: auto;
   border-radius: 10;
-  border-color: $border-color;
+
   border-width: $border-width;
   margin-top: 10;
   margin-bottom: 10;
-  height: 100;
+  height: 80;
   background-image: linear-gradient(
     to bottom,
-    $container-gradient-light,
-    $container-gradient-dark
+    $btn-primary-gradient-light,
+    $btn-primary-gradient-dark
   );
 }
 .icon-add-grey {
-  height: 45;
+  height: 35;
   margin-bottom: -10;
 }
 </style>
