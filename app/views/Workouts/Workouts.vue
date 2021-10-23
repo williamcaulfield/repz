@@ -221,6 +221,7 @@ export default {
       monthViewStyle.selectionShape = CalendarSelectionShape.Round;
       monthViewStyle.selectionShapeSize = 15;
       monthViewStyle.selectionShapeColor = this.redColor;
+      monthViewStyle.showWeekNumbers = false;
 
       // const todayCellStyle = new DayCellStyle();
       // todayCellStyle.cellBackgroundColor = this.lightGrayColor;
@@ -285,6 +286,7 @@ export default {
       monthViewStyle.selectedDayCellStyle = selectedCellStyle;
 
       const weekNumberCellStyle = new CellStyle();
+      weekNumberCellStyle.isv = true;
       weekNumberCellStyle.backgroundColor = this.darkGrayColor;
       weekNumberCellStyle.cellBackgroundColor = this.blackColor;
       weekNumberCellStyle.cellBorderWidth = 1;
