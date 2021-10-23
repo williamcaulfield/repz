@@ -94,7 +94,7 @@ export default {
     navigateToProfile() {
       this.$navigateTo(routes.profile, {
         frame: "mainContent",
-        clearHistory: true
+        clearHistory: false
       });
       this.drawer = false;
     },
