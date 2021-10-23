@@ -23,13 +23,13 @@
               col="0"
               row="0"
               class="profilePic"
-              src="~/assets/images/users/USR000000001/USR000000001_Profile.png"
+              :src="userProfile.profilePicture"
               marginTop="0"
             />
             <Label
               col="0"
               row="1"
-              text="David Emery"
+              :text="userProfile.userName"
               class="text -primary -bold -xlarge"
               textWrap="true"
               margin="0"
@@ -39,7 +39,7 @@
               col="0"
               row="2"
               class="text -default -bold -small"
-              text="Munich, Germany"
+              :text="user.city + ' ,' + user.country"
               textWrap="true"
               margin="0"
             />
@@ -81,7 +81,7 @@
             <Label
               col="0"
               row="1"
-              text="128"
+              :text="userProfile.followerCount"
               class="text -primary -bold -xlarge"
               textWrap="true"
               marginRight="30"
@@ -89,7 +89,7 @@
             <Label
               col="1"
               row="1"
-              text="154"
+              :text="userProfile.followingCount"
               class="text -primary -bold -xlarge"
               textWrap="true"
               margin="0"
@@ -98,7 +98,7 @@
               col="2"
               row="1"
               class="text -primary -bold -xlarge"
-              text="450"
+              :text="userProfile.workoutsCount"
               textWrap="true"
               marginLeft="30"
             />
@@ -110,7 +110,7 @@
             editable="false"
             class="profile_text"
             textWrap="true"
-            :text="profileText"
+            :text="userProfile.profileText"
             marginBottom="30"
             width="92%"
             horizontalAlignment="center"
@@ -120,7 +120,7 @@
             row="3"
             col="0"
             ref="listview"
-            for="workout in workoutHistoryMe"
+            for="workout in workoutHistoryUser"
             :key="index"
             backgroundColor="transparent"
             height="1200"
@@ -142,13 +142,60 @@ import workoutRecordDetail from "../../Dashboard/workoutRecordDetail/workoutReco
 import navControls from "../../../mixins/navControls";
 import navBottom from "../../../components/navBottom";
 
+import {
+  Http,
+  Frame,
+  Color,
+  ApplicationSettings,
+  isIOS,
+} from "@nativescript/core";
+
 export default {
   props: ["user"],
+
   mixins: [navControls],
   components: {
     workoutRecordSummary,
     workoutRecordDetail,
     navBottom,
+  },
+
+  mounted() {
+    const userIdProfile = this.user.userId;
+    const userId = ApplicationSettings.getNumber("userId");
+    const authToken = ApplicationSettings.getString("userToken");
+
+    Http.request({
+      url:
+        "https://api.repz.app/user/" +
+        userIdProfile +
+        "/workoutrecorded/workoutrecords",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+    }).then(
+      (response) => {
+        this.workoutHistoryUser = response.content.toJSON();
+      },
+      (e) => {}
+    );
+
+    Http.request({
+      url:
+        "https://api.repz.app/user/" + userId + "/userprofile/" + userIdProfile,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+    }).then(
+      (response) => {
+        this.userProfile = response.content.toJSON();
+      },
+      (e) => {}
+    );
   },
   methods: {
     close() {
@@ -157,205 +204,8 @@ export default {
   },
   data() {
     return {
-      workoutHistoryMe: [
-        {
-          workoutId: "WOR0000000001",
-          workoutName: "My Morning Park Session",
-          coverImage:
-            "~/assets/images/workoutRecorded/WOR0000000001/WOR0000000001_PIC_01.jpg",
-          images: [
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000001/WOR0000000001_PIC_01.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000001/WOR0000000001_PIC_02.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000001/WOR0000000001_PIC_03.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000001/WOR0000000001_PIC_04.jpg",
-            },
-          ],
-          userId: "USR000000001",
-          userName: "John Doe",
-          userProfilePic:
-            "~/assets/images/users/USR000000001/USR000000001_Profile.png",
-          dateTime: "01/12/19 12:09:09",
-          duration: "22",
-          caloriesBurned: "234",
-          thumbsUps: "21",
-          notes: "Jacked on amphetamines, grrr",
-          comments: [
-            { userName: "Elvis Presly", comment: "You da bomb" },
-            { userName: "Snoop Dog", comment: "Mad props" },
-          ],
-          exercises: [
-            {
-              exerciseName: "Muscle Up",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "4",
-            },
-            {
-              exerciseName: "Dragon Flag",
-              repOrHold: "rep",
-              count: "12",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Front Lever - One Legged",
-              repOrHold: "hold",
-              count: "30",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - High - Overhand Grip",
-              repOrHold: "rep",
-              count: "9",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - Inverted L-Sit - Overhand Grip",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "3",
-            },
-          ],
-        },
-        {
-          workoutId: "WOR0000000002",
-          workoutName: "My Beach Session",
-          coverImage:
-            "~/assets/images/workoutRecorded/WOR0000000002/WOR0000000002_PIC_03.jpg",
-          images: [
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000002/WOR0000000002_PIC_01.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000002/WOR0000000002_PIC_02.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000002/WOR0000000002_PIC_03.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000002/WOR0000000002_PIC_04.jpg",
-            },
-          ],
-          userId: "USR000000002",
-          userName: "Mickey Rourke",
-          userProfilePic:
-            "~/assets/images/users/USR000000002/USR000000002_Profile.png",
-          dateTime: "01/12/19 12:09:09",
-          duration: "22",
-          caloriesBurned: "234",
-          thumbsUps: "21",
-          notes: "Too old for this shit",
-          comments: [
-            { userName: "Elvis Presly", comment: "You da bomb" },
-            { userName: "Snoop Dog", comment: "Mad props" },
-          ],
-          exercises: [
-            {
-              exerciseName: "Muscle Up",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "4",
-            },
-            {
-              exerciseName: "Dragon Flag",
-              repOrHold: "rep",
-              count: "12",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Front Lever - One Legged",
-              repOrHold: "hold",
-              count: "30",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - High - Overhand Grip",
-              repOrHold: "rep",
-              count: "9",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - Inverted L-Sit - Overhand Grip",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "3",
-            },
-          ],
-        },
-        {
-          workoutId: "WOR0000000003",
-          workoutName: "My Beach Session",
-          coverImage:
-            "~/assets/images/workoutRecorded/WOR0000000003/WOR0000000003_PIC_04.jpg",
-          images: [
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000003/WOR0000000003_PIC_01.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000003/WOR0000000003_PIC_02.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000003/WOR0000000003_PIC_03.jpg",
-            },
-            {
-              src: "~/assets/images/workoutRecorded/WOR0000000003/WOR0000000003_PIC_04.jpg",
-            },
-          ],
-          userId: "USR000000003",
-          userName: "Donald Trumpy",
-          userProfilePic:
-            "~/assets/images/users/USR000000003/USR000000003_Profile.png",
-          dateTime: "01/12/19 12:09:09",
-          duration: "22",
-          caloriesBurned: "234",
-          thumbsUps: "21",
-          notes: "Knackered, Melania been tiring me out",
-          comments: [
-            { userName: "Elvis Presly", comment: "You da bomb" },
-            { userName: "Snoop Dog", comment: "Mad props" },
-          ],
-          exercises: [
-            {
-              exerciseName: "Muscle Up",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "4",
-            },
-            {
-              exerciseName: "Dragon Flag",
-              repOrHold: "rep",
-              count: "12",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Front Lever - One Legged",
-              repOrHold: "hold",
-              count: "30",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - High - Overhand Grip",
-              repOrHold: "rep",
-              count: "9",
-              difficulty: "3",
-            },
-            {
-              exerciseName: "Pull Up - Inverted L-Sit - Overhand Grip",
-              repOrHold: "rep",
-              count: "8",
-              difficulty: "3",
-            },
-          ],
-        },
-      ],
-      profileText:
-        "Calisthenics convert. Busy job and family but squeeze in the workouts whenever I can. Hate working out indoors. Love the beach. House or Drum and Bass when Im getting a sweat on.",
+      userProfile: {},
+      workoutHistoryUser: [],
     };
   },
 };
