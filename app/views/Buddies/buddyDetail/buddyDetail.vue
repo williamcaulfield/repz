@@ -9,7 +9,7 @@
           marginLeft="10"
           horizontalAlignment="left"
         />
-        <Gridlayout rows="auto,auto,auto,*" columns="*">
+        <Gridlayout rows="auto,auto,auto,auto,*" columns="*">
           <GridLayout
             row="0"
             col="0"
@@ -116,20 +116,28 @@
             horizontalAlignment="center"
           />
 
-          <ListView
+          <!-- <ListView
             row="3"
             col="0"
             ref="listview"
             for="workout in workoutHistoryUser"
             :key="index"
+            height="1600"
             backgroundColor="transparent"
-            height="1200"
             width="95%"
+            isUserInteractionEnabled="false"
           >
             <v-template>
               <workoutRecordSummary :workout="workout" />
             </v-template>
-          </ListView>
+          </ListView> -->
+          <StackLayout row="3" col="0">
+            <workoutRecordSummary
+              :workout="workout"
+              v-for="(workout, index) of workoutHistoryUser"
+              v-bind:key="index"
+            />
+          </StackLayout>
         </Gridlayout>
       </StackLayout>
     </ScrollView>
@@ -161,7 +169,7 @@ export default {
   },
 
   mounted() {
-    const userIdProfile = this.user.userId;
+    const userIdProfile = this.user.userID;
     const userId = ApplicationSettings.getNumber("userId");
     const authToken = ApplicationSettings.getString("userToken");
 
