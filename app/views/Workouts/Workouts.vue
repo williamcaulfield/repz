@@ -218,7 +218,7 @@ export default {
       monthViewStyle.showTitle = true;
       monthViewStyle.showWeekNumbers = true;
       monthViewStyle.showDayNames = true;
-      monthViewStyle.selectionShape = CalendarSelectionShape.Round;
+      monthViewStyle.selectionShape = CalendarSelectionShape.Square;
       monthViewStyle.selectionShapeSize = 15;
       monthViewStyle.selectionShapeColor = this.redColor;
       monthViewStyle.showWeekNumbers = false;

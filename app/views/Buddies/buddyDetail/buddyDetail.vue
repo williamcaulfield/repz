@@ -136,6 +136,7 @@
               :workout="workout"
               v-for="(workout, index) of workoutHistoryUser"
               v-bind:key="index"
+              @clicked="showWorkout(workout)"
             />
           </StackLayout>
         </Gridlayout>
@@ -206,6 +207,46 @@ export default {
     );
   },
   methods: {
+    async showWorkout(payload) {
+      console.log(payload.workoutRecordedID);
+
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+
+      var tempWorkoutRecorded;
+
+      await Http.request({
+        url:
+          "https://api.repz.app/user/" +
+          userId +
+          "/workoutrecorded/" +
+          payload.workoutRecordedID +
+          "/workoutrecordeddetail",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          tempWorkoutRecorded = response.content.toJSON();
+          console.log(tempWorkoutRecorded);
+        },
+        (e) => {}
+      );
+
+      this.$navigateTo(workoutRecordDetail, {
+        props: {
+          workoutRecorded: tempWorkoutRecorded,
+        },
+        animated: true,
+        transition: {
+          name: "slideLeft",
+          duration: 300,
+          curve: "easeIn",
+        },
+      });
+    },
     close() {
       this.$navigateBack();
     },
