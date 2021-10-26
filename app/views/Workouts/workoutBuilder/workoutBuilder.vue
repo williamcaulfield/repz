@@ -43,7 +43,7 @@
         ref="listView"
         row="1"
         col="0"
-        for="exercise in exercisesPlanned"
+        for="exercise in workoutPlanDetail.exercisesPlanned"
         layout="list"
         @itemTap="onItemTap($event, $index)"
         itemReorder="true"
@@ -219,7 +219,7 @@ import {
 
 import navControls from "../../../mixins/navControls";
 
-import wbEditExercise from "./modals/wbEditExercise/wbEditExercise";
+import wbEditExerciseReps from "./modals/wbEditExercise/wbEditExerciseReps/wbEditExerciseReps";
 import wbEditRest from "./modals/wbEditRest/wbEditRest";
 import wbEditSet from "./modals/wbEditSet/wbEditSet";
 import wbEditRepeat from "./modals/wbEditRepeat/wbEditRepeat";
@@ -520,7 +520,7 @@ export default {
       });
     },
     showEditExercise() {
-      this.$showModal(wbEditExercise, {
+      this.$showModal(wbEditExerciseReps, {
         fullscreen: true,
         animated: true,
         stretched: false,
@@ -642,7 +642,27 @@ export default {
         objectivesDescription: "",
         projectedDuration: 0,
         projectedCalories: 0,
-        exercisesPlanned: [],
+        exercisesPlanned: [
+          {
+            workoutPlanID: null,
+            seqNum: 1,
+            exerciseID: 0,
+            repsOrHold: "Warmup",
+            exerciseSet: 0,
+            exerciseHeading: "Warmup & Stretch",
+            exerciseSubType: "Get those muscles ready",
+            exerciseTargetCount: 0,
+            exercisePace: "Normal",
+            weightExtra: 0,
+            weightDisplayImperial: false,
+            estimateDuration: 90,
+            estimateCalories: 20,
+            exerciseType: "Warmup",
+            displayType: "Warmup",
+            isSetHeader: true,
+            exerciseImage: "LinkToStreches",
+          },
+        ],
       },
 
       // projectedCalories: 0,
