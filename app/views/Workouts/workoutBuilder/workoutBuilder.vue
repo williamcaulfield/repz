@@ -237,7 +237,7 @@ export default {
   mixins: [navControls],
   computed: {
     workoutTime: function () {
-      return this.exercisesPlanned.length * 2;
+      return this.workoutPlanDetail.exercisesPlanned.length * 2;
     },
   },
 
@@ -303,7 +303,7 @@ export default {
       });
     },
     addExercises(args) {
-      this.exercisesPlanned.push(args);
+      this.workoutPlanDetail.exercisesPlanned.push(args);
 
       //this.selectedTabViewWb = 1;
     },
@@ -343,9 +343,13 @@ export default {
       console.log("Selected Items: " + this.selectedItems);
     },
     updateSeqNum() {
-      this.exercisesPlanned.forEach(function (item, index) {
-        item.seqNum = index;
-        console.log(item, index);
+      this.workoutPlanDetail.exercisesPlanned.forEach(function (
+        exercise,
+        index,
+        exercisesPlanned
+      ) {
+        exercisesPlanned[index].seqNum = index;
+        console.log(exercise, index);
       });
     },
     clearSelectedItems() {
@@ -354,45 +358,49 @@ export default {
       }
     },
     duplicateExercise(exerciseToAdd) {
-      this.exercisesPlanned.push(exerciseToAdd);
+      this.workoutPlanDetail.exercisesPlanned.push(exerciseToAdd);
       console.log("Exercise added: " + JSON.stringify(exerciseToAdd));
       this.clearSelectedItems();
       this.updateSeqNum();
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
     addExercise(exerciseToAdd) {
-      this.exercisesPlanned.push(exerciseToAdd);
+      this.workoutPlanDetail.exercisesPlanned.push(exerciseToAdd);
       console.log("Exercise added: " + JSON.stringify(exerciseToAdd));
       this.clearSelectedItems();
       this.updateSeqNum();
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
     addRest(restToAdd) {
-      this.exercisesPlanned.push(restToAdd);
+      this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
       console.log("Rest added: " + JSON.stringify(restToAdd));
       this.clearSelectedItems();
       this.updateSeqNum();
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
     addRestSet(restSetToAdd) {
-      this.exercisesPlanned.push(restSetToAdd);
+      this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
       console.log("RestSet added: " + JSON.stringify(restSetToAdd));
       this.clearSelectedItems();
       this.updateSeqNum();
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
@@ -402,16 +410,22 @@ export default {
       this.updateSeqNum();
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
     reorderExercise(indexOld, indexNew) {
-      this.exercisesPlanned.splice(indexNew, 0, this.selectedItems[indexOld]);
-      this.exercisesPlanned.splice(indexOld, 1);
+      this.workoutPlanDetail.exercisesPlanned.splice(
+        indexNew,
+        0,
+        this.selectedItems[indexOld]
+      );
+      this.workoutPlanDetail.exercisesPlanned.splice(indexOld, 1);
       this.$refs.listView.refresh();
       console.log(
-        "Exercises Planned: " + JSON.stringify(this.exercisesPlanned)
+        "Exercises Planned: " +
+          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
@@ -438,13 +452,17 @@ export default {
     editSet() {},
 
     editExercise(index, exerciseTargetCount, exercisePace, weightExtra) {
-      (this.exercisesPlanned[index].exerciseTargetCount = exerciseTargetCount),
-        (this.exercisesPlanned[index].exercisePace = exercisePace),
-        (this.exercisesPlanned[index].weightExtra = weightExtra);
+      (this.workoutPlanDetail.exercisesPlanned[index].exerciseTargetCount =
+        exerciseTargetCount),
+        (this.workoutPlanDetail.exercisesPlanned[index].exercisePace =
+          exercisePace),
+        (this.workoutPlanDetail.exercisesPlanned[index].weightExtra =
+          weightExtra);
     },
 
     editRest(index, restTargetCount) {
-      this.exercisesPlanned[index].exerciseTargetCount = restTargetCount;
+      this.workoutPlanDetail.exercisesPlanned[index].exerciseTargetCount =
+        restTargetCount;
     },
 
     renameWorkoutPlan(newWorkoutPlanName) {
@@ -476,7 +494,7 @@ export default {
         this.muscleZones.pop();
       }
 
-      this.exercisesPlanned.forEach(function (item, index) {
+      this.workoutPlanDetail.exercisesPlanned.forEach(function (item, index) {
         item.muscleZones.forEach(function (muscle) {
           if (!this.selectedItems.indexOf(muscle)) {
             this.muscleZones.push(muscle);
@@ -509,11 +527,21 @@ export default {
         console.log(result);
 
         for (var i = 0; i < result.length; i++) {
-          this.addRest(this.rest);
+          if (
+            (this.workoutPlanDetail.exercisesPlanned.length > 0 &&
+              this.workoutPlanDetail.exercisesPlanned[
+                this.workoutPlanDetail.exercisesPlanned.length - 1
+              ].displayType === "Reps") ||
+            this.workoutPlanDetail.exercisesPlanned[
+              this.workoutPlanDetail.exercisesPlanned.length - 1
+            ].displayType === "Hold"
+          ) {
+            this.addRest(this.rest);
+          }
           this.addExercise(result[i]);
           this.$refs.listView.refresh();
         }
-        console.log(this.exercisesPlanned);
+        console.log(this.workoutPlanDetail.exercisesPlanned);
 
         this.$refs.listView.refresh();
         this.forceRerender();
@@ -590,7 +618,7 @@ export default {
 
     onItemTap({ index, data, object }) {
       console.log(
-        `Tapped on ${this.exercisesPlanned[index].exerciseHeading} at index ${index}`
+        `Tapped on ${this.workoutPlanDetail.exercisesPlanned[index].exerciseHeading} at index ${index}`
       );
     },
     onItemReordered({ index, data, object }) {
@@ -663,6 +691,45 @@ export default {
             exerciseImage: "LinkToStreches",
           },
         ],
+      },
+
+      rest: {
+        workoutPlanID: 0,
+        seqNum: 0,
+        exerciseID: 1,
+        repsOrHold: "Rest",
+        exerciseSet: 0,
+        exerciseHeading: "Rest",
+        exerciseSubType: "Let those muscles recover",
+        exerciseTargetCount: 0,
+        exercisePace: "Normal",
+        weightExtra: 0,
+        weightDisplayImperial: false,
+        estimateDuration: 30,
+        estimateCalories: 0,
+        exerciseType: "Rest",
+        displayType: "Rest",
+        isSetHeader: false,
+        exerciseImage: "LinkToRest",
+      },
+      restSet: {
+        workoutPlanID: 0,
+        seqNum: 0,
+        exerciseID: 2,
+        repsOrHold: "RestSet",
+        exerciseSet: 0,
+        exerciseHeading: "Rest Between Sets",
+        exerciseSubType: "Take a breather",
+        exerciseTargetCount: 0,
+        exercisePace: "Normal",
+        weightExtra: 0,
+        weightDisplayImperial: false,
+        estimateDuration: 90,
+        estimateCalories: 0,
+        exerciseType: "Restset",
+        displayType: "Restset",
+        isSetHeader: true,
+        exerciseImage: "LinkToRestSet",
       },
 
       // projectedCalories: 0,
