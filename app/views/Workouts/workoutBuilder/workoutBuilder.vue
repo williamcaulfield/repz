@@ -220,6 +220,7 @@ import {
 import navControls from "../../../mixins/navControls";
 
 import wbEditExerciseReps from "./modals/wbEditExercise/wbEditExerciseReps/wbEditExerciseReps";
+import wbEditExerciseHold from "./modals/wbEditExercise/wbEditExerciseHold/wbEditExerciseHold";
 import wbEditRest from "./modals/wbEditRest/wbEditRest";
 import wbEditSet from "./modals/wbEditSet/wbEditSet";
 import wbEditRepeat from "./modals/wbEditRepeat/wbEditRepeat";
@@ -291,6 +292,8 @@ export default {
     wbEditRepeat,
     wbEditSet,
     wbExerciseBrowser,
+    wbEditExerciseHold,
+    wbEditExerciseReps,
   },
   methods: {
     forceRerender() {
@@ -547,8 +550,19 @@ export default {
         this.forceRerender();
       });
     },
-    showEditExercise() {
+    showEditExerciseReps() {
       this.$showModal(wbEditExerciseReps, {
+        fullscreen: true,
+        animated: true,
+        stretched: false,
+        dimAmount: 0.5,
+        ios: {
+          presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
+        },
+      });
+    },
+    showEditExerciseHold() {
+      this.$showModal(wbEditExerciseHold, {
         fullscreen: true,
         animated: true,
         stretched: false,
@@ -620,6 +634,9 @@ export default {
       console.log(
         `Tapped on ${this.workoutPlanDetail.exercisesPlanned[index].exerciseHeading} at index ${index}`
       );
+      if (this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "Reps") {
+        this.showEditExerciseReps();
+      }
     },
     onItemReordered({ index, data, object }) {
       console.log(`Item reordered from index ${index} to ${data.targetIndex}`);
