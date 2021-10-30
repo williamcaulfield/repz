@@ -40,7 +40,7 @@
           <TextField
             row="0"
             col="3"
-            hint="160"
+            :hint="exercisePlanned.exerciseTargetCount"
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
@@ -57,7 +57,7 @@
           <Label
             row="0"
             col="0"
-            text="Extra Weight"
+            :text="'Extra Weight (' + weightUnits + ')'"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
@@ -70,7 +70,7 @@
           <TextField
             row="0"
             col="3"
-            hint="160"
+            :hint="exercisePlanned.weightExtra"
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
@@ -92,7 +92,7 @@
         <ListPicker
           class="picker"
           :items="exercisePace"
-          selectedIndex="1"
+          :selectedIndex="exercisePaceSelectedIndex"
           @selectedIndexChange="selectedIndexChanged"
           horizontalAlignment="center"
         />
@@ -110,7 +110,7 @@
           @selectedIndexChange="selectedIndexChanged"
         />
 
-        <Label
+        <!-- <Label
           text="Rest Periods"
           class="text -default -medium -left"
           horizontalAlignment="left"
@@ -118,9 +118,9 @@
         <ListPicker
           class="picker"
           :items="restPeriods"
-          selectedIndex="7"
+          :selectedIndex="exerciseRestSelectedIndex"
           @selectedIndexChange="selectedIndexChanged"
-        />
+        /> -->
       </StackLayout>
       <Button
         col="0"
@@ -148,9 +148,44 @@
 
 <script>
 export default {
+  props: ["exercisePlanned"],
+  mounted() {
+    if (this.exercisePlanned.weightDisplayImperial == true) {
+      this.weightUnits = "lbs";
+    } else {
+      this.weightUnits = "Kg";
+    }
+    for (var i = 0; i < this.exercisePace.length; i++) {
+      if (this.exercisePlanned.exercisePace == exercisePace[i]) {
+        this.exercisePaceSelectedIndex = i;
+        i = this.exercisePace.length;
+      }
+    }
+  },
+
   methods: {},
   data() {
     return {
+      workoutPlanID: null,
+      // seqNum: 1,
+      // exerciseID: 0,
+      // repsOrHold: "Warmup",
+      // exerciseSet: 0,
+      // exerciseHeading: "Warmup & Stretch",
+      // exerciseSubType: "Get those muscles ready",
+      // exerciseTargetCount: 0,
+      // exercisePace: "Normal",
+      // weightExtra: 0,
+      // weightDisplayImperial: false,
+      // estimateDuration: 90,
+      // estimateCalories: 20,
+      // exerciseType: "Warmup",
+      // displayType: "Warmup",
+      // isSetHeader: true,
+      // exerciseImage: "LinkToStreches",
+      exercisePaceSelectedIndex: 1,
+      // exerciseRestSelectedIndex: 7,
+      weightUnits: "",
       exercisePace: ["Fast", "Normal", "Slow"],
       weightUnits: ["Kilograms", "Pounds"],
       restPeriods: [
