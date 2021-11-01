@@ -553,7 +553,7 @@ export default {
     showEditExerciseReps(args) {
       this.$showModal(wbEditExerciseReps, {
         fullscreen: true,
-        props: { exercisesPlanned: args },
+        props: { exercisePlanned: args },
         animated: true,
         stretched: false,
         dimAmount: 0.5,

@@ -93,7 +93,7 @@
           class="picker"
           :items="exercisePace"
           :selectedIndex="exercisePaceSelectedIndex"
-          @selectedIndexChange="selectedIndexChanged"
+          @selectedIndexChange="listPickerChangeExPace($event)"
           horizontalAlignment="center"
         />
 
@@ -103,12 +103,7 @@
           horizontalAlignment="left"
         />
 
-        <ListPicker
-          class="picker"
-          :items="weightUnits"
-          selectedIndex="0"
-          @selectedIndexChange="selectedIndexChanged"
-        />
+        <ListPicker class="picker" :items="weightUnits" selectedIndex="0" />
 
         <!-- <Label
           text="Rest Periods"
@@ -156,14 +151,23 @@ export default {
       this.weightUnits = "Kg";
     }
     for (var i = 0; i < this.exercisePace.length; i++) {
-      if (this.exercisePlanned.exercisePace == exercisePace[i]) {
+      if (this.exercisePlanned.exercisePace == this.exercisePace[i]) {
         this.exercisePaceSelectedIndex = i;
         i = this.exercisePace.length;
       }
     }
   },
 
-  methods: {},
+  methods: {
+    listPickerChangeExPace(args) {
+      // const picker = args.object;
+      // this.selectedTrackMaxWeightIndex = picker.selectedIndex;
+      // this.currentProgressTrackMaxWeight =
+      //   this.progressTrackMaxWeight[
+      //     this.selectedTrackMaxWeightIndex
+      //   ].exerciseRecords;
+    },
+  },
   data() {
     return {
       workoutPlanID: null,
