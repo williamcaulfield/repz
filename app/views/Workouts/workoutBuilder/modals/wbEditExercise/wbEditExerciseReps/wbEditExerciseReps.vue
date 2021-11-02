@@ -36,6 +36,7 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="repsCountPlus"
           />
           <TextField
             row="0"
@@ -50,14 +51,19 @@
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="repsCountPlus"
           />
         </GridLayout>
 
-        <GridLayout rows="auto" columns="auto,*,auto,auto,auto" marginTop="30">
+        <GridLayout
+          rows="auto"
+          columns="auto,*,auto,auto,auto,auto"
+          marginTop="30"
+        >
           <Label
             row="0"
             col="0"
-            :text="'Extra Weight (' + weightUnits + ')'"
+            :text="'Extra Weight (' + weightUnitsShort + ')'"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
@@ -66,6 +72,7 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="weightExtraMinus"
           />
           <TextField
             row="0"
@@ -80,6 +87,7 @@
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="weightExtraPlus"
           />
         </GridLayout>
         <Label
@@ -103,7 +111,12 @@
           horizontalAlignment="left"
         />
 
-        <ListPicker class="picker" :items="weightUnits" selectedIndex="0" />
+        <ListPicker
+          class="picker"
+          :items="weightUnits"
+          selectedIndex="0"
+          @selectedIndexChange="listPickerChangeExPace($event)"
+        />
 
         <!-- <Label
           text="Rest Periods"
@@ -122,7 +135,7 @@
         row="1"
         class="btn-primary"
         text="Apply to Exercise"
-        @tap="$modal.close()"
+        @tap="exitAndSaveChanges()"
         marginBottom="15"
         marginLeft="25"
         marginRight="25"
@@ -132,7 +145,17 @@
         row="2"
         class="btn-primary"
         text="Remove Exercise"
-        @tap="$modal.close()"
+        @tap="exitAndDeleteExercise()"
+        marginBottom="20"
+        marginLeft="23"
+        marginRight="23"
+      />
+      <Button
+        col="0"
+        row="3"
+        class="btn-primary"
+        text="Close"
+        @tap="exitWithoutSaving()"
         marginBottom="20"
         marginLeft="23"
         marginRight="23"
@@ -146,9 +169,11 @@ export default {
   props: ["exercisePlanned"],
   mounted() {
     if (this.exercisePlanned.weightDisplayImperial == true) {
-      this.weightUnits = "lbs";
+      this.weightUnitsShort = "lbs";
+      this.weightUnitsSelectedIndex = 1;
     } else {
-      this.weightUnits = "Kg";
+      this.weightUnitsShort = "Kg";
+      this.weightUnitsSelectedIndex = 0;
     }
     for (var i = 0; i < this.exercisePace.length; i++) {
       if (this.exercisePlanned.exercisePace == this.exercisePace[i]) {
@@ -159,18 +184,68 @@ export default {
   },
 
   methods: {
+    repsCountPlus() {
+      this.dataChanged = true;
+      this.exercisePlanned.exerciseTargetCount =
+        this.exercisePlanned.exerciseTargetCount + 1;
+    },
+    repsCountMinus() {
+      this.dataChanged = true;
+      this.exercisePlanned.exerciseTargetCount =
+        this.exercisePlanned.exerciseTargetCount - 1;
+    },
+    weightExtraPlus() {
+      this.dataChanged = true;
+      this.exercisePlanned.weightExtra = this.exercisePlanned.weightExtra + 0.5;
+    },
+    weightExtraMinus() {
+      if (this.exercisePlanned.weightExtra >= 0.5) {
+        this.dataChanged = true;
+        this.exercisePlanned.weightExtra =
+          this.exercisePlanned.weightExtra - 0.5;
+      } else if (this.exercisePlanned.weightExtra > 0) {
+        this.dataChanged = true;
+        this.exercisePlanned.weightExtra = 0;
+      }
+    },
     listPickerChangeExPace(args) {
-      // const picker = args.object;
-      // this.selectedTrackMaxWeightIndex = picker.selectedIndex;
-      // this.currentProgressTrackMaxWeight =
-      //   this.progressTrackMaxWeight[
-      //     this.selectedTrackMaxWeightIndex
-      //   ].exerciseRecords;
+      this.dataChanged = true;
+      const picker = args.object;
+      this.exercisePaceSelectedIndex = picker.selectedIndex;
+      this.exercisePlanned.exercisePace =
+        this.exercisePace[this.exercisePaceSelectedIndex];
+    },
+    listPickerChangeWeightUnits(args) {
+      this.dataChanged = true;
+      const picker = args.object;
+      this.weightUnitsSelectedIndex = picker.selectedIndex;
+      if ((picker.selectedIndex = 1)) {
+        this.exercisePlanned.weightDisplayImperial = true;
+      } else {
+        this.exercisePlanned.weightDisplayImperial = false;
+      }
+    },
+    exitWithoutSaving() {
+      if (this.dataChanged) {
+        Dialogs.confirm({
+          message: "You have unsaved changes, are you sure?",
+          okButtonText: "Yes",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result) {
+            $modal.close();
+          }
+        });
+      } else {
+        $modal.close();
+      }
+    },
+    exitAndSaveChanges() {
+      $modal.close();
     },
   },
   data() {
     return {
-      workoutPlanID: null,
       // seqNum: 1,
       // exerciseID: 0,
       // repsOrHold: "Warmup",
@@ -187,24 +262,13 @@ export default {
       // displayType: "Warmup",
       // isSetHeader: true,
       // exerciseImage: "LinkToStreches",
-      exercisePaceSelectedIndex: 1,
+      dataChanged: false,
+      exercisePaceSelectedIndex: 0,
       // exerciseRestSelectedIndex: 7,
-      weightUnits: "",
       exercisePace: ["Fast", "Normal", "Slow"],
+      weightUnitsSelectedIndex: 1,
       weightUnits: ["Kilograms", "Pounds"],
-      restPeriods: [
-        "5 minutes",
-        "4 minutes",
-        "3 minutes",
-        "2.5 minutes",
-        "2 minutes",
-        "1.5 minutes",
-        "60 seconds",
-        "45 seconds",
-        "30 seconds",
-        "15 seconds",
-        "None",
-      ],
+      weightUnitsShort: "",
     };
   },
 };
