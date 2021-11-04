@@ -36,7 +36,7 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
-            @tap="repsCountPlus"
+            @tap="repsCountMinus"
           />
           <TextField
             row="0"
@@ -114,8 +114,8 @@
         <ListPicker
           class="picker"
           :items="weightUnits"
-          selectedIndex="0"
-          @selectedIndexChange="listPickerChangeExPace($event)"
+          :selectedIndex="weightUnitsSelectedIndex"
+          @selectedIndexChange="listPickerChangeWeightUnits($event)"
         />
 
         <!-- <Label
@@ -164,7 +164,10 @@
   </ContentView>
 </template>
 
+
+
 <script>
+import { Dialogs } from "@nativescript/core";
 export default {
   props: ["exercisePlanned"],
   mounted() {
@@ -181,6 +184,8 @@ export default {
         i = this.exercisePace.length;
       }
     }
+    //Overwrite List picker initialisations
+    this.dataChanged = true;
   },
 
   methods: {
@@ -191,8 +196,10 @@ export default {
     },
     repsCountMinus() {
       this.dataChanged = true;
-      this.exercisePlanned.exerciseTargetCount =
-        this.exercisePlanned.exerciseTargetCount - 1;
+      if (this.exercisePlanned.exerciseTargetCount > 0) {
+        this.exercisePlanned.exerciseTargetCount =
+          this.exercisePlanned.exerciseTargetCount - 1;
+      }
     },
     weightExtraPlus() {
       this.dataChanged = true;
@@ -219,7 +226,7 @@ export default {
       this.dataChanged = true;
       const picker = args.object;
       this.weightUnitsSelectedIndex = picker.selectedIndex;
-      if ((picker.selectedIndex = 1)) {
+      if (picker.selectedIndex === 1) {
         this.exercisePlanned.weightDisplayImperial = true;
       } else {
         this.exercisePlanned.weightDisplayImperial = false;
@@ -233,15 +240,15 @@ export default {
           cancelButtonText: "No",
         }).then((result) => {
           if (result) {
-            $modal.close();
+            this.$modal.close();
           }
         });
       } else {
-        $modal.close();
+        this.$modal.close();
       }
     },
     exitAndSaveChanges() {
-      $modal.close();
+      this.$modal.close();
     },
   },
   data() {
@@ -265,8 +272,8 @@ export default {
       dataChanged: false,
       exercisePaceSelectedIndex: 0,
       // exerciseRestSelectedIndex: 7,
-      exercisePace: ["Fast", "Normal", "Slow"],
-      weightUnitsSelectedIndex: 1,
+      exercisePace: ["Normal", "Fast", "Slow"],
+      weightUnitsSelectedIndex: 0,
       weightUnits: ["Kilograms", "Pounds"],
       weightUnitsShort: "",
     };
