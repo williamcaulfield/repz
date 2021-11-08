@@ -391,6 +391,8 @@ export default {
     },
 
     addRest(restToAdd) {
+      //Default rest time
+      restToAdd.estimateDuration = 31;
       this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
       console.log("Rest added: " + JSON.stringify(restToAdd));
       this.clearSelectedItems();
@@ -403,6 +405,8 @@ export default {
     },
 
     addRestSet(restSetToAdd) {
+      //Default rest time
+      restSetToAdd.estimateDuration = 91;
       this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
       console.log("RestSet added: " + JSON.stringify(restSetToAdd));
       this.clearSelectedItems();
