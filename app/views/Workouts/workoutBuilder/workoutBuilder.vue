@@ -372,6 +372,13 @@ export default {
       );
     },
     addExercise(exerciseToAdd) {
+      //Default reps/hold - Replace with user setting
+      if (exerciseToAdd.exerciseType == "Reps") {
+        exerciseToAdd.exerciseTargetCount = 9;
+      } else if (exerciseToAdd.exerciseType == "Hold") {
+        exerciseToAdd.exerciseTargetCount = 30;
+      }
+
       this.workoutPlanDetail.exercisesPlanned.push(exerciseToAdd);
       console.log("Exercise added: " + JSON.stringify(exerciseToAdd));
       this.clearSelectedItems();
