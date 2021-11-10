@@ -41,8 +41,11 @@
           <TextField
             row="0"
             col="3"
-            :hint="exercisePlanned.exerciseTargetCount"
-            editable="false"
+            v-model="exerciseTargetCount"
+            keyboardType="number"
+            returnKeyType="done"
+            autocorrect="false"
+            editable="true"
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
@@ -78,8 +81,11 @@
           <TextField
             row="0"
             col="3"
-            :hint="exercisePlanned.weightExtra"
-            editable="false"
+            v-model="weightExtra"
+            keyboardType="number"
+            returnKeyType="done"
+            autocorrect="false"
+            editable="true"
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
@@ -188,33 +194,33 @@ export default {
     }
     //Overwrite List picker initialisations
     this.dataChanged = true;
+
+    this.exerciseTargetCount = this.exercisePlanned.exerciseTargetCount;
+    this.weightExtra = this.exercisePlanned.weightExtra;
   },
 
   methods: {
     repsCountPlus() {
       this.dataChanged = true;
-      this.exercisePlanned.exerciseTargetCount =
-        this.exercisePlanned.exerciseTargetCount + 1;
+      this.exerciseTargetCount = this.exerciseTargetCount + 1;
     },
     repsCountMinus() {
       this.dataChanged = true;
-      if (this.exercisePlanned.exerciseTargetCount > 0) {
-        this.exercisePlanned.exerciseTargetCount =
-          this.exercisePlanned.exerciseTargetCount - 1;
+      if (this.exerciseTargetCount > 0) {
+        this.exerciseTargetCount = this.exerciseTargetCount - 1;
       }
     },
     weightExtraPlus() {
       this.dataChanged = true;
-      this.exercisePlanned.weightExtra = this.exercisePlanned.weightExtra + 0.5;
+      this.weightExtra = this.weightExtra + 0.5;
     },
     weightExtraMinus() {
-      if (this.exercisePlanned.weightExtra >= 0.5) {
+      if (this.weightExtra >= 0.5) {
         this.dataChanged = true;
-        this.exercisePlanned.weightExtra =
-          this.exercisePlanned.weightExtra - 0.5;
-      } else if (this.exercisePlanned.weightExtra > 0) {
+        this.weightExtra = this.weightExtra - 0.5;
+      } else if (this.weightExtra > 0) {
         this.dataChanged = true;
-        this.exercisePlanned.weightExtra = 0;
+        this.weightExtra = 0;
       }
     },
     listPickerChangeExPace(args) {
@@ -250,6 +256,8 @@ export default {
       }
     },
     exitAndSaveChanges() {
+      this.exercisePlanned.exerciseTargetCount = this.exerciseTargetCount;
+      this.exercisePlanned.weightExtra = this.weightExtra;
       this.$modal.close();
     },
   },
@@ -271,6 +279,8 @@ export default {
       // displayType: "Warmup",
       // isSetHeader: true,
       // exerciseImage: "LinkToStreches",
+      exerciseTargetCount: null,
+      weightExtra: null,
       dataChanged: false,
       exercisePaceSelectedIndex: 0,
       // exerciseRestSelectedIndex: 7,
