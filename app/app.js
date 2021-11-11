@@ -53,6 +53,7 @@ Vue.registerElement(
   () => require("nativescript-ui-sidedrawer").RadSideDrawer
 );
 
+Vue.registerElement('NumericKeyboard', () => require('nativescript-numeric-keyboard').NumericKeyboardView);
 
 Vue.registerElement(
   "RadCalendar",

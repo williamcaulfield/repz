@@ -38,7 +38,23 @@
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
             @tap="repsCountMinus"
           />
-          <TextField
+
+          <NumericKeyboard
+            id="NK1"
+            row="0"
+            col="3"
+            class="field_numberentry"
+            :text="exerciseTargetCount"
+            ref="input_exerciseTargetCount"
+            @returnPress="setAmountExerciseTargetCount"
+            locale="en_US"
+            noDecimals="true"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
+            maxLength="3"
+          ></NumericKeyboard>
+          <!-- @returnPress="setAmountExerciseTargetCount" -->
+          <!-- <TextField
             row="0"
             col="3"
             v-model="exerciseTargetCount"
@@ -49,7 +65,7 @@
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
-          />
+          /> -->
           <Image
             col="4"
             row="0"
@@ -78,7 +94,23 @@
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
             @tap="weightExtraMinus"
           />
-          <TextField
+
+          <NumericKeyboard
+            id="nk2"
+            row="0"
+            col="3"
+            class="field_numberentry"
+            @returnPress="setAmountWeightExtra"
+            :text="weightExtra"
+            ref="input_weightExtra"
+            locale="en_US"
+            noDecimals="false"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
+            maxLength="4"
+          ></NumericKeyboard>
+          <!-- @textChange="setAmountWeightExtra" -->
+          <!-- <TextField
             row="0"
             col="3"
             v-model="weightExtra"
@@ -89,7 +121,7 @@
             class="field_numberentry"
             maxLength="3"
             horizontalAlignment="right"
-          />
+          /> -->
           <Image
             col="4"
             row="0"
@@ -200,6 +232,22 @@ export default {
   },
 
   methods: {
+    setAmountExerciseTargetCount() {
+      // let value = parseInt(
+      //   this.$refs.input_exerciseTargetCount.nativeView.text
+      // );
+      this.exerciseTargetCount = parseInt(
+        this.$refs.input_exerciseTargetCount.nativeView.text
+      );
+    },
+
+    setAmountWeightExtra() {
+      //let value = parseFloat(this.$refs.input_weightExtra.nativeView.text);
+      this.weightExtra = parseFloat(
+        this.$refs.input_weightExtra.nativeView.text
+      );
+    },
+
     repsCountPlus() {
       this.dataChanged = true;
       this.exerciseTargetCount = this.exerciseTargetCount + 1;
@@ -332,7 +380,7 @@ export default {
   align-content: right;
 }
 .field_numberentry {
-  color: $primary-color;
+  color: $secondary-color;
   background-color: black;
   width: 80;
   height: 40;
