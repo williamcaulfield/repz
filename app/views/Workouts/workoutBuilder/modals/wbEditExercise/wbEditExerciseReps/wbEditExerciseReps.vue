@@ -53,7 +53,6 @@
             horizontalAlignment="center"
             maxLength="3"
           ></NumericKeyboard>
-          <!-- @returnPress="setAmountExerciseTargetCount" -->
           <!-- <TextField
             row="0"
             col="3"
@@ -109,7 +108,7 @@
             horizontalAlignment="center"
             maxLength="4"
           ></NumericKeyboard>
-          <!-- @textChange="setAmountWeightExtra" -->
+
           <!-- <TextField
             row="0"
             col="3"
