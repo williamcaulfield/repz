@@ -519,18 +519,6 @@ export default {
       console.log(muscleZones);
     },
 
-    showEditRest() {
-      this.$showModal(wbEditRest, {
-        fullscreen: true,
-        animated: true,
-        stretched: false,
-        dimAmount: 0.5,
-        ios: {
-          presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
-        },
-      });
-    },
-
     showExerciseBrowser() {
       this.$showModal(wbExerciseBrowser, {
         fullscreen: true,
@@ -573,9 +561,10 @@ export default {
         },
       });
     },
-    showEditExerciseHold() {
+    showEditExerciseHold(args) {
       this.$showModal(wbEditExerciseHold, {
         fullscreen: true,
+        props: { exercisePlanned: args },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -584,6 +573,20 @@ export default {
         },
       });
     },
+
+    showEditRest(args) {
+      this.$showModal(wbEditRest, {
+        fullscreen: true,
+        props: { exercisePlanned: args },
+        animated: true,
+        stretched: false,
+        dimAmount: 0.5,
+        ios: {
+          presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
+        },
+      });
+    },
+
     showEditSet() {
       this.$showModal(wbEditSet, {
         fullscreen: true,
@@ -650,6 +653,17 @@ export default {
         this.showEditExerciseReps(
           this.workoutPlanDetail.exercisesPlanned[index]
         );
+      } else if (
+        this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "Hold"
+      ) {
+        this.showEditExerciseHold(
+          this.workoutPlanDetail.exercisesPlanned[index]
+        );
+      } else if (
+        this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "Rest" ||
+        this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "RestSet"
+      ) {
+        this.showEditRest(this.workoutPlanDetail.exercisesPlanned[index]);
       }
     },
     onItemReordered({ index, data, object }) {
