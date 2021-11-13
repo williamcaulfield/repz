@@ -170,7 +170,7 @@ export default {
     }
 
     //Overwrite List picker initialisations
-    this.dataChanged = true;
+    this.dataChanged = false;
 
     this.exerciseTargetCount = this.exercisePlanned.exerciseTargetCount;
     this.weightExtra = this.exercisePlanned.weightExtra;

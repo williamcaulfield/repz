@@ -18,7 +18,7 @@
             row="0"
             col="1"
             class="text -xlarge -bold -default -left"
-            text="Edit Exercise"
+            text="Edit Rest"
             marginLeft="10"
           />
         </GridLayout>
@@ -27,7 +27,7 @@
           <Label
             row="0"
             col="0"
-            text="Repetitions"
+            text="Rest Time (Seconds)"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
@@ -36,108 +36,49 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="repsCountMinus"
           />
-          <TextField
+
+          <NumericKeyboard
+            id="NK1"
             row="0"
             col="3"
-            hint="160"
             class="field_numberentry"
+            :text="exerciseTargetCount"
+            ref="input_exerciseTargetCount"
+            @returnPress="setAmountExerciseTargetCount"
+            locale="en_US"
+            noDecimals="true"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
             maxLength="3"
-            horizontalAlignment="right"
-          />
+          ></NumericKeyboard>
+
           <Image
             col="4"
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="repsCountPlus"
           />
         </GridLayout>
-
-        <GridLayout rows="auto" columns="auto,*,auto,auto,auto" marginTop="30">
-          <Label
-            row="0"
-            col="0"
-            text="Extra Weight"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-          />
-          <Image
-            col="2"
-            row="0"
-            class="icon-plus"
-            :src="'~/assets/images/icons/icon_minus_small_red.png'"
-          />
-          <TextField
-            row="0"
-            col="3"
-            hint="160"
-            class="field_numberentry"
-            maxLength="3"
-            horizontalAlignment="right"
-          />
-          <Image
-            col="4"
-            row="0"
-            class="icon-minus"
-            :src="'~/assets/images/icons/icon_plus_small_red.png'"
-          />
-        </GridLayout>
-        <Label
-          text="Exercise Pace"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-          marginTop="30"
-        />
-
-        <ListPicker
-          class="picker"
-          :items="exercisePace"
-          selectedIndex="1"
-          @selectedIndexChange="selectedIndexChanged"
-          horizontalAlignment="center"
-        />
-
-        <Label
-          text="Weight Units"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-        />
-
-        <ListPicker
-          class="picker"
-          :items="weightUnits"
-          selectedIndex="0"
-          @selectedIndexChange="selectedIndexChanged"
-        />
-
-        <Label
-          text="Rest Periods"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-        />
-        <ListPicker
-          class="picker"
-          :items="restPeriods"
-          selectedIndex="7"
-          @selectedIndexChange="selectedIndexChanged"
-        />
       </StackLayout>
       <Button
         col="0"
         row="1"
         class="btn-primary"
         text="Apply to Exercise"
-        @tap="$modal.close()"
+        @tap="exitAndSaveChanges()"
         marginBottom="15"
         marginLeft="25"
         marginRight="25"
       />
       <Button
         col="0"
-        row="2"
+        row="3"
         class="btn-primary"
-        text="Remove Exercise"
-        @tap="$modal.close()"
+        text="Close"
+        @tap="exitWithoutSaving()"
         marginBottom="20"
         marginLeft="23"
         marginRight="23"
@@ -146,26 +87,63 @@
   </ContentView>
 </template>
 
+
+
 <script>
+import { Dialogs } from "@nativescript/core";
 export default {
-  methods: {},
+  props: ["exercisePlanned"],
+  mounted() {
+    //Overwrite List picker initialisations
+    this.dataChanged = false;
+
+    this.exerciseTargetCount = this.exercisePlanned.estimateDuration;
+  },
+
+  methods: {
+    setAmountExerciseTargetCount() {
+      this.exerciseTargetCount = parseInt(
+        this.$refs.input_exerciseTargetCount.nativeView.text
+      );
+    },
+
+    repsCountPlus() {
+      this.dataChanged = true;
+      this.exerciseTargetCount = this.exerciseTargetCount + 1;
+    },
+    repsCountMinus() {
+      this.dataChanged = true;
+      if (this.exerciseTargetCount > 0) {
+        this.exerciseTargetCount = this.exerciseTargetCount - 1;
+      }
+    },
+
+    exitWithoutSaving() {
+      if (this.dataChanged) {
+        Dialogs.confirm({
+          message: "You have unsaved changes, are you sure?",
+          okButtonText: "Yes",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result) {
+            this.$modal.close();
+          }
+        });
+      } else {
+        this.$modal.close();
+      }
+    },
+    exitAndSaveChanges() {
+      this.exercisePlanned.estimateDuration = this.exerciseTargetCount;
+
+      this.$modal.close();
+    },
+  },
   data() {
     return {
-      exercisePace: ["Fast", "Normal", "Slow"],
-      weightUnits: ["Kilograms", "Pounds"],
-      restPeriods: [
-        "5 minutes",
-        "4 minutes",
-        "3 minutes",
-        "2.5 minutes",
-        "2 minutes",
-        "1.5 minutes",
-        "60 seconds",
-        "45 seconds",
-        "30 seconds",
-        "15 seconds",
-        "None",
-      ],
+      exerciseTargetCount: null,
+
+      dataChanged: false,
     };
   },
 };
@@ -210,7 +188,7 @@ export default {
   align-content: right;
 }
 .field_numberentry {
-  color: $primary-color;
+  color: $secondary-color;
   background-color: black;
   width: 80;
   height: 40;
