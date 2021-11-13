@@ -27,7 +27,7 @@
           <Label
             row="0"
             col="0"
-            text="Repetitions"
+            text="Hold Time (Seconds)"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
@@ -178,16 +178,12 @@ export default {
 
   methods: {
     setAmountExerciseTargetCount() {
-      // let value = parseInt(
-      //   this.$refs.input_exerciseTargetCount.nativeView.text
-      // );
       this.exerciseTargetCount = parseInt(
         this.$refs.input_exerciseTargetCount.nativeView.text
       );
     },
 
     setAmountWeightExtra() {
-      //let value = parseFloat(this.$refs.input_weightExtra.nativeView.text);
       this.weightExtra = parseFloat(
         this.$refs.input_weightExtra.nativeView.text
       );
