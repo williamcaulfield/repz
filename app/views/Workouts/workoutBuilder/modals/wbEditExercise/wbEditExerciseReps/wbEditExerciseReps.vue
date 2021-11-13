@@ -210,7 +210,7 @@ import { Dialogs } from "@nativescript/core";
 export default {
   props: ["exercisePlanned"],
   mounted() {
-    if (this.exercisePlanned.weightDisplayImperial == true) {
+    if (this.exercisePlanned.weightDisplayImperial === true) {
       this.weightUnitsShort = "lbs";
       this.weightUnitsSelectedIndex = 1;
     } else {
@@ -218,13 +218,14 @@ export default {
       this.weightUnitsSelectedIndex = 0;
     }
     for (var i = 0; i < this.exercisePace.length; i++) {
-      if (this.exercisePlanned.exercisePace == this.exercisePace[i]) {
+      if (this.exercisePlanned.exercisePace === this.exercisePace[i]) {
         this.exercisePaceSelectedIndex = i;
+        //exit the loop
         i = this.exercisePace.length;
       }
     }
     //Overwrite List picker initialisations
-    this.dataChanged = true;
+    this.dataChanged = false;
 
     this.exerciseTargetCount = this.exercisePlanned.exerciseTargetCount;
     this.weightExtra = this.exercisePlanned.weightExtra;
@@ -274,18 +275,11 @@ export default {
       this.dataChanged = true;
       const picker = args.object;
       this.exercisePaceSelectedIndex = picker.selectedIndex;
-      this.exercisePlanned.exercisePace =
-        this.exercisePace[this.exercisePaceSelectedIndex];
     },
     listPickerChangeWeightUnits(args) {
       this.dataChanged = true;
       const picker = args.object;
       this.weightUnitsSelectedIndex = picker.selectedIndex;
-      if (picker.selectedIndex === 1) {
-        this.exercisePlanned.weightDisplayImperial = true;
-      } else {
-        this.exercisePlanned.weightDisplayImperial = false;
-      }
     },
     exitWithoutSaving() {
       if (this.dataChanged) {
@@ -305,6 +299,16 @@ export default {
     exitAndSaveChanges() {
       this.exercisePlanned.exerciseTargetCount = this.exerciseTargetCount;
       this.exercisePlanned.weightExtra = this.weightExtra;
+
+      this.exercisePlanned.exercisePace =
+        this.exercisePace[this.exercisePaceSelectedIndex];
+
+      if (this.weightUnitsSelectedIndex === 1) {
+        this.exercisePlanned.weightDisplayImperial = true;
+      } else {
+        this.exercisePlanned.weightDisplayImperial = false;
+      }
+
       this.$modal.close();
     },
   },
