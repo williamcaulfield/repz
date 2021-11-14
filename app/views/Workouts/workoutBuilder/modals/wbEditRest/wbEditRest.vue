@@ -102,6 +102,7 @@ export default {
 
   methods: {
     setAmountExerciseTargetCount() {
+      this.dataChanged = true;
       this.exerciseTargetCount = parseInt(
         this.$refs.input_exerciseTargetCount.nativeView.text
       );

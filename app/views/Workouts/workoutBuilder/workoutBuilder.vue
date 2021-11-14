@@ -17,19 +17,20 @@
         marginTop="15"
       >
         <TextField
-          col="1"
+          col="0"
           row="0"
           class="text -xlarge -bold -default -left"
           editable="true"
-          isEnabled="true"
-          :text="workoutPlanDetail.workoutPlanName"
+          v-model="workoutPlanDetail.workoutPlanName"
           keyboardType="email"
           returnKeyType="done"
+          autocorrect="false"
           hint="New Workout Name"
           marginTop="0"
           maxLength="50"
         />
-        <Label row="0" class="line" col="1" />
+
+        <Label row="1" class="line" col="0" colSpan="2" />
         <Label
           row="0"
           col="1"
@@ -38,6 +39,7 @@
           :text="Math.round(workoutPlanDetail.projectedDuration / 60) + ' min'"
         />
       </GridLayout>
+
       <RadListView
         v-if="renderComponent"
         ref="listView"
@@ -167,6 +169,17 @@
               orientation="horizontal"
               @tap="onLeftSwipeClick"
             >
+              <TextField
+                class="text -xlarge -bold -default -left"
+                editable="true"
+                text="workoutPlanDetail.workoutPlanName"
+                keyboardType="email"
+                returnKeyType="done"
+                autocorrect="false"
+                hint="New Workout Name"
+                marginTop="0"
+                maxLength="50"
+              />
               <Image
                 col="1"
                 row="0"
@@ -233,6 +246,7 @@ import workoutPlanRestSet from "../workoutPlanDetail/workoutPlanRestSet/workoutP
 import wBuilderNavBottom from "./wBuilderNavBottom/wBuilderNavBottom";
 import wBuilderAdd from "./wBuilderAdd/wBuilderAdd";
 import wbExerciseBrowser from "./wbExerciseBrowser/wbExerciseBrowser";
+import wbEditWarmup from "./modals/wbEditWarmup/wbEditWarmup";
 
 export default {
   mixins: [navControls],
@@ -587,6 +601,19 @@ export default {
       });
     },
 
+    showEditWarmup(args) {
+      this.$showModal(wbEditWarmup, {
+        fullscreen: true,
+        props: { exercisePlanned: args },
+        animated: true,
+        stretched: false,
+        dimAmount: 0.5,
+        ios: {
+          presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
+        },
+      });
+    },
+
     showEditSet() {
       this.$showModal(wbEditSet, {
         fullscreen: true,
@@ -660,6 +687,10 @@ export default {
           this.workoutPlanDetail.exercisesPlanned[index]
         );
       } else if (
+        this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "Warmup"
+      ) {
+        this.showEditWarmup(this.workoutPlanDetail.exercisesPlanned[index]);
+      } else if (
         this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "Rest" ||
         this.workoutPlanDetail.exercisesPlanned[index].repsOrHold == "RestSet"
       ) {
@@ -704,7 +735,7 @@ export default {
 
       workoutPlanDetail: {
         workoutPlanID: null,
-        workoutPlanName: "New Workout",
+        workoutPlanName: "New Workout Name",
         author: "",
         authorID: null,
         muscleZones: [],
