@@ -23,7 +23,7 @@
           col="1"
           row="1"
           class="wp-overview-text -right"
-          :text="workoutPlanDetail.projectedDuration / 60 + ' minutes'"
+          :text="workoutPlanDetail.projectedDuration"
         />
         <Label
           col="0"
