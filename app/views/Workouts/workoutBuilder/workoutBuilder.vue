@@ -36,7 +36,7 @@
           col="1"
           class="text -xlarge -bold -primary -right"
           textwrap="false"
-          :text="workoutPlanDetail.projectedDuration"
+          :text="Math.ceil(workoutPlanDetail.projectedDuration/ 60.0) + ' min'"
         />
       </GridLayout>
 
@@ -384,8 +384,8 @@ export default {
         "Exercises Planned: " +
           JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
-      this.updateProjectedTime();
-      this.updateProjectedCalories();
+      this.updateSummaries();
+
     },
     addExercise(exerciseToAdd) {
       //Default reps/hold - Replace with user setting
@@ -404,8 +404,7 @@ export default {
         "Exercises Planned: " +
           JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
-      this.updateProjectedTime();
-      this.updateProjectedCalories();
+      this.updateSummaries();
     },
 
     addRest(restToAdd) {
@@ -420,8 +419,7 @@ export default {
         "Exercises Planned: " +
           JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
-      this.updateProjectedTime();
-      this.updateProjectedCalories();
+      this.updateSummaries();
     },
 
     addRestSet(restSetToAdd) {
@@ -436,8 +434,7 @@ export default {
         "Exercises Planned: " +
           JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
-      this.updateProjectedTime();
-      this.updateProjectedCalories();
+      this.updateSummaries();
     },
 
     deleteExercise(index) {
@@ -518,82 +515,95 @@ export default {
       //     (e) => {}
       //   );
     },
-    updateProjectedTime() {
+    updateSummaries() {
+      
+      //Time
       this.workoutPlanDetail.projectedDuration = 0;
-
-      this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
-        //*TODO - Add rep time multiplier
-        if (exercise.repsOrHold === "Reps") {
-          this.workoutPlanDetail.projectedDuration =
-            this.workoutPlanDetail.projectedDuration +
-            exercise.exerciseTargetCount * 2;
-        } else if (exercise.repsOrHold === "Hold") {
-          this.workoutPlanDetail.projectedDuration =
-            this.workoutPlanDetail.projectedDuration +
-            exercise.exerciseTargetCount;
-        } else {
-          this.workoutPlanDetail.projectedDuration =
-            this.workoutPlanDetail.projectedDuration +
-            exercise.estimateDuration;
-        }
-      });
-    },
-    updateProjectedCalories() {
+      //Calories
       this.workoutPlanDetail.projectedCalories = 0;
+      //Exercises
+      this.workoutPlanDetail.exercisesPlannedTotal = 0;
+      //Sets
+      this.workoutPlanDetail.setsPlannedTotal = 0;
 
-      this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
-        //*TODO - Add rep calories multiplier
-        if (exercise.repsOrHold === "Reps") {
-          this.workoutPlanDetail.projectedCalories =
-            this.workoutPlanDetail.projectedCalories +
-            exercise.exerciseTargetCount * 2;
-        } else if (exercise.repsOrHold === "Hold") {
-          this.workoutPlanDetail.projectedCalories =
-            this.workoutPlanDetail.projectedCalories +
-            exercise.exerciseTargetCount * 1;
-        }
-      });
-    },
 
-    updateMuscleZones() {
+      //Muscle Zones
       while (this.workoutPlanDetail.muscleZones.length) {
         this.workoutPlanDetail.muscleZones.pop();
       }
 
-      this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
-        exercise.muscleZones.forEach((muscle) => {
-          if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
-            this.workoutPlanDetail.muscleZones.push(muscle);
-          }
-        });
-      });
-
-      console.log(muscleZones);
-    },
-
-    updateDifficultyLevels() {
-      while (this.workoutPlanDetail.difficultyLevels.length) {
+    //Difficulty Levels
+     while (this.workoutPlanDetail.difficultyLevels.length) {
         this.workoutPlanDetail.difficultyLevels.pop();
       }
-      // this.workoutRecorded.workoutRecordedAnalysis.achievements.forEach(
-      //       (element) => {
-      //         this.achievements.push(element);
-      //       }
-      //     );
+
+    //Equipment
+     while (this.workoutPlanDetail.equipment.length) {
+        this.workoutPlanDetail.equipment.pop();
+      }
+
 
       this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
-        if (
-          !this.workoutPlanDetail.difficultyLevels.indexOf(
-            exercise.difficultyLevel
-          )
-        ) {
-          this.workoutPlanDetail.difficultyLevels.push(
-            exercise.difficultyLevel
-          );
-        }
-      });
+        //*TODO - Add rep time multiplier
+        if (exercise.repsOrHold === "Reps") {
+          //Duration
+          this.workoutPlanDetail.projectedDuration =
+            this.workoutPlanDetail.projectedDuration +
+            exercise.exerciseTargetCount * 2;
 
-      console.log(muscleZones);
+          //Calories
+            this.workoutPlanDetail.projectedCalories =
+            this.workoutPlanDetail.projectedCalories +
+            exercise.exerciseTargetCount * 2;
+
+        } else if (exercise.repsOrHold === "Hold") {
+
+          //Duration
+          this.workoutPlanDetail.projectedDuration =
+            this.workoutPlanDetail.projectedDuration +
+            exercise.exerciseTargetCount;
+
+          //Calories
+             this.workoutPlanDetail.projectedCalories =
+            this.workoutPlanDetail.projectedCalories +
+            exercise.exerciseTargetCount * 1;
+
+        } else {
+
+          //Duration
+          this.workoutPlanDetail.projectedDuration =
+            this.workoutPlanDetail.projectedDuration +
+            exercise.estimateDuration;
+        }
+
+        //   //Muscles Zones
+        // exercise.muscleZones.forEach((muscle) => {
+        //   if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
+        //     this.workoutPlanDetail.muscleZones.push(muscle);
+        //   }
+        // });
+
+        // // Difficulty Levels
+        // if (
+        //   !this.workoutPlanDetail.difficultyLevels.indexOf(
+        //     exercise.difficultyLevel
+        //   )
+        // ) {
+        //   this.workoutPlanDetail.difficultyLevels.push(
+        //     exercise.difficultyLevel
+        //   );
+        // }
+
+        // // Equipment
+        // exercise.equipment.forEach((equipment) => {
+        //   if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
+        //     this.workoutPlanDetail.equipment.push(equipment);
+        //   }
+        // });
+
+      });
+    
+  
     },
 
     showExerciseBrowser() {
@@ -712,8 +722,33 @@ export default {
     },
 
     uploadWorkout() {
+
       console.log("Workout upload start");
-      console.log("Workout upload complete");
+
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+
+      Http.request({
+        url:
+          "https://api.repz.app/user/" +
+          userId +
+          "/workoutplan/save",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+        content: JSON.stringify(this.workoutPlanDetail),
+      }).then(
+        (response) => {
+          console.log("Workout upload complete");
+          console.log(response.content.toJSON());
+        
+        },
+
+        (e) => {}
+      );
+    
     },
     closeWorkout() {
       const actionOptions = {
@@ -760,6 +795,8 @@ export default {
         this.showEditRest(this.workoutPlanDetail.exercisesPlanned[index]);
       }
     },
+    
+    
     onItemReordered({ index, data, object }) {
       console.log(`Item reordered from index ${index} to ${data.targetIndex}`);
       this.updateSelected();

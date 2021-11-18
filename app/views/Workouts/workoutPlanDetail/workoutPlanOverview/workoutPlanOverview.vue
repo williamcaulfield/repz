@@ -23,7 +23,7 @@
           col="1"
           row="1"
           class="wp-overview-text -right"
-          :text="workoutPlanDetail.projectedDuration"
+          :text="Math.ceil(workoutPlanDetail.projectedDuration / 60.0) + ' min'"
         />
         <Label
           col="0"

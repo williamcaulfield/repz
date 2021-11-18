@@ -139,7 +139,7 @@
         row="1"
         class="btn-primary"
         text="Apply"
-        @tap="$modal.close()"
+        @tap="exitAndApplyChanges()"
         marginBottom="15"
         marginLeft="25"
         marginRight="25"
@@ -149,7 +149,7 @@
         row="2"
         class="btn-primary"
         text="Cancel"
-        @tap="$modal.close()"
+        @tap="exitWithoutSaving()"
         marginBottom="20"
         marginLeft="23"
         marginRight="23"
@@ -159,10 +159,62 @@
 </template>
 
 <script>
+  import { Dialogs } from "@nativescript/core";
 export default {
-  methods: {},
+    props: ["exercisePlanned"],
+  mounted() {
+    //Overwrite List picker initialisations
+    this.dataChanged = false;
+
+    this.exerciseTargetCount = this.exercisePlanned.estimateDuration;
+  },
+
+  methods: {
+    setAmountRepetitions() {
+      this.dataChanged = true;
+      this.repetitions = parseInt(
+        this.$refs.input_repetitions.nativeView.text
+      );
+    },
+
+    repsCountPlus() {
+      this.dataChanged = true;
+      this.repetitions = this.repetitions + 1;
+    },
+    repsCountMinus() {
+      this.dataChanged = true;
+      if (this.repetitions > 0) {
+        this.repetitions = this.repetitions - 1;
+      }
+    },
+
+    exitWithoutSaving() {
+      if (this.dataChanged) {
+        Dialogs.confirm({
+          message: "You have unsaved changes, are you sure?",
+          okButtonText: "Yes",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result) {
+            this.$modal.close();
+          }
+        });
+      } else {
+        this.$modal.close();
+      }
+    },
+    exitAndApplyChanges() {
+      
+      this.$modal.close();
+    },
+  },
   data() {
     return {
+      repetitions: null,
+      dataChanged: false,
+      targetRepsDecrement: 100,
+      splitGroupIntoSets: false,
+      reduceRepsEachRepeat: false,
       exercisePace: ["Fast", "Normal", "Slow"],
       weightUnits: ["Kilograms", "Pounds"],
       restPeriods: [
