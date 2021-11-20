@@ -212,9 +212,14 @@ export default {
     return {
       repetitions: null,
       dataChanged: false,
-      targetRepsDecrement: 100,
+      targetDecrement: 100,
       splitGroupIntoSets: false,
-      reduceRepsEachRepeat: false,
+      maxTargetDecrementCycles: null,
+      maxWeightDecrementCycles: null,
+      reduceTargetEachRepeat: false,
+      reduceWeightEachRepeat: false,
+      restPeriodbBetweenExercises: null,
+      restPeriodBetweenSets: null,
       exercisePace: ["Fast", "Normal", "Slow"],
       weightUnits: ["Kilograms", "Pounds"],
       restPeriods: [

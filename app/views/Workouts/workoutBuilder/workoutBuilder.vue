@@ -556,6 +556,16 @@ export default {
             this.workoutPlanDetail.projectedCalories +
             exercise.exerciseTargetCount * 2;
 
+          //Exercise Count
+          this.workoutPlanDetail.exercisesPlannedTotal =
+            this.workoutPlanDetail.exercisesPlannedTotal + 1;
+
+          //Set Count
+          if ( this.workoutPlanDetail.setsPlannedTotal === 0) {  
+          this.workoutPlanDetail.setsPlannedTotal =
+            this.workoutPlanDetail.setsPlannedTotal + 1;
+          }
+
         } else if (exercise.repsOrHold === "Hold") {
 
           //Duration
@@ -568,7 +578,30 @@ export default {
             this.workoutPlanDetail.projectedCalories +
             exercise.exerciseTargetCount * 1;
 
-        } else {
+          //Exercise Count
+          this.workoutPlanDetail.exercisesPlannedTotal =
+            this.workoutPlanDetail.exercisesPlannedTotal + 1;
+
+          //Set Count
+          if ( this.workoutPlanDetail.setsPlannedTotal === 0) {  
+          this.workoutPlanDetail.setsPlannedTotal =
+            this.workoutPlanDetail.setsPlannedTotal + 1;
+          }
+
+        } else if (exercise.repsOrHold ==="RestSet") {
+
+          //Duration
+          this.workoutPlanDetail.projectedDuration =
+            this.workoutPlanDetail.projectedDuration +
+            exercise.estimateDuration;
+
+          //Set Count
+          this.workoutPlanDetail.setsPlannedTotal =
+            this.workoutPlanDetail.setsPlannedTotal + 1;
+        }
+        
+        
+        else {
 
           //Duration
           this.workoutPlanDetail.projectedDuration =
