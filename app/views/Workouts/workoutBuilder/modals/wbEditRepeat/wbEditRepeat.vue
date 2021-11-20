@@ -1,9 +1,9 @@
 <template>
-  <ContentView class="editexercise-container">
+  <ContentView class="editrepeat-container">
     <GridLayout rows="*,auto,auto" columns="*">
       <StackLayout
         backgroundColor="black"
-        class="editexercise-stack"
+        class="editrepeat-stack"
         row="0"
         col="0"
       >
@@ -12,13 +12,13 @@
             row="0"
             col="0"
             class="wb_navicon"
-            :src="'~/assets/images/icons/icon_repeat_red.png'"
+            :src="'~/assets/images/icons/icon_editset_grey.png'"
           />
           <Label
             row="0"
             col="1"
             class="text -xlarge -bold -default -left"
-            text="Repeat"
+            text="Repeat Exercise"
             marginLeft="10"
           />
         </GridLayout>
@@ -36,64 +36,140 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="repeatsCountMinus"
           />
-          <TextField
+
+          <NumericKeyboard
+            id="NK1"
             row="0"
             col="3"
-            hint="3"
             class="field_numberentry"
-            maxLength="2"
-            horizontalAlignment="right"
-          />
+            :text="repeatCount"
+            ref="input_repeatCount"
+            @returnPress="setAmountrepeatCount"
+            locale="en_US"
+            noDecimals="true"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
+            maxLength="3"
+          ></NumericKeyboard>
+
           <Image
             col="4"
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="repeatsCountPlus"
           />
         </GridLayout>
 
-        <GridLayout rows="auto" columns="auto,*,auto,auto" marginTop="30">
+        <GridLayout rows="auto,auto" columns="auto,*,auto" marginTop="30">
           <Label
             row="0"
             col="0"
-            text="Rest Periods"
+            text="Reduce Reps each Repeat"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
-          <Switch
-            row="0"
-            col="2"
-            checked="true"
-            loaded="onSwitchLoaded"
-            offBackgroundColor="hsl(0, 4.2%, 40%)"
-            color="rgb(194, 194, 194)"
+
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="10"
+            minValue="0"
+            maxValue="100"
             backgroundColor="red"
-            horizontalAlignment="right"
+            color="red"
+            marginTop="20"
           />
+          <!-- 
+          <Image
+            col="2"
+            row="0"
+            class="icon-plus"
+            :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="weightExtraMinus"
+          />
+
+          <NumericKeyboard
+            id="nk2"
+            row="0"
+            col="3"
+            class="field_numberentry"
+            @returnPress="setAmountWeightExtra"
+            :text="weightExtra"
+            ref="input_weightExtra"
+            locale="en_US"
+            noDecimals="false"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
+            maxLength="4"
+          ></NumericKeyboard>
+
+          <Image
+            col="4"
+            row="0"
+            class="icon-minus"
+            :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="weightExtraPlus"
+          /> -->
         </GridLayout>
 
-        <GridLayout rows="auto" columns="auto,*,auto,auto" marginTop="30">
+        <GridLayout rows="auto,auto" columns="auto,*,auto" marginTop="30">
           <Label
             row="0"
             col="0"
-            text="Extra Load Decrease"
+            text="Reduce Weight each Repeat"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
-          <Switch
-            row="0"
-            col="2"
-            checked="true"
-            loaded="onSwitchLoaded"
-            offBackgroundColor="hsl(0, 4.2%, 40%)"
-            color="rgb(194, 194, 194)"
+
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="10"
+            minValue="0"
+            maxValue="100"
             backgroundColor="red"
-            horizontalAlignment="right"
+            color="red"
+            marginTop="20"
           />
+          <!-- 
+          <Image
+            col="2"
+            row="0"
+            class="icon-plus"
+            :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            @tap="weightExtraMinus"
+          />
+
+          <NumericKeyboard
+            id="nk2"
+            row="0"
+            col="3"
+            class="field_numberentry"
+            @returnPress="setAmountWeightExtra"
+            :text="weightExtra"
+            ref="input_weightExtra"
+            locale="en_US"
+            noDecimals="false"
+            returnKeyTitle="OK"
+            horizontalAlignment="center"
+            maxLength="4"
+          ></NumericKeyboard>
+
+          <Image
+            col="4"
+            row="0"
+            class="icon-minus"
+            :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            @tap="weightExtraPlus"
+          /> -->
         </GridLayout>
-        <Label
-          text="Intra Set Rest Period"
+        <!-- <Label
+          text="Exercise Pace"
           class="text -default -medium -left"
           horizontalAlignment="left"
           marginTop="30"
@@ -102,13 +178,13 @@
         <ListPicker
           class="picker"
           :items="exercisePace"
-          selectedIndex="1"
-          @selectedIndexChange="selectedIndexChanged"
+          :selectedIndex="exercisePaceSelectedIndex"
+          @selectedIndexChange="listPickerChangeExPace($event)"
           horizontalAlignment="center"
         />
 
         <Label
-          text="Reps Decrease Rate"
+          text="Weight Units"
           class="text -default -medium -left"
           horizontalAlignment="left"
         />
@@ -116,30 +192,16 @@
         <ListPicker
           class="picker"
           :items="weightUnits"
-          selectedIndex="0"
-          @selectedIndexChange="selectedIndexChanged"
-        />
-
-        <Label
-          text="Decrease Rate"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-        />
-        <Slider
-          value="10"
-          minValue="0"
-          maxValue="100"
-          backgroundColor="red"
-          color="red"
-          marginTop="10"
-        />
+          :selectedIndex="weightUnitsSelectedIndex"
+          @selectedIndexChange="listPickerChangeWeightUnits($event)"
+        /> -->
       </StackLayout>
       <Button
         col="0"
         row="1"
         class="btn-primary"
         text="Apply"
-        @tap="exitAndApplyChanges()"
+        @tap="exitAndSaveChanges()"
         marginBottom="15"
         marginLeft="25"
         marginRight="25"
@@ -147,6 +209,16 @@
       <Button
         col="0"
         row="2"
+        class="btn-primary"
+        text="Remove Exercise"
+        @tap="exitAndDeleteExercise()"
+        marginBottom="20"
+        marginLeft="23"
+        marginRight="23"
+      />
+      <Button
+        col="0"
+        row="3"
         class="btn-primary"
         text="Cancel"
         @tap="exitWithoutSaving()"
@@ -159,32 +231,28 @@
 </template>
 
 <script>
-  import { Dialogs } from "@nativescript/core";
+import { Dialogs } from "@nativescript/core";
 export default {
-    props: ["exercisePlanned"],
+  props: ["exercisesPlanned", "selectedItems"],
   mounted() {
     //Overwrite List picker initialisations
     this.dataChanged = false;
-
-    this.exerciseTargetCount = this.exercisePlanned.estimateDuration;
   },
 
   methods: {
-    setAmountRepetitions() {
+    setAmountRepeats() {
       this.dataChanged = true;
-      this.repetitions = parseInt(
-        this.$refs.input_repetitions.nativeView.text
-      );
+      this.repeatCount = parseInt(this.$refs.input_repeats.nativeView.text);
     },
 
-    repsCountPlus() {
+    repeatsCountPlus() {
       this.dataChanged = true;
-      this.repetitions = this.repetitions + 1;
+      this.repeatCount = this.repeatCount + 1;
     },
-    repsCountMinus() {
+    repeatsCountMinus() {
       this.dataChanged = true;
-      if (this.repetitions > 0) {
-        this.repetitions = this.repetitions - 1;
+      if (this.repeatCount > 1) {
+        this.repeatCount = this.repeatCount - 1;
       }
     },
 
@@ -204,13 +272,12 @@ export default {
       }
     },
     exitAndApplyChanges() {
-      
       this.$modal.close();
     },
   },
   data() {
     return {
-      repetitions: null,
+      repeatCount: 1,
       dataChanged: false,
       targetDecrement: 100,
       splitGroupIntoSets: false,
@@ -245,14 +312,14 @@ export default {
 @import "../../../../../_app-variables";
 // End custom common variables
 // Custom styles
-.editexercise-container {
+.editrepeat-container {
   height: 700;
   width: 90%;
   border-radius: $border-radius;
   background-color: $background-gradient-dark;
 }
 
-.editexercise-stack {
+.editrepeat-stack {
   padding: 25;
 }
 

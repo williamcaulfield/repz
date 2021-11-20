@@ -36,7 +36,7 @@
           col="1"
           class="text -xlarge -bold -primary -right"
           textwrap="false"
-          :text="Math.ceil(workoutPlanDetail.projectedDuration/ 60.0) + ' min'"
+          :text="Math.ceil(workoutPlanDetail.projectedDuration / 60.0) + ' min'"
         />
       </GridLayout>
 
@@ -385,7 +385,6 @@ export default {
           JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
       this.updateSummaries();
-
     },
     addExercise(exerciseToAdd) {
       //Default reps/hold - Replace with user setting
@@ -516,7 +515,6 @@ export default {
       //   );
     },
     updateSummaries() {
-      
       //Time
       this.workoutPlanDetail.projectedDuration = 0;
       //Calories
@@ -526,22 +524,20 @@ export default {
       //Sets
       this.workoutPlanDetail.setsPlannedTotal = 0;
 
-
       //Muscle Zones
       while (this.workoutPlanDetail.muscleZones.length) {
         this.workoutPlanDetail.muscleZones.pop();
       }
 
-    //Difficulty Levels
-     while (this.workoutPlanDetail.difficultyLevels.length) {
+      //Difficulty Levels
+      while (this.workoutPlanDetail.difficultyLevels.length) {
         this.workoutPlanDetail.difficultyLevels.pop();
       }
 
-    //Equipment
-     while (this.workoutPlanDetail.equipment.length) {
+      //Equipment
+      while (this.workoutPlanDetail.equipment.length) {
         this.workoutPlanDetail.equipment.pop();
       }
-
 
       this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
         //*TODO - Add rep time multiplier
@@ -552,7 +548,7 @@ export default {
             exercise.exerciseTargetCount * 2;
 
           //Calories
-            this.workoutPlanDetail.projectedCalories =
+          this.workoutPlanDetail.projectedCalories =
             this.workoutPlanDetail.projectedCalories +
             exercise.exerciseTargetCount * 2;
 
@@ -561,20 +557,18 @@ export default {
             this.workoutPlanDetail.exercisesPlannedTotal + 1;
 
           //Set Count
-          if ( this.workoutPlanDetail.setsPlannedTotal === 0) {  
-          this.workoutPlanDetail.setsPlannedTotal =
-            this.workoutPlanDetail.setsPlannedTotal + 1;
+          if (this.workoutPlanDetail.setsPlannedTotal === 0) {
+            this.workoutPlanDetail.setsPlannedTotal =
+              this.workoutPlanDetail.setsPlannedTotal + 1;
           }
-
         } else if (exercise.repsOrHold === "Hold") {
-
           //Duration
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
             exercise.exerciseTargetCount;
 
           //Calories
-             this.workoutPlanDetail.projectedCalories =
+          this.workoutPlanDetail.projectedCalories =
             this.workoutPlanDetail.projectedCalories +
             exercise.exerciseTargetCount * 1;
 
@@ -583,13 +577,11 @@ export default {
             this.workoutPlanDetail.exercisesPlannedTotal + 1;
 
           //Set Count
-          if ( this.workoutPlanDetail.setsPlannedTotal === 0) {  
-          this.workoutPlanDetail.setsPlannedTotal =
-            this.workoutPlanDetail.setsPlannedTotal + 1;
+          if (this.workoutPlanDetail.setsPlannedTotal === 0) {
+            this.workoutPlanDetail.setsPlannedTotal =
+              this.workoutPlanDetail.setsPlannedTotal + 1;
           }
-
-        } else if (exercise.repsOrHold ==="RestSet") {
-
+        } else if (exercise.repsOrHold === "RestSet") {
           //Duration
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
@@ -598,11 +590,7 @@ export default {
           //Set Count
           this.workoutPlanDetail.setsPlannedTotal =
             this.workoutPlanDetail.setsPlannedTotal + 1;
-        }
-        
-        
-        else {
-
+        } else {
           //Duration
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
@@ -633,10 +621,7 @@ export default {
         //     this.workoutPlanDetail.equipment.push(equipment);
         //   }
         // });
-
       });
-    
-  
     },
 
     showExerciseBrowser() {
@@ -735,6 +720,10 @@ export default {
     showEditRepeat() {
       this.$showModal(wbEditRepeat, {
         fullscreen: true,
+        props: {
+          exercisesPlanned: this.exercisesPlanned,
+          selectedItems: this.selectedItems,
+        },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -755,17 +744,13 @@ export default {
     },
 
     uploadWorkout() {
-
       console.log("Workout upload start");
 
       const userId = ApplicationSettings.getNumber("userId");
       const authToken = ApplicationSettings.getString("userToken");
 
       Http.request({
-        url:
-          "https://api.repz.app/user/" +
-          userId +
-          "/workoutplan/save",
+        url: "https://api.repz.app/user/" + userId + "/workoutplan/save",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -776,12 +761,10 @@ export default {
         (response) => {
           console.log("Workout upload complete");
           console.log(response.content.toJSON());
-        
         },
 
         (e) => {}
       );
-    
     },
     closeWorkout() {
       const actionOptions = {
@@ -828,8 +811,7 @@ export default {
         this.showEditRest(this.workoutPlanDetail.exercisesPlanned[index]);
       }
     },
-    
-    
+
     onItemReordered({ index, data, object }) {
       console.log(`Item reordered from index ${index} to ${data.targetIndex}`);
       this.updateSelected();
