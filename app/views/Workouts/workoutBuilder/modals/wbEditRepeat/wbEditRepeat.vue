@@ -36,6 +36,7 @@
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
+            tintColor="white"
             @tap="repeatsCountMinus"
           />
 
@@ -59,31 +60,163 @@
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
+            tintColor="white"
             @tap="repeatsCountPlus"
           />
         </GridLayout>
 
-        <GridLayout rows="auto,auto" columns="auto,*,auto" marginTop="30">
+        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
           <Label
             row="0"
             col="0"
-            text="Reduce Reps each Repeat"
+            colSpan="3"
+            text="Reps / Time: Increase or decrease per repeat"
             class="text -default -medium -left"
             horizontalAlignment="left"
+          />
+          <Label
+            row="2"
+            col="0"
+            text="-40%"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+            marginTop="5"
+          />
+
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="  100"
+            class="text -default -medium -left"
+            horizontalAlignment="center"
+            marginTop="5"
+          />
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="100"
+            minValue="60"
+            maxValue="140"
+            backgroundColor="red"
+            color="red"
+            marginLeft="0"
+            marginRight="0"
+            marginTop="20"
+          />
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="+40%"
+            class="text -default -medium -left"
+            horizontalAlignment="right"
+            marginTop="5"
+          />
+        </GridLayout>
+
+        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
+          <Label
+            row="0"
+            col="0"
+            colSpan="3"
+            text="Weight: Increase or decrease per repeat"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+          />
+          <Label
+            row="2"
+            col="0"
+            text="-40%"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+            marginTop="5"
+          />
+
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="  100"
+            class="text -default -medium -left"
+            horizontalAlignment="center"
+            marginTop="5"
+          />
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="100"
+            minValue="60"
+            maxValue="140"
+            backgroundColor="red"
+            color="red"
+            marginLeft="0"
+            marginRight="0"
+            marginTop="20"
+          />
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="+40%"
+            class="text -default -medium -left"
+            horizontalAlignment="right"
+            marginTop="5"
+          />
+        </GridLayout>
+
+        <!-- <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
+          <Label
+            row="0"
+            col="0"
+            text="Weight: Increase or decrease per repeat"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+          />
+          <Label
+            row="2"
+            col="0"
+            text="-40%"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+            marginTop="5"
+          />
+
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="  100"
+            class="text -default -medium -left"
+            horizontalAlignment="center"
+            marginTop="5"
           />
 
           <Slider
             col="0"
             row="1"
             colSpan="3"
-            value="10"
-            minValue="0"
-            maxValue="100"
+            value="100"
+            minValue="60"
+            maxValue="140"
             backgroundColor="red"
             color="red"
+            marginLeft="0"
+            marginRight="0"
             marginTop="20"
           />
-          <!-- 
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="+40%"
+            class="text -default -medium -left"
+            horizontalAlignment="right"
+            marginTop="5"
+          /> -->
+        <!-- 
           <Image
             col="2"
             row="0"
@@ -114,60 +247,7 @@
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
             @tap="weightExtraPlus"
           /> -->
-        </GridLayout>
-
-        <GridLayout rows="auto,auto" columns="auto,*,auto" marginTop="30">
-          <Label
-            row="0"
-            col="0"
-            text="Reduce Weight each Repeat"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-          />
-
-          <Slider
-            col="0"
-            row="1"
-            colSpan="3"
-            value="10"
-            minValue="0"
-            maxValue="100"
-            backgroundColor="red"
-            color="red"
-            marginTop="20"
-          />
-          <!-- 
-          <Image
-            col="2"
-            row="0"
-            class="icon-plus"
-            :src="'~/assets/images/icons/icon_minus_small_red.png'"
-            @tap="weightExtraMinus"
-          />
-
-          <NumericKeyboard
-            id="nk2"
-            row="0"
-            col="3"
-            class="field_numberentry"
-            @returnPress="setAmountWeightExtra"
-            :text="weightExtra"
-            ref="input_weightExtra"
-            locale="en_US"
-            noDecimals="false"
-            returnKeyTitle="OK"
-            horizontalAlignment="center"
-            maxLength="4"
-          ></NumericKeyboard>
-
-          <Image
-            col="4"
-            row="0"
-            class="icon-minus"
-            :src="'~/assets/images/icons/icon_plus_small_red.png'"
-            @tap="weightExtraPlus"
-          /> -->
-        </GridLayout>
+        <!-- </GridLayout> -->
         <!-- <Label
           text="Exercise Pace"
           class="text -default -medium -left"
