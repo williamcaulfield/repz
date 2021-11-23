@@ -65,179 +65,36 @@
           />
         </GridLayout>
 
-        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
+        <GridLayout rows="auto" columns="auto,*,auto,auto,auto" marginTop="30">
           <Label
             row="0"
             col="0"
-            colSpan="3"
-            text="Reps / Time: Increase or decrease per repeat"
+            text="Rest Time (sec)"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
-          <Label
-            row="2"
-            col="0"
-            text="-40%"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-            marginTop="5"
-          />
-
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="  100"
-            class="text -default -medium -left"
-            horizontalAlignment="center"
-            marginTop="5"
-          />
-          <Slider
-            col="0"
-            row="1"
-            colSpan="3"
-            value="100"
-            minValue="60"
-            maxValue="140"
-            backgroundColor="red"
-            color="red"
-            marginLeft="0"
-            marginRight="0"
-            marginTop="20"
-          />
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="+40%"
-            class="text -default -medium -left"
-            horizontalAlignment="right"
-            marginTop="5"
-          />
-        </GridLayout>
-
-        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
-          <Label
-            row="0"
-            col="0"
-            colSpan="3"
-            text="Weight: Increase or decrease per repeat"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-          />
-          <Label
-            row="2"
-            col="0"
-            text="-40%"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-            marginTop="5"
-          />
-
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="  100"
-            class="text -default -medium -left"
-            horizontalAlignment="center"
-            marginTop="5"
-          />
-          <Slider
-            col="0"
-            row="1"
-            colSpan="3"
-            value="100"
-            minValue="60"
-            maxValue="140"
-            backgroundColor="red"
-            color="red"
-            marginLeft="0"
-            marginRight="0"
-            marginTop="20"
-          />
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="+40%"
-            class="text -default -medium -left"
-            horizontalAlignment="right"
-            marginTop="5"
-          />
-        </GridLayout>
-
-        <!-- <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="30">
-          <Label
-            row="0"
-            col="0"
-            text="Weight: Increase or decrease per repeat"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-          />
-          <Label
-            row="2"
-            col="0"
-            text="-40%"
-            class="text -default -medium -left"
-            horizontalAlignment="left"
-            marginTop="5"
-          />
-
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="  100"
-            class="text -default -medium -left"
-            horizontalAlignment="center"
-            marginTop="5"
-          />
-
-          <Slider
-            col="0"
-            row="1"
-            colSpan="3"
-            value="100"
-            minValue="60"
-            maxValue="140"
-            backgroundColor="red"
-            color="red"
-            marginLeft="0"
-            marginRight="0"
-            marginTop="20"
-          />
-          <Label
-            row="2"
-            col="0"
-            colSpan="3"
-            text="+40%"
-            class="text -default -medium -left"
-            horizontalAlignment="right"
-            marginTop="5"
-          /> -->
-        <!-- 
           <Image
             col="2"
             row="0"
             class="icon-plus"
             :src="'~/assets/images/icons/icon_minus_small_red.png'"
-            @tap="weightExtraMinus"
+            tintColor="white"
+            @tap="restTimeMinus"
           />
 
           <NumericKeyboard
-            id="nk2"
+            id="NK2"
             row="0"
             col="3"
             class="field_numberentry"
-            @returnPress="setAmountWeightExtra"
-            :text="weightExtra"
-            ref="input_weightExtra"
+            :text="restTime"
+            ref="input_restTimeCount"
+            @returnPress="setRestTime"
             locale="en_US"
-            noDecimals="false"
+            noDecimals="true"
             returnKeyTitle="OK"
             horizontalAlignment="center"
-            maxLength="4"
+            maxLength="3"
           ></NumericKeyboard>
 
           <Image
@@ -245,36 +102,132 @@
             row="0"
             class="icon-minus"
             :src="'~/assets/images/icons/icon_plus_small_red.png'"
-            @tap="weightExtraPlus"
-          /> -->
-        <!-- </GridLayout> -->
-        <!-- <Label
-          text="Exercise Pace"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-          marginTop="30"
-        />
+            tintColor="white"
+            @tap="restTimePlus"
+          />
+        </GridLayout>
 
-        <ListPicker
-          class="picker"
-          :items="exercisePace"
-          :selectedIndex="exercisePaceSelectedIndex"
-          @selectedIndexChange="listPickerChangeExPace($event)"
-          horizontalAlignment="center"
-        />
+        <GridLayout rows="auto" columns="auto,*" marginTop="40">
+          <Label
+            row="0"
+            col="0"
+            text="Split into Sets"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+          />
+          <Switch
+            row="0"
+            col="1"
+            checked="false"
+            loaded="onSwitchLoaded"
+            offBackgroundColor="hsl(0, 4.2%, 40%)"
+            color="rgb(194, 194, 194)"
+            backgroundColor="red"
+            horizontalAlignment="right"
+          />
+        </GridLayout>
 
-        <Label
-          text="Weight Units"
-          class="text -default -medium -left"
-          horizontalAlignment="left"
-        />
+        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="40">
+          <Label
+            row="0"
+            col="0"
+            colSpan="3"
+            text="Reps / Time: +/- each repeat"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+          />
+          <Label
+            row="2"
+            col="0"
+            text="-40%"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+            marginTop="5"
+          />
 
-        <ListPicker
-          class="picker"
-          :items="weightUnits"
-          :selectedIndex="weightUnitsSelectedIndex"
-          @selectedIndexChange="listPickerChangeWeightUnits($event)"
-        /> -->
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="1"
+            class="text -default -medium -left"
+            horizontalAlignment="center"
+            marginTop="5"
+          />
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="100"
+            minValue="60"
+            maxValue="140"
+            backgroundColor="red"
+            color="red"
+            marginLeft="0"
+            marginRight="0"
+            marginTop="10"
+          />
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="+40%"
+            class="text -default -medium -left"
+            horizontalAlignment="right"
+            marginTop="5"
+          />
+        </GridLayout>
+
+        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="40">
+          <Label
+            row="0"
+            col="0"
+            colSpan="3"
+            text="Weight: +/- each repeat"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+          />
+          <Label
+            row="2"
+            col="0"
+            text="-40%"
+            class="text -default -medium -left"
+            horizontalAlignment="left"
+            marginTop="5"
+          />
+
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="1"
+            class="text -default -medium -left"
+            horizontalAlignment="center"
+            marginTop="5"
+          />
+          <Slider
+            col="0"
+            row="1"
+            colSpan="3"
+            value="100"
+            minValue="60"
+            maxValue="140"
+            backgroundColor="red"
+            color="red"
+            marginLeft="0"
+            marginRight="0"
+            marginTop="10"
+          />
+          <Label
+            row="2"
+            col="0"
+            colSpan="3"
+            text="+40%"
+            class="text -default -medium -left"
+            horizontalAlignment="right"
+            marginTop="5"
+          />
+        </GridLayout>
       </StackLayout>
       <Button
         col="0"
@@ -322,7 +275,7 @@ export default {
   methods: {
     setAmountRepeats() {
       this.dataChanged = true;
-      this.repeatCount = parseInt(this.$refs.input_repeats.nativeView.text);
+      this.repeatCount = parseInt(this.$refs.input_repeatCount.nativeView.text);
     },
 
     repeatsCountPlus() {
@@ -333,6 +286,22 @@ export default {
       this.dataChanged = true;
       if (this.repeatCount > 1) {
         this.repeatCount = this.repeatCount - 1;
+      }
+    },
+
+    setAmountRestTime() {
+      this.dataChanged = true;
+      this.restTime = parseInt(this.$refs.input_restTimeCount.nativeView.text);
+    },
+
+    restTimePlus() {
+      this.dataChanged = true;
+      this.restTime = this.restTime + 30;
+    },
+    restTimeMinus() {
+      this.dataChanged = true;
+      if (this.restTime > 30) {
+        this.restTime = this.restTime - 30;
       }
     },
 
@@ -358,6 +327,7 @@ export default {
   data() {
     return {
       repeatCount: 1,
+      restTime: 30,
       dataChanged: false,
       targetDecrement: 100,
       splitGroupIntoSets: false,
