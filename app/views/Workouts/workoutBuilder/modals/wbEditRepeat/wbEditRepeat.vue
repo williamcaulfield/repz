@@ -111,7 +111,7 @@
           rows="auto"
           columns="auto,*"
           marginTop="40"
-          v-show="selectedItems.length > 2"
+          v-show="selectedItems.length > 1"
         >
           <Label
             row="0"
