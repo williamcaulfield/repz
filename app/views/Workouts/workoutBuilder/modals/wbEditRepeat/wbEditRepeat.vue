@@ -65,7 +65,7 @@
           />
         </GridLayout>
 
-        <GridLayout rows="auto" columns="auto,*,auto,auto,auto" marginTop="30">
+        <GridLayout rows="auto" columns="auto,*,auto,auto,auto" marginTop="35">
           <Label
             row="0"
             col="0"
@@ -107,18 +107,23 @@
           />
         </GridLayout>
 
-        <GridLayout rows="auto" columns="auto,*" marginTop="40">
+        <GridLayout
+          rows="auto"
+          columns="auto,*"
+          marginTop="40"
+          v-show="selectedItems.length > 2"
+        >
           <Label
             row="0"
             col="0"
-            text="Split into Sets"
+            text="Add a RestSet each loop"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
           <Switch
             row="0"
             col="1"
-            checked="false"
+            checked="true"
             loaded="onSwitchLoaded"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
@@ -127,20 +132,20 @@
           />
         </GridLayout>
 
-        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="40">
+        <GridLayout rows="auto,auto,auto" columns="auto,*,auto" marginTop="35">
           <Label
             row="0"
             col="0"
             colSpan="3"
-            text="Reps / Time: +/- each repeat"
+            text="Reps or Time: +/- each repeat"
             class="text -default -medium -left"
             horizontalAlignment="left"
           />
           <Label
             row="2"
             col="0"
-            text="-40%"
-            class="text -default -medium -left"
+            text="-50%"
+            class="text -default -small -left"
             horizontalAlignment="left"
             marginTop="5"
           />
@@ -150,29 +155,31 @@
             col="0"
             colSpan="3"
             text="1"
-            class="text -default -medium -left"
+            class="text -default -small -left"
             horizontalAlignment="center"
             marginTop="5"
           />
           <Slider
+            ref="multiplierRepsTimeSlider"
             col="0"
             row="1"
             colSpan="3"
-            value="100"
-            minValue="60"
-            maxValue="140"
+            :value="multiplierRepsTime"
+            minValue="0.5"
+            maxValue="1.5"
             backgroundColor="red"
             color="red"
             marginLeft="0"
             marginRight="0"
             marginTop="10"
+            @valueChange="onSliderValueChangeRepsMultiplier($event)"
           />
           <Label
             row="2"
             col="0"
             colSpan="3"
-            text="+40%"
-            class="text -default -medium -left"
+            text="+50%"
+            class="text -default -small -left"
             horizontalAlignment="right"
             marginTop="5"
           />
@@ -190,8 +197,8 @@
           <Label
             row="2"
             col="0"
-            text="-40%"
-            class="text -default -medium -left"
+            text="-50%"
+            class="text -default -small -left"
             horizontalAlignment="left"
             marginTop="5"
           />
@@ -201,28 +208,30 @@
             col="0"
             colSpan="3"
             text="1"
-            class="text -default -medium -left"
+            class="text -default -small -left"
             horizontalAlignment="center"
             marginTop="5"
           />
           <Slider
+            ref="multiplierWeightSlider"
             col="0"
             row="1"
             colSpan="3"
-            value="100"
-            minValue="60"
-            maxValue="140"
+            :value="multiplierWeight"
+            minValue="0.5"
+            maxValue="1.5"
             backgroundColor="red"
             color="red"
             marginLeft="0"
             marginRight="0"
             marginTop="10"
+            @valueChange="onSliderValueChangeWeightMultiplier($event)"
           />
           <Label
             row="2"
             col="0"
             colSpan="3"
-            text="+40%"
+            text="+50%"
             class="text -default -medium -left"
             horizontalAlignment="right"
             marginTop="5"
@@ -268,7 +277,6 @@ import { Dialogs } from "@nativescript/core";
 export default {
   props: ["exercisesPlanned", "selectedItems"],
   mounted() {
-    //Overwrite List picker initialisations
     this.dataChanged = false;
   },
 
@@ -296,14 +304,39 @@ export default {
 
     restTimePlus() {
       this.dataChanged = true;
-      this.restTime = this.restTime + 30;
+      this.restTime = this.restTime + 15;
     },
     restTimeMinus() {
       this.dataChanged = true;
       if (this.restTime > 30) {
-        this.restTime = this.restTime - 30;
+        this.restTime = this.restTime - 15;
+      } else if (this.restTime > 10) {
+        this.restTime = 10;
       }
     },
+
+    onSliderValueChangeRepsMultiplier(args) {
+      const step = 0.1;
+
+      this.multiplierRepsTime = Math.round(args.value / step) * step;
+
+      this.$refs.multiplierRepsTimeSlider.nativeView.value =
+        this.multiplierRepsTime;
+      console.log(this.$refs.multiplierRepsTimeSlider.nativeView.value);
+    },
+
+    onSliderValueChangeWeightMultiplier(args) {
+      const step = 0.1;
+
+      this.multiplierWeight = Math.round(args.value / step) * step;
+
+      this.$refs.multiplierWeightSlider.nativeView.value =
+        this.multiplierWeight;
+
+      console.log(this.$refs.multiplierWeightSlider.nativeView.value);
+    },
+
+    applyRepeatsToWorkout() {},
 
     exitWithoutSaving() {
       if (this.dataChanged) {
@@ -321,6 +354,7 @@ export default {
       }
     },
     exitAndApplyChanges() {
+      this.applyRepeatsToWorkout();
       this.$modal.close();
     },
   },
@@ -329,29 +363,47 @@ export default {
       repeatCount: 1,
       restTime: 30,
       dataChanged: false,
-      targetDecrement: 100,
-      splitGroupIntoSets: false,
-      maxTargetDecrementCycles: null,
-      maxWeightDecrementCycles: null,
-      reduceTargetEachRepeat: false,
-      reduceWeightEachRepeat: false,
-      restPeriodbBetweenExercises: null,
-      restPeriodBetweenSets: null,
-      exercisePace: ["Fast", "Normal", "Slow"],
-      weightUnits: ["Kilograms", "Pounds"],
-      restPeriods: [
-        "5 minutes",
-        "4 minutes",
-        "3 minutes",
-        "2.5 minutes",
-        "2 minutes",
-        "1.5 minutes",
-        "60 seconds",
-        "45 seconds",
-        "30 seconds",
-        "15 seconds",
-        "None",
-      ],
+      multiplierRepsTime: 1.0,
+      multiplierWeight: 1.0,
+      addRestSets: false,
+      rest: {
+        workoutPlanID: 0,
+        seqNum: 0,
+        exerciseID: 1,
+        repsOrHold: "Rest",
+        exerciseSet: 0,
+        exerciseHeading: "Rest",
+        exerciseSubType: "Let those muscles recover",
+        exerciseTargetCount: 0,
+        exercisePace: "Normal",
+        weightExtra: 0,
+        weightDisplayImperial: false,
+        estimateDuration: 30,
+        estimateCalories: 0,
+        exerciseType: "Rest",
+        displayType: "Rest",
+        isSetHeader: false,
+        exerciseImage: "LinkToRest",
+      },
+      restSet: {
+        workoutPlanID: 0,
+        seqNum: 0,
+        exerciseID: 2,
+        repsOrHold: "RestSet",
+        exerciseSet: 0,
+        exerciseHeading: "Rest Between Sets",
+        exerciseSubType: "Take a breather",
+        exerciseTargetCount: 0,
+        exercisePace: "Normal",
+        weightExtra: 0,
+        weightDisplayImperial: false,
+        estimateDuration: 90,
+        estimateCalories: 0,
+        exerciseType: "Restset",
+        displayType: "Restset",
+        isSetHeader: true,
+        exerciseImage: "LinkToRestSet",
+      },
     };
   },
 };

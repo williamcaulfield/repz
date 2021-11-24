@@ -461,15 +461,6 @@ export default {
       );
     },
 
-    repeatSelected(
-      index,
-      repeatCount,
-      repsReducer,
-      includeRestsPeriods,
-      weightReducer,
-      intraSetRest
-    ) {},
-
     collapseSet() {},
 
     createSet() {
@@ -718,19 +709,26 @@ export default {
       });
     },
     showEditRepeat() {
-      this.$showModal(wbEditRepeat, {
-        fullscreen: true,
-        props: {
-          exercisesPlanned: this.exercisesPlanned,
-          selectedItems: this.selectedItems,
-        },
-        animated: true,
-        stretched: false,
-        dimAmount: 0.5,
-        ios: {
-          presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
-        },
-      });
+      if (this.selectedItems.length !== 0) {
+        this.$showModal(wbEditRepeat, {
+          fullscreen: true,
+          props: {
+            exercisesPlanned: this.exercisesPlanned,
+            selectedItems: this.selectedItems,
+          },
+          animated: true,
+          stretched: false,
+          dimAmount: 0.5,
+          ios: {
+            presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
+          },
+        });
+      } else {
+        Dialogs.alert({
+          title: "Please select one or more exercises",
+          okButtonText: "OK",
+        });
+      }
     },
 
     saveWorkout() {
