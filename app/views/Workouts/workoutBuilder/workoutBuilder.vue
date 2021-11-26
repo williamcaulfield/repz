@@ -637,7 +637,7 @@ export default {
             this.addRest(this.rest);
           }
           this.addExercise(result[i]);
-          this.$refs.listView.refresh();
+          //this.$refs.listView.refresh();
         }
         console.log(this.workoutPlanDetail.exercisesPlanned);
 
@@ -722,6 +722,8 @@ export default {
           ios: {
             presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
           },
+        }).then((result) => {
+          this.applyRepeatsToWorkout(result);
         });
       } else {
         Dialogs.alert({
@@ -729,6 +731,58 @@ export default {
           okButtonText: "OK",
         });
       }
+    },
+
+    applyRepeatsToWorkout(repeatSettings) {
+      for (var i = 1; i <= repeatSettings.repeatCount; i++) {
+        this.selectedItems.forEach((selectedItem) => {
+          //temporary exercises to add
+          var exercise;
+
+          exercise = this.exercisesPlanned[selectedItem];
+
+          exercise.exerciseTargetCount =
+            Math.pow(repeatSettings.multiplierRepsTime, i) *
+            exercise.exerciseTargetCount;
+
+          exercise.weightExtra = Math.round(
+            Math.pow(repeatSettings.multiplierWeight, i) * exercise.weightExtra
+          );
+
+          //add rest if needed
+          if (
+            (this.workoutPlanDetail.exercisesPlanned.length > 0 &&
+              this.workoutPlanDetail.exercisesPlanned[
+                this.workoutPlanDetail.exercisesPlanned.length - 1
+              ].displayType === "Reps") ||
+            this.workoutPlanDetail.exercisesPlanned[
+              this.workoutPlanDetail.exercisesPlanned.length - 1
+            ].displayType === "Hold"
+          ) {
+            var restToAdd = this.rest;
+
+            restToAdd.estimateDuration = repeatSettings.restTime;
+            this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
+          }
+
+          //add the exercise
+          this.exercisesPlanned.push(exercise);
+        });
+
+        //Add restSet if needed
+        if (repeatSettings.addRestSets) {
+          var restSetToAdd = this.restSet;
+
+          this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
+        }
+      }
+
+      //Tiday up and refresh
+      this.clearSelectedItems();
+      this.updateSeqNum();
+      this.updateSummaries();
+      this.$refs.listView.refresh();
+      this.forceRerender();
     },
 
     saveWorkout() {
