@@ -243,21 +243,12 @@
         row="1"
         class="btn-primary"
         text="Apply"
-        @tap="exitAndSaveChanges()"
+        @tap="exitAndApplyChanges()"
         marginBottom="15"
         marginLeft="25"
         marginRight="25"
       />
-      <Button
-        col="0"
-        row="2"
-        class="btn-primary"
-        text="Remove Exercise"
-        @tap="exitAndDeleteExercise()"
-        marginBottom="20"
-        marginLeft="23"
-        marginRight="23"
-      />
+
       <Button
         col="0"
         row="3"
@@ -336,8 +327,6 @@ export default {
       console.log(this.$refs.multiplierWeightSlider.nativeView.value);
     },
 
-    applyRepeatsToWorkout() {},
-
     exitWithoutSaving() {
       if (this.dataChanged) {
         Dialogs.confirm({
@@ -354,8 +343,19 @@ export default {
       }
     },
     exitAndApplyChanges() {
-      this.applyRepeatsToWorkout();
-      this.$modal.close();
+      if (this.dataChanged) {
+        var repeatSettings = {
+          repeatCount: this.repeatCount,
+          restTime: this.restTime,
+          multiplierRepsTime: this.multiplierRepsTime,
+          multiplierWeight: this.multiplierWeight,
+          addRestSets: this.addRestSets,
+        };
+
+        this.$modal.close(repeatSettings);
+      } else {
+        this.$modal.close();
+      }
     },
   },
   data() {
@@ -366,44 +366,6 @@ export default {
       multiplierRepsTime: 1.0,
       multiplierWeight: 1.0,
       addRestSets: false,
-      rest: {
-        workoutPlanID: 0,
-        seqNum: 0,
-        exerciseID: 1,
-        repsOrHold: "Rest",
-        exerciseSet: 0,
-        exerciseHeading: "Rest",
-        exerciseSubType: "Let those muscles recover",
-        exerciseTargetCount: 0,
-        exercisePace: "Normal",
-        weightExtra: 0,
-        weightDisplayImperial: false,
-        estimateDuration: 30,
-        estimateCalories: 0,
-        exerciseType: "Rest",
-        displayType: "Rest",
-        isSetHeader: false,
-        exerciseImage: "LinkToRest",
-      },
-      restSet: {
-        workoutPlanID: 0,
-        seqNum: 0,
-        exerciseID: 2,
-        repsOrHold: "RestSet",
-        exerciseSet: 0,
-        exerciseHeading: "Rest Between Sets",
-        exerciseSubType: "Take a breather",
-        exerciseTargetCount: 0,
-        exercisePace: "Normal",
-        weightExtra: 0,
-        weightDisplayImperial: false,
-        estimateDuration: 90,
-        estimateCalories: 0,
-        exerciseType: "Restset",
-        displayType: "Restset",
-        isSetHeader: true,
-        exerciseImage: "LinkToRestSet",
-      },
     };
   },
 };
