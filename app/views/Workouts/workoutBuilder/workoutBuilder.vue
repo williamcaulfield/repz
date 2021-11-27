@@ -262,8 +262,8 @@ export default {
 
     this.userID = userId;
 
-    if (this.authorID == null) {
-      this.authorID = userId;
+    if (this.workoutPlanDetail.authorID == null) {
+      this.workoutPlanDetail.authorID = userId;
     }
 
     Http.request({
@@ -280,7 +280,7 @@ export default {
       (e) => {}
     );
 
-    this.author = this.userProfile.userName;
+    this.workoutPlanDetail.author = this.userProfile.userName;
 
     // Http
     //   .request({
@@ -809,7 +809,7 @@ export default {
       const authToken = ApplicationSettings.getString("userToken");
 
       Http.request({
-        url: "https://api.repz.app/user/" + userId + "/workoutplan/save",
+        url: "https://api.repz.app/user/" + userId + "/workoutplan",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -944,7 +944,7 @@ export default {
       },
 
       rest: {
-        workoutPlanID: 0,
+        workoutPlanID: null,
         seqNum: 0,
         exerciseID: 1,
         repsOrHold: "Rest",
@@ -963,7 +963,7 @@ export default {
         exerciseImage: "LinkToRest",
       },
       restSet: {
-        workoutPlanID: 0,
+        workoutPlanID: null,
         seqNum: 0,
         exerciseID: 2,
         repsOrHold: "RestSet",
