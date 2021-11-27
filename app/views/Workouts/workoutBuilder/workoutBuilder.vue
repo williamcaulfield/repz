@@ -722,8 +722,8 @@ export default {
           ios: {
             presentationStyle: UIModalPresentationStyle.BlurOverFullScreen,
           },
-        }).then((result) => {
-          this.applyRepeatsToWorkout(result);
+        }).then((data) => {
+          this.applyRepeatsToWorkout(data);
         });
       } else {
         Dialogs.alert({
@@ -735,11 +735,20 @@ export default {
 
     applyRepeatsToWorkout(repeatSettings) {
       for (var i = 1; i <= repeatSettings.repeatCount; i++) {
-        this.selectedItems.forEach((selectedItem) => {
+        //Add restSet if needed
+        if (repeatSettings.addRestSets) {
+          var restSetToAdd = this.restSet;
+
+          this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
+        }
+
+        for (var p = 0; p < this.selectedItems.length; p++) {
+          // this.selectedItems.forEach((selectedItem) => {
           //temporary exercises to add
           var exercise;
 
-          exercise = this.exercisesPlanned[selectedItem];
+          exercise =
+            this.workoutPlanDetail.exercisesPlanned[this.selectedItems[p]];
 
           exercise.exerciseTargetCount =
             Math.pow(repeatSettings.multiplierRepsTime, i) *
@@ -766,18 +775,11 @@ export default {
           }
 
           //add the exercise
-          this.exercisesPlanned.push(exercise);
-        });
-
-        //Add restSet if needed
-        if (repeatSettings.addRestSets) {
-          var restSetToAdd = this.restSet;
-
-          this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
+          this.workoutPlanDetail.exercisesPlanned.push(exercise);
         }
       }
 
-      //Tiday up and refresh
+      //Tidy up and refresh
       this.clearSelectedItems();
       this.updateSeqNum();
       this.updateSummaries();

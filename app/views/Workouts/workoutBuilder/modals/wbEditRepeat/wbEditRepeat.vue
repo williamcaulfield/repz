@@ -124,7 +124,7 @@
             row="0"
             col="1"
             checked="true"
-            loaded="onSwitchLoaded"
+            v-model="addRestSets"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
             backgroundColor="red"
@@ -343,19 +343,15 @@ export default {
       }
     },
     exitAndApplyChanges() {
-      if (this.dataChanged) {
-        var repeatSettings = {
-          repeatCount: this.repeatCount,
-          restTime: this.restTime,
-          multiplierRepsTime: this.multiplierRepsTime,
-          multiplierWeight: this.multiplierWeight,
-          addRestSets: this.addRestSets,
-        };
-
-        this.$modal.close(repeatSettings);
-      } else {
-        this.$modal.close();
-      }
+      var repeatSettings = {
+        repeatCount: this.repeatCount,
+        restTime: this.restTime,
+        multiplierRepsTime: this.multiplierRepsTime,
+        multiplierWeight: this.multiplierWeight,
+        addRestSets: this.addRestSets,
+      };
+      // this.$emit("applyRepeat", repeatSettings);
+      this.$modal.close(repeatSettings);
     },
   },
   data() {
@@ -365,7 +361,7 @@ export default {
       dataChanged: false,
       multiplierRepsTime: 1.0,
       multiplierWeight: 1.0,
-      addRestSets: false,
+      addRestSets: true,
     };
   },
 };
