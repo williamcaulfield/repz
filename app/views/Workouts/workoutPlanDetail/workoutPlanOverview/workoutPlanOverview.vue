@@ -49,19 +49,19 @@
           class="wp-overview-text -right"
           :text="workoutPlanDetail.difficultyLevels"
         />
-        <Label
-          col="0"
-          row="4"
-          class="wp-overview-text -left"
-          text="Exercises"
-        />
+        <Label col="0" row="4" class="wp-overview-text -left" text="Sets" />
         <Label
           col="1"
           row="4"
           class="wp-overview-text -right"
           :text="workoutPlanDetail.exercisesPlannedTotal"
         />
-        <Label col="0" row="5" class="wp-overview-text -left" text="Sets" />
+        <Label
+          col="0"
+          row="5"
+          class="wp-overview-text -left"
+          text="Set Groups"
+        />
         <Label
           col="1"
           row="5"
