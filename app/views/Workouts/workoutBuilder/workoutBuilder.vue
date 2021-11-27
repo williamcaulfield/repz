@@ -747,12 +747,17 @@ export default {
           //temporary exercises to add
           var exercise;
 
-          exercise =
-            this.workoutPlanDetail.exercisesPlanned[this.selectedItems[p]];
+          exercise = JSON.parse(
+            JSON.stringify(
+              this.workoutPlanDetail.exercisesPlanned[this.selectedItems[p]]
+            )
+          );
+          // this.workoutPlanDetail.exercisesPlanned[this.selectedItems[p]];
 
-          exercise.exerciseTargetCount =
+          exercise.exerciseTargetCount = Math.round(
             Math.pow(repeatSettings.multiplierRepsTime, i) *
-            exercise.exerciseTargetCount;
+              exercise.exerciseTargetCount
+          );
 
           exercise.weightExtra = Math.round(
             Math.pow(repeatSettings.multiplierWeight, i) * exercise.weightExtra
