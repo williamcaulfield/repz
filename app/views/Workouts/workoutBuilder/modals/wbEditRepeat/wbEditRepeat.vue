@@ -269,6 +269,10 @@ export default {
   props: ["exercisesPlanned", "selectedItems"],
   mounted() {
     this.dataChanged = false;
+
+    if (this.selectedItems.length === 1) {
+      this.addRestSets = false;
+    }
   },
 
   methods: {
