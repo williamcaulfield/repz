@@ -658,14 +658,27 @@ export default {
               this.workoutPlanDetail.exercisesPlanned.length - 1
             ].displayType === "Hold"
           ) {
-            this.addRest(this.rest);
+            var restToAdd = this.rest;
+            restToAdd.estimateDuration = 31;
+            this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
           }
-          this.addExercise(result[i]);
-          //this.$refs.listView.refresh();
+
+          var exerciseToAdd = result[i];
+
+          if (exerciseToAdd.exerciseType == "Reps") {
+            exerciseToAdd.exerciseTargetCount = 9;
+          } else if (exerciseToAdd.exerciseType == "Hold") {
+            exerciseToAdd.exerciseTargetCount = 30;
+          }
+
+          this.workoutPlanDetail.exercisesPlanned.push(exerciseToAdd);
         }
         console.log(this.workoutPlanDetail.exercisesPlanned);
 
+        this.clearSelectedItems();
+        this.updateSeqNum();
         this.$refs.listView.refresh();
+        this.updateSummaries();
         this.forceRerender();
       });
     },
