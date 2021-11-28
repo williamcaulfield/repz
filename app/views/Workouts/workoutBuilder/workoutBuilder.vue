@@ -276,11 +276,10 @@ export default {
     }).then(
       (response) => {
         this.userProfile = response.content.toJSON();
+        this.workoutPlanDetail.author = this.userProfile.userName;
       },
       (e) => {}
     );
-
-    this.workoutPlanDetail.author = this.userProfile.userName;
 
     // Http
     //   .request({
