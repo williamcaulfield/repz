@@ -528,19 +528,24 @@ export default {
       while (this.workoutPlanDetail.equipment.length) {
         this.workoutPlanDetail.equipment.pop();
       }
+      var nextIsSetHeader = false;
 
       this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
         //*TODO - Add rep time multiplier
         if (exercise.repsOrHold === "Reps") {
           //Duration
+          exercise.estimateDuration = exercise.exerciseTargetCount * 2;
+
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
-            exercise.exerciseTargetCount * 2;
+            exercise.estimateDuration;
 
           //Calories
+          exercise.estimateCalories = exercise.exerciseTargetCount * 2;
+
           this.workoutPlanDetail.projectedCalories =
             this.workoutPlanDetail.projectedCalories +
-            exercise.exerciseTargetCount * 2;
+            exercise.estimateCalories;
 
           //Exercise Count
           this.workoutPlanDetail.exercisesPlannedTotal =
@@ -551,16 +556,25 @@ export default {
             this.workoutPlanDetail.setsPlannedTotal =
               this.workoutPlanDetail.setsPlannedTotal + 1;
           }
+
+          if (nextIsSetHeader === true) {
+            exercise.isSetHeader = true;
+            nextIsSetHeader = false;
+          }
         } else if (exercise.repsOrHold === "Hold") {
           //Duration
+          exercise.estimateDuration = exercise.exerciseTargetCount;
+
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
-            exercise.exerciseTargetCount;
+            exercise.estimateDuration;
 
           //Calories
+          exercise.estimateCalories = exercise.exerciseTargetCount * 1;
+
           this.workoutPlanDetail.projectedCalories =
             this.workoutPlanDetail.projectedCalories +
-            exercise.exerciseTargetCount * 1;
+            exercise.estimateCalories;
 
           //Exercise Count
           this.workoutPlanDetail.exercisesPlannedTotal =
@@ -570,6 +584,11 @@ export default {
           if (this.workoutPlanDetail.setsPlannedTotal === 0) {
             this.workoutPlanDetail.setsPlannedTotal =
               this.workoutPlanDetail.setsPlannedTotal + 1;
+          }
+
+          if (nextIsSetHeader === true) {
+            exercise.isSetHeader = true;
+            nextIsSetHeader = false;
           }
         } else if (exercise.repsOrHold === "RestSet") {
           //Duration
@@ -580,11 +599,17 @@ export default {
           //Set Count
           this.workoutPlanDetail.setsPlannedTotal =
             this.workoutPlanDetail.setsPlannedTotal + 1;
+
+          nextIsSetHeader = true;
         } else {
           //Duration
           this.workoutPlanDetail.projectedDuration =
             this.workoutPlanDetail.projectedDuration +
             exercise.estimateDuration;
+
+          if (exercise.repsOrHold === "Warmup") {
+            nextIsSetHeader = true;
+          }
         }
 
         //   //Muscles Zones
