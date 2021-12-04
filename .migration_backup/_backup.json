@@ -4,6 +4,12 @@
 		"hooks",
 		"package.json",
 		"package-lock.json",
+		"package.json",
+		"hooks",
+		"webpack.config.js",
+		"package.json",
+		"package-lock.json",
+		"webpack.config.js",
 		"package.json"
 	]
 }

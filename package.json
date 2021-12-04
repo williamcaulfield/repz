@@ -56,9 +56,9 @@
   "devDependencies": {
     "@nativescript/android": "8.1.1",
     "@nativescript/ios": "8.1.0",
-    "nativescript-dev-webpack": "^1.5.1",
     "nativescript-vue-template-compiler": "~2.9.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "@nativescript/webpack": "~5.0.0"
   },
   "private": "true",
   "readme": "NativeScript Application"
