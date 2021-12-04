@@ -229,6 +229,7 @@ const userService = {
         },
         (e) => {
           console.log("could not retrieve Repz userid");
+          ApplicationSettings.setNumber("userId", 1);
         }
       );
     } catch (e) {
