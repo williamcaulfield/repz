@@ -561,6 +561,31 @@ export default {
             exercise.isSetHeader = true;
             nextIsSetHeader = false;
           }
+
+          //Muscles Zones
+          exercise.muscleZones.forEach((muscle) => {
+            if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
+              this.workoutPlanDetail.muscleZones.push(muscle);
+            }
+          });
+
+          // Difficulty Levels
+          if (
+            !this.workoutPlanDetail.difficultyLevels.indexOf(
+              exercise.difficultyLevel
+            )
+          ) {
+            this.workoutPlanDetail.difficultyLevels.push(
+              exercise.difficultyLevel
+            );
+          }
+
+          // Equipment
+          exercise.equipment.forEach((equipment) => {
+            if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
+              this.workoutPlanDetail.equipment.push(equipment);
+            }
+          });
         } else if (exercise.repsOrHold === "Hold") {
           //Duration
           exercise.estimateDuration = exercise.exerciseTargetCount;
@@ -590,6 +615,31 @@ export default {
             exercise.isSetHeader = true;
             nextIsSetHeader = false;
           }
+
+          //Muscles Zones
+          exercise.muscleZones.forEach((muscle) => {
+            if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
+              this.workoutPlanDetail.muscleZones.push(muscle);
+            }
+          });
+
+          // Difficulty Levels
+          if (
+            !this.workoutPlanDetail.difficultyLevels.indexOf(
+              exercise.difficultyLevel
+            )
+          ) {
+            this.workoutPlanDetail.difficultyLevels.push(
+              exercise.difficultyLevel
+            );
+          }
+
+          // Equipment
+          exercise.equipment.forEach((equipment) => {
+            if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
+              this.workoutPlanDetail.equipment.push(equipment);
+            }
+          });
         } else if (exercise.repsOrHold === "RestSet") {
           //Duration
           this.workoutPlanDetail.projectedDuration =
@@ -612,7 +662,7 @@ export default {
           }
         }
 
-        //   //Muscles Zones
+        // //Muscles Zones
         // exercise.muscleZones.forEach((muscle) => {
         //   if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
         //     this.workoutPlanDetail.muscleZones.push(muscle);
