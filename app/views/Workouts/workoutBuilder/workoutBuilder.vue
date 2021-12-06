@@ -564,15 +564,15 @@ export default {
 
           //Muscles Zones
           exercise.muscleZones.forEach((muscle) => {
-            if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
+            if (this.workoutPlanDetail.muscleZones.indexOf(muscle) === -1) {
               this.workoutPlanDetail.muscleZones.push(muscle);
             }
           });
 
           // Difficulty Levels
           if (
-            !this.workoutPlanDetail.difficultyLevels.indexOf(
-              exercise.difficultyLevel
+            this.workoutPlanDetail.difficultyLevels.indexOf(
+              exercise.difficultyLevel === -1
             )
           ) {
             this.workoutPlanDetail.difficultyLevels.push(
@@ -582,7 +582,7 @@ export default {
 
           // Equipment
           exercise.equipment.forEach((equipment) => {
-            if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
+            if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
               this.workoutPlanDetail.equipment.push(equipment);
             }
           });
@@ -618,15 +618,15 @@ export default {
 
           //Muscles Zones
           exercise.muscleZones.forEach((muscle) => {
-            if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
+            if (this.workoutPlanDetail.muscleZones.indexOf(muscle) === -1) {
               this.workoutPlanDetail.muscleZones.push(muscle);
             }
           });
 
           // Difficulty Levels
           if (
-            !this.workoutPlanDetail.difficultyLevels.indexOf(
-              exercise.difficultyLevel
+            this.workoutPlanDetail.difficultyLevels.indexOf(
+              exercise.difficultyLevel === -1
             )
           ) {
             this.workoutPlanDetail.difficultyLevels.push(
@@ -636,7 +636,7 @@ export default {
 
           // Equipment
           exercise.equipment.forEach((equipment) => {
-            if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
+            if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
               this.workoutPlanDetail.equipment.push(equipment);
             }
           });
