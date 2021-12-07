@@ -14,7 +14,6 @@
           stretch="aspectFill"
           horizontalAlignment="left"
           :src="exercise.exerciseImage"
-          @tap="onClickButton()"
         />
         <Label
           row="0"
@@ -23,7 +22,6 @@
           :text="exercise.exerciseName"
           marginTop="0"
           marginLeft="5"
-          @tap="onClickButton()"
         />
 
         <Label
@@ -33,7 +31,6 @@
           :text="exercise.muscleZones"
           marginTop="8"
           marginLeft="5"
-          @tap="onClickButton()"
         />
         <Image
           col="2"
@@ -68,7 +65,6 @@
           colSpan="2"
           marginBottom="5"
           marginLeft="5"
-          @tap="onClickButton()"
         ></Label>
         <GridLayout
           rows="*"
@@ -77,7 +73,6 @@
           col="1"
           colSpan="2"
           marginRight="10"
-          @tap="onClickButton()"
         >
           <Label
             row="0"
