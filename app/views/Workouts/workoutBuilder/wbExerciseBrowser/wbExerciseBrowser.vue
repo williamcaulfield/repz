@@ -92,13 +92,13 @@
               <ListView
                 ref="listview"
                 for="exercise in exerciseFavourites"
+                @itemTap="itemTapped"
                 :key="index"
                 backgroundColor="transparent"
               >
                 <v-template>
                   <wbExerciseSummary
                     :exercise="exercise"
-                    v-on:clicked="showExercise(exercise)"
                     v-on:selected="
                       addExerciseSelectionFavourite($event, $index)
                     "
@@ -190,12 +190,12 @@
                 ref="listview"
                 for="exercise in exercises"
                 :key="index"
+                @itemTap="itemTapped"
                 backgroundColor="transparent"
               >
                 <v-template>
                   <wbExerciseSummary
                     :exercise="exercise"
-                    @clicked="showExercise(exercise)"
                     v-on:selected="addExerciseSelection($event, $index)"
                     v-on:deselected="removeExerciseSelection($event, $index)"
                   />
@@ -264,6 +264,9 @@ export default {
     }).then(
       (response) => {
         this.exerciseFavourites = response.content.toJSON();
+        for (i = 0; i < this.exerciseFavourites.length; i++) {
+          this.exerciseFavourites[i].checked = false;
+        }
         console.log(this.exerciseFavourites);
       },
       (e) => {}
@@ -285,6 +288,12 @@ export default {
     // );
   },
   methods: {
+    itemTapped(event) {
+      event.item.checked = !event.item.checked;
+      this.$refs.listview.refresh();
+      console.log(event.item.exerciseName + " check tapped");
+    },
+
     async getSelectedExerciseData(exerciseId) {
       const authToken = ApplicationSettings.getString("userToken");
 
@@ -341,18 +350,18 @@ export default {
     addExerciseSelection(event, index) {
       console.log("Item selected: " + index);
       this.selectedItems.push(index);
-      console.log("Selected Items: " + this.exercises);
+      console.log("Selected Items: " + this.selectedItems);
     },
     removeExerciseSelection(event, index) {
       console.log("Item deselected: " + index);
       let position = this.selectedItems.indexOf(index);
       this.selectedItems.splice(position, 1);
-      console.log("Selected Items: " + this.exercises);
+      console.log("Selected Items: " + this.selectedItems);
     },
     addExerciseSelectionFavourite(event, index) {
       console.log("Item selected: " + index);
       this.selectedItemsFavourites.push(index);
-      console.log("Selected Items: " + this.exerciseFavourites);
+      console.log("Selected Items: " + this.selectedItemsFavourites);
     },
     removeExerciseSelectionFavourite(event, index) {
       console.log("Item deselected: " + index);
@@ -436,6 +445,9 @@ export default {
       }).then(
         (response) => {
           this.exercises = response.content.toJSON();
+          for (i = 0; i < this.exercises.length; i++) {
+            this.exercises[i].checked = false;
+          }
           console.log(this.exercises);
         },
         (e) => {}
@@ -458,7 +470,6 @@ export default {
       headerCollapsed: false,
       selectedTab: 0,
       selectedTabview: 0,
-      exercisesTest: [],
       exerciseCategories: [
         {
           categoryName: "Holds",

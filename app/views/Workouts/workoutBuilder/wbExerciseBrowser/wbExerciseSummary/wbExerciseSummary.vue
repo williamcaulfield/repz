@@ -38,13 +38,11 @@
           row="0"
           class="icon-tick"
           :src="
-            checked
+            exercise.checked
               ? '~/assets/images/icons/icon_tick_red.png'
               : '~/assets/images/icons/icon_tick_empty.png'
           "
           horizontalAlignment="right"
-          this.checked="false"
-          @tap="onTickbuttonTap()"
         />
         <!-- 
         <Image
@@ -113,22 +111,19 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    onClickButton(ignoreTap) {
-      this.$emit("clicked");
-    },
-    onTickbuttonTap() {
-      if (this.checked == true) {
-        this.checked = false;
-        this.$emit("deselected");
-      } else {
-        this.checked = true;
-        this.$emit("selected");
-      }
-    },
+    // onTickbuttonTap() {
+    //   if (this.checked === true) {
+    //     this.$emit("deselected");
+    //     this.checked = false;
+    //   } else {
+    //     this.$emit("selected");
+    //     this.checked = true;
+    //   }
+    // },
   },
   data() {
     return {
-      checked: false,
+      //checked: false,
       // isLike: false,
       // isHeart: false
     };
