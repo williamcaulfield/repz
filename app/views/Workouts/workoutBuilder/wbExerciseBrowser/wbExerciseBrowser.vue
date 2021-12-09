@@ -90,21 +90,16 @@
 
             <GridLayout>
               <ListView
-                ref="listview"
+                ref="listViewExerciseFavs"
                 for="exercise in exerciseFavourites"
-                @itemTap="itemTapped"
-                :key="index"
                 backgroundColor="transparent"
+                @itemTap="itemTappedExerciseFavs"
               >
                 <v-template>
                   <wbExerciseSummary
                     :exercise="exercise"
-                    v-on:selected="
-                      addExerciseSelectionFavourite($event, $index)
-                    "
-                    v-on:deselected="
-                      removeExerciseSelectionFavourite($event, $index)
-                    "
+                    v-on:selected="addExerciseSelectionFavourite($event)"
+                    v-on:deselected="removeExerciseSelectionFavourite($event)"
                   />
                 </v-template>
               </ListView>
@@ -187,10 +182,10 @@
 
             <GridLayout>
               <ListView
-                ref="listview"
+                ref="listViewExercises"
                 for="exercise in exercises"
                 :key="index"
-                @itemTap="itemTapped"
+                @itemTap="itemTappedExercises"
                 backgroundColor="transparent"
               >
                 <v-template>
@@ -236,7 +231,7 @@ export default {
   },
   computed: {},
 
-  mounted() {
+  created() {
     if (isIOS) {
       if (Application.hasLaunched) {
         Application.ios.window.backgroundColor = new Color("black").ios;
@@ -267,6 +262,8 @@ export default {
         for (i = 0; i < this.exerciseFavourites.length; i++) {
           this.exerciseFavourites[i].checked = false;
         }
+        this.$refs.listview.refresh();
+        this.forceRerender();
         console.log(this.exerciseFavourites);
       },
       (e) => {}
@@ -288,10 +285,32 @@ export default {
     // );
   },
   methods: {
-    itemTapped(event) {
-      event.item.checked = !event.item.checked;
-      this.$refs.listview.refresh();
-      console.log(event.item.exerciseName + " check tapped");
+    itemTappedExerciseFavs(event) {
+      this.exerciseFavourites[event.index].checked =
+        !this.exerciseFavourites[event.index].checked;
+
+      this.$refs.listViewExerciseFavs.refresh();
+      this.forceRerender();
+      console.log(
+        this.exerciseFavourites[event.index].exerciseName + " check tapped"
+      );
+    },
+    itemTappedExercises(event) {
+      this.exercises[event.index].checked =
+        !this.exercises[event.index].checked;
+
+      this.$refs.listViewExercises.refresh();
+      this.forceRerender();
+      console.log(this.exercises[event.index].exerciseName + " check tapped");
+    },
+    forceRerender() {
+      // Remove my-component from the DOM
+      this.renderComponent = false;
+
+      this.$nextTick(() => {
+        // Add the component back in
+        this.renderComponent = true;
+      });
     },
 
     async getSelectedExerciseData(exerciseId) {
