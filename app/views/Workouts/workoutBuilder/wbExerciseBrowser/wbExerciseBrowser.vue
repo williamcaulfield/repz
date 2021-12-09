@@ -96,11 +96,7 @@
                 @itemTap="itemTappedExerciseFavs"
               >
                 <v-template>
-                  <wbExerciseSummary
-                    :exercise="exercise"
-                    v-on:selected="addExerciseSelectionFavourite($event)"
-                    v-on:deselected="removeExerciseSelectionFavourite($event)"
-                  />
+                  <wbExerciseSummary :exercise="exercise" />
                 </v-template>
               </ListView>
             </GridLayout>
@@ -189,11 +185,7 @@
                 backgroundColor="transparent"
               >
                 <v-template>
-                  <wbExerciseSummary
-                    :exercise="exercise"
-                    v-on:selected="addExerciseSelection($event, $index)"
-                    v-on:deselected="removeExerciseSelection($event, $index)"
-                  />
+                  <wbExerciseSummary :exercise="exercise" />
                 </v-template>
               </ListView>
             </GridLayout>
@@ -289,6 +281,12 @@ export default {
       this.exerciseFavourites[event.index].checked =
         !this.exerciseFavourites[event.index].checked;
 
+      if (this.exerciseFavourites[event.index].checked === true) {
+        this.addExerciseSelectionFavourite(event.index);
+      } else {
+        this.removeExerciseSelectionFavourite(event.index);
+      }
+
       this.$refs.listViewExerciseFavs.refresh();
       this.forceRerender();
       console.log(
@@ -298,6 +296,12 @@ export default {
     itemTappedExercises(event) {
       this.exercises[event.index].checked =
         !this.exercises[event.index].checked;
+
+      if (this.exercises[event.index].checked === true) {
+        this.addExerciseSelection(event.index);
+      } else {
+        this.removeExerciseSelection(event.index);
+      }
 
       this.$refs.listViewExercises.refresh();
       this.forceRerender();
@@ -366,23 +370,23 @@ export default {
       this.pageLeave();
     },
 
-    addExerciseSelection(event, index) {
+    addExerciseSelection(index) {
       console.log("Item selected: " + index);
       this.selectedItems.push(index);
       console.log("Selected Items: " + this.selectedItems);
     },
-    removeExerciseSelection(event, index) {
+    removeExerciseSelection(index) {
       console.log("Item deselected: " + index);
       let position = this.selectedItems.indexOf(index);
       this.selectedItems.splice(position, 1);
       console.log("Selected Items: " + this.selectedItems);
     },
-    addExerciseSelectionFavourite(event, index) {
+    addExerciseSelectionFavourite(index) {
       console.log("Item selected: " + index);
       this.selectedItemsFavourites.push(index);
       console.log("Selected Items: " + this.selectedItemsFavourites);
     },
-    removeExerciseSelectionFavourite(event, index) {
+    removeExerciseSelectionFavourite(index) {
       console.log("Item deselected: " + index);
       let position = this.selectedItemsFavourites.indexOf(index);
       this.selectedItemsFavourites.splice(position, 1);
