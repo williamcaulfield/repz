@@ -530,7 +530,10 @@ export default {
       }
       var nextIsSetHeader = false;
 
-      this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
+      for (var i = 0; i < this.workoutPlanDetail.exercisesPlanned.length; i++) {
+        //this.workoutPlanDetail.exercisesPlanned.forEach((exercise) => {
+
+        var exercise = this.workoutPlanDetail.exercisesPlanned[i];
         //*TODO - Add rep time multiplier
         if (exercise.repsOrHold === "Reps") {
           //Duration
@@ -563,11 +566,14 @@ export default {
           }
 
           //Muscles Zones
-          exercise.muscleZones.forEach((muscle) => {
+
+          for (var p = 0; p < exercise.muscleZones.length; p++) {
+            //exercise.muscleZones.forEach((muscle) => {
+            var muscle = exercise.muscleZones[p];
             if (this.workoutPlanDetail.muscleZones.indexOf(muscle) === -1) {
               this.workoutPlanDetail.muscleZones.push(muscle);
             }
-          });
+          }
 
           // Difficulty Levels
           if (
@@ -581,11 +587,13 @@ export default {
           }
 
           // Equipment
-          exercise.equipment.forEach((equipment) => {
-            if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
-              this.workoutPlanDetail.equipment.push(equipment);
-            }
-          });
+          // for (var p = 0; p < exercise.equipment.length; p++) {
+          //   //exercise.equipment.forEach((equipment) => {
+          //   var equipment = exercise.equipment[p];
+          //   if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
+          //     this.workoutPlanDetail.equipment.push(equipment);
+          //   }
+          // }
         } else if (exercise.repsOrHold === "Hold") {
           //Duration
           exercise.estimateDuration = exercise.exerciseTargetCount;
@@ -617,11 +625,13 @@ export default {
           }
 
           //Muscles Zones
-          exercise.muscleZones.forEach((muscle) => {
+          for (var p = 0; p < exercise.muscleZones.length; p++) {
+            //exercise.muscleZones.forEach((muscle) => {
+            var muscle = exercise.muscleZones[p];
             if (this.workoutPlanDetail.muscleZones.indexOf(muscle) === -1) {
               this.workoutPlanDetail.muscleZones.push(muscle);
             }
-          });
+          }
 
           // Difficulty Levels
           if (
@@ -635,11 +645,11 @@ export default {
           }
 
           // Equipment
-          exercise.equipment.forEach((equipment) => {
-            if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
-              this.workoutPlanDetail.equipment.push(equipment);
-            }
-          });
+          // exercise.equipment.forEach((equipment) => {
+          //   if (this.workoutPlanDetail.equipment.indexOf(equipment) === -1) {
+          //     this.workoutPlanDetail.equipment.push(equipment);
+          //   }
+          // });
         } else if (exercise.repsOrHold === "RestSet") {
           //Duration
           this.workoutPlanDetail.projectedDuration =
@@ -661,32 +671,7 @@ export default {
             nextIsSetHeader = true;
           }
         }
-
-        // //Muscles Zones
-        // exercise.muscleZones.forEach((muscle) => {
-        //   if (!this.workoutPlanDetail.muscleZones.indexOf(muscle)) {
-        //     this.workoutPlanDetail.muscleZones.push(muscle);
-        //   }
-        // });
-
-        // // Difficulty Levels
-        // if (
-        //   !this.workoutPlanDetail.difficultyLevels.indexOf(
-        //     exercise.difficultyLevel
-        //   )
-        // ) {
-        //   this.workoutPlanDetail.difficultyLevels.push(
-        //     exercise.difficultyLevel
-        //   );
-        // }
-
-        // // Equipment
-        // exercise.equipment.forEach((equipment) => {
-        //   if (!this.workoutPlanDetail.equipment.indexOf(equipment)) {
-        //     this.workoutPlanDetail.equipment.push(equipment);
-        //   }
-        // });
-      });
+      }
     },
 
     showExerciseBrowser() {
