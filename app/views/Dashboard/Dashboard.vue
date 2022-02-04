@@ -153,6 +153,7 @@ export default {
     }).then(
       (response) => {
         this.workoutRecordSummaries = response.content.toJSON();
+        this.$refs.listviewfollow.refresh();
         this.forceRerender();
       },
       (e) => {}
