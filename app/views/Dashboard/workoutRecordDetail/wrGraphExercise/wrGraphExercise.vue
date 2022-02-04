@@ -420,7 +420,7 @@
         height="150"
         enableSelection="false"
         horizontalOffset="0"
-        verticalOffset="-40"
+        verticalOffset="-38"
         offsetOrigin="TopRight"
       ></RadLegendView>
     </RadCartesianChart>
