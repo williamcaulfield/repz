@@ -42,7 +42,7 @@
             />
             <Label
               col="1"
-              text="Counts"
+              text="Reps"
               class="text -large -bold -primary -right"
             />
             <Label

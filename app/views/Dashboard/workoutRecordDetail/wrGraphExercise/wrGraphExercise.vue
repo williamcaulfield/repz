@@ -298,24 +298,45 @@
       <AreaSeries
         v-tkCartesianSeries
         :items="currentProgressTrackVolume"
+        legendTitle="Total Volume"
         categoryProperty="dateRecorded"
         valueProperty="value"
-        fillColor="rgba(255, 0, 0, 0.4)"
         strokeColor="white"
         strokeWidth="1"
         stackMode="Stack"
-      />
+        showLabels="true"
+      >
+        <!-- fillColor="rgba(255, 0, 0, 0.4)"? -->
+        <!-- <PointLabelStyle
+          v-tkAreaLabelStyle
+          margin="10"
+          fontStyle="Bold"
+          fillColor="#FC6060"
+          textSize="10"
+          textColor="White"
+        ></PointLabelStyle> -->
+      </AreaSeries>
       <AreaSeries
         v-tkCartesianSeries
         :items="currentProgressTrackMaxReps"
+        legendTitle="Max Reps"
         categoryProperty="dateRecorded"
         valueProperty="value"
-        fillColor="rgba(25, 0, 0, 0.4)"
         strokeColor="red"
         strokeWidth="1"
         stackMode="Stack"
-      />
-
+        showLabels="true"
+      >
+        <!-- fillColor="rgba(25, 0, 0, 0.4)" -->
+        <!-- <PointLabelStyle
+          v-tkAreaLabelStyle
+          margin="10"
+          fontStyle="Bold"
+          fillColor="#FC6060"
+          textSize="10"
+          textColor="Red"
+        ></PointLabelStyle> -->
+      </AreaSeries>
       <CategoricalAxis
         v-tkCartesianHorizontalAxis
         labelTextColor="white"
@@ -324,6 +345,14 @@
         labelMargin="5"
       />
       <LinearAxis v-tkCartesianVerticalAxis labelTextColor="white" />
+      <RadLegendView
+        v-tkCartesianLegend
+        position="Top"
+        height="150"
+        enableSelection="false"
+        horizontalOffset="200"
+        offsetOrigin="TopLeft"
+      ></RadLegendView>
     </RadCartesianChart>
 
     <Label

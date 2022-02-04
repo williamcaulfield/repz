@@ -1,10 +1,13 @@
 {
   "name": "@nativescript/template-blank-vue",
   "main": "app/app.js",
-  "displayName": "Blank",
+  "displayName": "Repz",
   "version": "8.0.4",
-  "description": "NativeScript Application",
-  "author": "NativeScript Team <oss@nativescript.org>",
+  "nativescript": {
+    "id": "uk.co.repz.repzapp"
+  },
+  "description": "Repz Application",
+  "author": "Repz Team <oss@nativescript.org>",
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "homepage": "https://github.com/NativeScript/nativescript-app-templates",

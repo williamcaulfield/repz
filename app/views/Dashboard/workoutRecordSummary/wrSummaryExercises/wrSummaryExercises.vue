@@ -7,8 +7,8 @@
           v-show="breakdownExercises.length > 0"
           row="0"
           col="0"
-          image="xerciseIcon"
-          count="10"
+          :image="breakdownExercises[0].exerciseIcon"
+          :count="breakdownExercises[0].totalVolume"
         />
         <template v-if="breakdownExercises.length > 1">
           <wrExercise

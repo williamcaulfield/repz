@@ -2,6 +2,13 @@
   <Page actionBarHidden="true" class="page">
     <ScrollView>
       <StackLayout class="main">
+        <Label
+          text="< Back"
+          @tap="close"
+          class="text -primary -bold -medium -left"
+          marginLeft="10"
+          horizontalAlignment="left"
+        />
         <wrHeader
           width="95%"
           marginTop="5"
