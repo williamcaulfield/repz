@@ -347,11 +347,12 @@
       <LinearAxis v-tkCartesianVerticalAxis labelTextColor="white" />
       <RadLegendView
         v-tkCartesianLegend
-        position="Top"
+        position="Floating"
         height="150"
         enableSelection="false"
-        horizontalOffset="200"
-        offsetOrigin="TopLeft"
+        horizontalOffset="0"
+        verticalOffset="-50"
+        offsetOrigin="TopRight"
       ></RadLegendView>
     </RadCartesianChart>
 
@@ -386,9 +387,10 @@
       <AreaSeries
         v-tkCartesianSeries
         :items="currentProgressTrackMaxWeight"
+        legendTitle="Max Weight"
         categoryProperty="dateRecorded"
         valueProperty="value"
-        fillColor="rgba(255, 0, 0, 0.4)"
+        showLabels="true"
         strokeColor="red"
         strokeWidth="1"
         stackMode="Stack"
@@ -412,6 +414,15 @@
         hidden="true"
       />
       <LinearAxis v-tkCartesianVerticalAxis labelTextColor="white" />
+      <RadLegendView
+        v-tkCartesianLegend
+        position="Floating"
+        height="150"
+        enableSelection="false"
+        horizontalOffset="0"
+        verticalOffset="-40"
+        offsetOrigin="TopRight"
+      ></RadLegendView>
     </RadCartesianChart>
   </GridLayout>
 </template>
