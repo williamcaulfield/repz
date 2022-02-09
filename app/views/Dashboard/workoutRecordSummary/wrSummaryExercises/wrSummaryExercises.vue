@@ -2,7 +2,7 @@
   <ScrollView>
     <StackLayout class="main">
       <!-- <ContentView class="wrsummarymusclesexercises__container"> -->
-      <GridLayout rows="auto,auto,auto,auto,auto,auto" columns="auto,10,auto">
+      <GridLayout rows="auto,auto,auto,auto,auto,auto" columns="auto,5,auto">
         <wrExercise
           v-show="breakdownExercises.length > 0"
           row="0"

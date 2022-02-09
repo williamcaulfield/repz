@@ -22,7 +22,7 @@
             row="0"
             col="0"
             rows="auto"
-            columns="auto,12,auto"
+            columns="auto,7,auto"
           >
             <wrSummaryMuscles
               v-show="workout.includesImages == false"
