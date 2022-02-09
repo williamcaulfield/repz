@@ -7,7 +7,12 @@
         class="exercise-icon"
         src="~/assets/images/icons/icon_ex00001.png"
       />
-      <Label col="1" row="0" class="text -default -bold -xsmall" :text="reps" />
+      <Label
+        col="1"
+        row="0"
+        class="text -default -bold -xsmall"
+        :text="count"
+      />
     </GridLayout>
   </StackLayout>
 </template>
