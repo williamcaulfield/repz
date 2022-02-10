@@ -1,6 +1,6 @@
 <template>
   <StackLayout class="main">
-    <GridLayout rows="40" columns="30,18" class="wrexercise__grid">
+    <GridLayout rows="40" columns="25,18" class="wrexercise__grid">
       <Image
         col="0"
         row="0"
