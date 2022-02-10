@@ -487,7 +487,7 @@ export default {
   background-position: center;
   vertical-align: center;
 }
-.icon-controls:highlighted {
+.icon-controls:focus {
   background-color: $secondary-color;
 }
 .btn-primary:hover {

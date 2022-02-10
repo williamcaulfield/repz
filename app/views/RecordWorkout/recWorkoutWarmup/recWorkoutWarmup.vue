@@ -401,8 +401,13 @@ export default {
   vertical-align: center;
 }
 .icon-controls:highlighted {
+  background-color: transparent;
+}
+
+.icon-controls:active::after {
   background-color: $secondary-color;
 }
+
 .btn-primary:hover {
   background-color: grey;
 }
