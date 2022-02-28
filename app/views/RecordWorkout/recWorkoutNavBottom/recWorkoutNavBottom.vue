@@ -60,6 +60,23 @@ export default {
   vertical-align: center;
   height: 30;
 }
+
+.iconPlay:highlighted {
+  background-color: transparent;
+}
+
+.iconPlay:active::after {
+  background-color: $secondary-color;
+}
+
+.iconback:highlighted {
+  background-color: transparent;
+}
+
+.iconback:active::after {
+  background-color: $secondary-color;
+}
+
 .navText {
   margin: 10;
   font-size: 24;

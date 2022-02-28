@@ -156,7 +156,7 @@
         <Button
           col="1"
           row="0"
-          backgroundImage="~/assets/images/icons/icon_play_filled_red.png"
+          dropzone="~/assets/images/icons/icon_play_filled_red.png"
           class="icon-controls"
           @tap="startExercise"
         />
@@ -170,7 +170,7 @@
         <Button
           col="3"
           row="0"
-          backgroundImage="~/assets/images/icons/icon_repeat_filled_red.png"
+          dropzone="~/assets/images/icons/icon_repeat_filled_red.png"
           class="icon-controls"
           @tap="countdownReset"
         />
@@ -344,6 +344,7 @@ export default {
       }
     },
     completeExercise() {
+      this.countdownPause();
       this.exerciseCompleted = true;
       if (this.timeCompleted >= this.targetTime * this.slackerTargetCutoff) {
         this.targetAchieved = true;
@@ -487,9 +488,15 @@ export default {
   background-position: center;
   vertical-align: center;
 }
-.icon-controls:focus {
+
+.icon-controls:highlighted {
+  background-color: transparent;
+}
+
+.icon-controls:active::after {
   background-color: $secondary-color;
 }
+
 .btn-primary:hover {
   background-color: grey;
 }

@@ -106,20 +106,13 @@
       </StackLayout>
       <GridLayout
         class="navBottom"
-        height="45"
         width="100%"
         rows="auto"
         columns="auto,*,auto"
         row="1"
         col="0"
       >
-        <Image
-          row="0"
-          col="0"
-          class="icon-back"
-          src="~/assets/images/icons/icon_back_grey.png"
-          @tap="$navigateBack()"
-        />
+        <Button row="0" col="0" class="icon-back" @tap="$navigateBack()" />
         <Label
           row="0"
           col="1"
@@ -127,13 +120,13 @@
           class="navText"
           @tap="workoutStart"
         ></Label>
-        <Image
+        <Button
           row="0"
           col="2"
           class="icon-play"
-          src="~/assets/images/icons/icon_play_red.png"
           @tap="navigateToRecWorkoutNavFrame()"
         />
+        <!-- src="~/assets/images/icons/icon_play_red.png"s -->
       </GridLayout>
     </GridLayout>
   </Page>
@@ -205,217 +198,6 @@ export default {
   data() {
     return {
       workoutPlanDetail: {},
-      // workoutName: "Arm Workout",
-      // timeEstimatedTotal: 37,
-
-      // exercises: [
-      //   {
-      //     type: "warmup",
-      //     time: 90,
-      //     set: 0,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 95,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "warmup",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "reps",
-      //     exerciseId: "EX000001",
-      //     set: 1,
-      //     exerciseName: "Pull-ups",
-      //     exerciseDetail: "Shoulder width grip - Overhand",
-      //     exerciseTargetCount: 7,
-      //     exercisePace: "Normal",
-      //     weightExtra: "5",
-      //     weightUnits: "Kg",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 15,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "reps",
-      //     energyPerUnit: 2,
-      //     isSetHeader: true,
-      //   },
-      //   {
-      //     type: "rest",
-      //     time: 90,
-      //     set: 1,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 90,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "rest",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "hold",
-      //     exerciseId: "EX000002",
-      //     set: 1,
-      //     exerciseName: "Front Planche",
-      //     exerciseDetail: "",
-      //     exerciseTargetCount: 30,
-      //     exercisePace: "",
-      //     weightExtra: "",
-      //     weightUnits: "",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 35,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "hold",
-      //     energyPerUnit: 2,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "rest",
-      //     time: 90,
-      //     set: 1,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 95,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "rest",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "reps",
-      //     exerciseId: "EX000001",
-      //     set: 1,
-      //     exerciseName: "Pull-ups",
-      //     exerciseDetail: "Shoulder width grip - Overhand",
-      //     exerciseTargetCount: 7,
-      //     exercisePace: "Normal",
-      //     weightExtra: "5",
-      //     weightUnits: "Kg",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 15,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "reps",
-      //     energyPerUnit: 2,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "rest",
-      //     time: 90,
-      //     set: 1,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 95,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "rest",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "hold",
-      //     exerciseId: "EX000002",
-      //     set: 1,
-      //     exerciseName: "Front Planche",
-      //     exerciseDetail: "",
-      //     exerciseTargetCount: 30,
-      //     exercisePace: "",
-      //     weightExtra: "",
-      //     weightUnits: "",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 35,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "hold",
-      //     energyPerUnit: 2,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "rest",
-      //     time: 90,
-      //     set: 2,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 95,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "restSet",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-      //   {
-      //     type: "reps",
-      //     exerciseId: "EX000001",
-      //     set: 2,
-      //     exerciseName: "Pull-ups",
-      //     exerciseDetail: "Shoulder width grip - Overhand",
-      //     exerciseTargetCount: 7,
-      //     exercisePace: "Normal",
-      //     weightExtra: "5",
-      //     weightUnits: "Kg",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 15,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "reps",
-      //     energyPerUnit: 2,
-      //     isSetHeader: true,
-      //   },
-      //   {
-      //     type: "rest",
-      //     exerciseName: "Between set breather",
-      //     time: 90,
-      //     set: 2,
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 95,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "rest",
-      //     energyPerUnit: 0,
-      //     isSetHeader: false,
-      //   },
-
-      //   {
-      //     type: "reps",
-      //     exerciseId: "EX000001",
-      //     set: 2,
-      //     exerciseName: "Pull-ups Last",
-      //     exerciseDetail: "Shoulder width grip - Overhand",
-      //     exerciseTargetCount: 7,
-      //     exercisePace: "Normal",
-      //     weightExtra: "5",
-      //     weightUnits: "Kg",
-      //     isCompleted: false,
-      //     timeStart: "",
-      //     timeEnd: "",
-      //     timeEstimateDuration: 15,
-      //     duration: 0,
-      //     completedCount: 0,
-      //     displayType: "reps",
-      //     energyPerUnit: 2,
-      //     isSetHeader: false,
-      //   },
-      // ],
     };
   },
 };
@@ -459,24 +241,45 @@ export default {
   @extend .wpdetail-heading;
   color: $text-color;
 }
-.icon-back {
-  text-align: center;
-  vertical-align: center;
-  height: 30;
-  margin: 10;
-}
+
 .navText {
-  margin: 5;
   font-size: 24;
   color: $text-color;
   font-weight: 900;
   text-align: right;
-  vertical-align: center;
+  margin-right: 10;
+  margin-bottom: 8;
 }
-.icon-next {
-  text-align: center;
-  vertical-align: center;
-  height: 30;
-  margin: 10;
+
+.icon-back {
+  background-color: transparent;
+  background-image: url("~/assets/images/icons/icon_back_grey.png");
+  background-repeat: no-repeat;
+  background-size: 48 40;
+  height: 50;
+  width: 60;
+  margin-left: 15;
+  margin-top: 5;
+  margin-bottom: 5;
+}
+
+.icon-back:highlighted {
+  opacity: 0.6;
+}
+
+.icon-play {
+  background-color: transparent;
+  background-image: url("~/assets/images/icons/icon_play_red.png");
+  background-repeat: no-repeat;
+  background-size: 48 41;
+  height: 50;
+  width: 60;
+  margin-right: 0;
+  margin-top: 5;
+  margin-bottom: 5;
+}
+
+.icon-play:highlighted {
+  opacity: 0.6;
 }
 </style>

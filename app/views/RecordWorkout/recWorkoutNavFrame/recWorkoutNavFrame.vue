@@ -74,11 +74,11 @@
         row="1"
         col="0"
       >
-        <Image
+        <!-- <Button
           row="0"
           col="0"
           class="icon-back"
-          src="~/assets/images/icons/icon_back_grey.png"
+          backgroundImage="~/assets/images/icons/icon_back_grey.png"
           @tap="previousExercise"
         />
         <Label
@@ -88,13 +88,13 @@
           class="navText"
           @tap="workoutStart"
         ></Label>
-        <Image
+        <Button
           row="0"
           col="2"
           class="icon-play"
-          src="~/assets/images/icons/icon_play_red.png"
+          backgroundImage="~/assets/images/icons/icon_play_red.png"
           @tap="workoutStart"
-        />
+        /> -->
       </GridLayout>
       <GridLayout
         v-show="selectedTabviewRw > 0 && selectedTabviewRw < 6"
@@ -106,11 +106,11 @@
         row="1"
         col="0"
       >
-        <Image
+        <Button
           row="0"
           col="0"
           class="icon-pause"
-          src="~/assets/images/icons/icon_pause_red.png"
+          backgroundImage="~/assets/images/icons/icon_pause_red.png"
           @tap="pauseWorkout"
         />
         <Label
@@ -120,11 +120,11 @@
           class="navText"
           @tap="nextExercise"
         ></Label>
-        <Image
+        <Button
           row="0"
           col="2"
           class="icon-next"
-          src="~/assets/images/icons/icon_next_red.png"
+          backgroundImage="~/assets/images/icons/icon_next_red.png"
           @tap="nextExercise"
         />
       </GridLayout>
@@ -145,11 +145,11 @@
           class="navText"
           @tap="loadWorkoutAnalysis(workoutRecord)"
         />
-        <Image
+        <Button
           row="0"
           col="2"
           class="icon-next"
-          src="~/assets/images/icons/icon_next_red.png"
+          backgroundImage="~/assets/images/icons/icon_next_red.png"
           @tap="loadWorkoutAnalysis(workoutRecord)"
         />
       </GridLayout>
@@ -198,6 +198,7 @@ export default {
     recWorkoutAnalysis,
   },
   mounted() {
+    this.selectedTabviewRw = 0;
     const wpid = 10; //this.workoutPlan.workoutPlanID;
     const userId = ApplicationSettings.getNumber("userId");
     const authToken = ApplicationSettings.getString("userToken");
@@ -220,6 +221,7 @@ export default {
         console.log(this.workoutRecord);
         this.currentExercise =
           this.workoutRecord.exercisesRecorded[this.currentExerciseIndex];
+        this.selectedTabviewRw = 1;
       },
 
       (e) => {}
@@ -584,227 +586,7 @@ export default {
       workoutPauseTimeEnd: "",
       workoutPauseTimeTotal: "",
       projectedDuration: "",
-      workoutRecord: {
-        // workoutName: "Arm Workout",
-        // timeEstimatedTotal: 0,
-        // timeEstimatedCompleted: 0,
-        // woProgress: {
-        //   progressPercentage: 0,
-        //   currentDuration: 0,
-        //   timeRemaining: 0,
-        //   projectedEnd: 0,
-        //   exercisesCompleted: 0,
-        //   setsCompleted: 0,
-        //   energyBurned: 0,
-        // },
-        // exercises: [
-        //   {
-        //     type: "warmup",
-        //     time: 90,
-        //     set: 0,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 95,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "warmup",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "reps",
-        //     exerciseId: "EX000001",
-        //     set: 1,
-        //     exerciseName: "Pull-ups",
-        //     exerciseDetail: "Shoulder width grip - Overhand",
-        //     exerciseTargetCount: 7,
-        //     exercisePace: "Normal",
-        //     weightExtra: "5",
-        //     weightUnits: "Kg",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 15,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "reps",
-        //     energyPerUnit: 2,
-        //     isSetHeader: true,
-        //   },
-        //   {
-        //     type: "rest",
-        //     time: 90,
-        //     set: 1,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 90,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "rest",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "hold",
-        //     exerciseId: "EX000002",
-        //     set: 1,
-        //     exerciseName: "Front Planche",
-        //     exerciseDetail: "",
-        //     exerciseTargetCount: 30,
-        //     exercisePace: "",
-        //     weightExtra: "",
-        //     weightUnits: "",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 35,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "hold",
-        //     energyPerUnit: 2,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "rest",
-        //     time: 90,
-        //     set: 1,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 95,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "rest",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "reps",
-        //     exerciseId: "EX000001",
-        //     set: 1,
-        //     exerciseName: "Pull-ups",
-        //     exerciseDetail: "Shoulder width grip - Overhand",
-        //     exerciseTargetCount: 7,
-        //     exercisePace: "Normal",
-        //     weightExtra: "5",
-        //     weightUnits: "Kg",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 15,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "reps",
-        //     energyPerUnit: 2,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "rest",
-        //     time: 90,
-        //     set: 1,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 95,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "rest",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "hold",
-        //     exerciseId: "EX000002",
-        //     set: 1,
-        //     exerciseName: "Front Planche",
-        //     exerciseDetail: "",
-        //     exerciseTargetCount: 30,
-        //     exercisePace: "",
-        //     weightExtra: "",
-        //     weightUnits: "",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 35,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "hold",
-        //     energyPerUnit: 2,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "rest",
-        //     time: 90,
-        //     set: 2,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 95,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "restSet",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "reps",
-        //     exerciseId: "EX000001",
-        //     set: 2,
-        //     exerciseName: "Pull-ups",
-        //     exerciseDetail: "Shoulder width grip - Overhand",
-        //     exerciseTargetCount: 7,
-        //     exercisePace: "Normal",
-        //     weightExtra: "5",
-        //     weightUnits: "Kg",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 15,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "reps",
-        //     energyPerUnit: 2,
-        //     isSetHeader: true,
-        //   },
-        //   {
-        //     type: "rest",
-        //     exerciseName: "Between set breather",
-        //     time: 90,
-        //     set: 2,
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 95,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "rest",
-        //     energyPerUnit: 0,
-        //     isSetHeader: false,
-        //   },
-        //   {
-        //     type: "reps",
-        //     exerciseId: "EX000001",
-        //     set: 2,
-        //     exerciseName: "Pull-ups Last",
-        //     exerciseDetail: "Shoulder width grip - Overhand",
-        //     exerciseTargetCount: 7,
-        //     exercisePace: "Normal",
-        //     weightExtra: "5",
-        //     weightUnits: "Kg",
-        //     isCompleted: false,
-        //     timeStart: "",
-        //     timeEnd: "",
-        //     timeEstimateDuration: 15,
-        //     duration: 0,
-        //     completedCount: 0,
-        //     displayType: "reps",
-        //     energyPerUnit: 2,
-        //     isSetHeader: false,
-        //   },
-        // ],
-      },
+      workoutRecord: {},
     };
   },
 };
@@ -822,30 +604,67 @@ export default {
   height: 30;
   margin: 10;
 }
+
+.icon-play:highlighted {
+  background-color: transparent;
+}
+
+.icon-play:active::after {
+  background-color: $secondary-color;
+}
+
 .icon-next {
   text-align: center;
   vertical-align: center;
-  height: 30;
-  margin: 10;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 40 40;
+  height: 50;
+  width: 50;
+  margin-right: 10;
+  margin-top: 5;
 }
+
+.icon-next:highlighted {
+  opacity: 0.6;
+}
+
 .icon-back {
   text-align: center;
   vertical-align: center;
-  height: 30;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  height: 50;
+  width: 50;
   margin: 10;
 }
+
+.icon-back:highlighted {
+  opacity: 0.6;
+}
+
 .icon-pause {
   text-align: center;
   vertical-align: center;
-  height: 32;
+  height: 50;
+  width: 50;
+  margin-top: 5;
   margin-left: 20;
+  background-color: transparent;
+  background-repeat: no-repeat;
 }
+
+.icon-pause:highlighted {
+  opacity: 0.6;
+}
+
 .navText {
-  margin: 5;
   font-size: 24;
   color: $text-color;
   font-weight: 900;
   text-align: right;
   vertical-align: center;
+  margin-bottom: 7;
+  margin-right: 10;
 }
 </style>

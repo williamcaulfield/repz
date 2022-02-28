@@ -210,12 +210,10 @@
       />
       <ContentView class="exercisedetail__container" row="7">
         <GridLayout rows="*" columns="*,auto,auto,auto,*">
-          <Image
+          <Button
+            class="icon-minus"
             col="1"
-            width="45"
-            horizontalAlignment="left"
-            verticalAlignment="center"
-            src="~/assets/images/icons/icon_minus_grey.png"
+            backgroundImage="~/assets/images/icons/icon_minus_grey.png"
             @tap="restTimeMinus"
           />
           <Label
@@ -227,12 +225,10 @@
             margin="20"
           />
 
-          <Image
+          <Button
+            class="icon-plus"
             col="3"
-            height="45"
-            horizontalAlignment="right"
-            verticalAlignment="center"
-            src="~/assets/images/icons/icon_plus_grey.png"
+            backgroundImage="~/assets/images/icons/icon_plus_grey.png"
             @tap="restTimeAdd"
           />
         </GridLayout>
@@ -451,5 +447,34 @@ export default {
 }
 .exercisedetail__container:hover {
   background-color: grey;
+}
+
+.icon-plus {
+  text-align: right;
+  vertical-align: center;
+  height: 45;
+  width: 45;
+  background-size: 45 45;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.icon-plus:highlighted {
+  opacity: 0.6;
+}
+
+.icon-minus {
+  text-align: left;
+  vertical-align: center;
+  height: 45;
+  width: 45;
+  background-size: 45 10;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  margin-top: 32;
+}
+
+.icon-minus:highlighted {
+  opacity: 0.6;
 }
 </style>

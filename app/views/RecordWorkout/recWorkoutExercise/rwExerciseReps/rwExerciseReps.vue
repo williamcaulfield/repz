@@ -84,24 +84,20 @@
             v-show="exercise.exerciseTargetCount != exercise.completedCount"
           />
         </GridLayout>
-        <Image
+        <Button
+          class="icon-minus"
           row="0"
           col="1"
-          width="45"
           marginRight="-10"
-          horizontalAlignment="left"
-          verticalAlignment="center"
-          src="~/assets/images/icons/icon_minus_grey.png"
+          backgroundImage="~/assets/images/icons/icon_minus_grey.png"
           @tap="minusCompleteReps"
         />
-        <Image
+        <Button
+          class="icon-plus"
           row="0"
           col="4"
-          height="45"
           marginLeft="-10"
-          horizontalAlignment="right"
-          verticalAlignment="center"
-          src="~/assets/images/icons/icon_plus_grey.png"
+          backgroundImage="~/assets/images/icons/icon_plus_grey.png"
           @tap="addCompletedReps"
         />
       </GridLayout>
@@ -413,5 +409,34 @@ export default {
 }
 .exercisedetail__container:hover {
   background-color: grey;
+}
+
+.icon-plus {
+  text-align: right;
+  vertical-align: center;
+  height: 45;
+  width: 45;
+  background-size: 45 45;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.icon-plus:highlighted {
+  opacity: 0.6;
+}
+
+.icon-minus {
+  text-align: left;
+  vertical-align: center;
+  height: 45;
+  width: 45;
+  background-size: 45 10;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  margin-top: 32;
+}
+
+.icon-minus:highlighted {
+  opacity: 0.6;
 }
 </style>
