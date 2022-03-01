@@ -33,7 +33,7 @@
         verticalAlignment="center"
         horizontalAlignment="center"
         v-show="exerciseStarted == 0"
-        marginTop="-18"
+        marginTop="-26"
       >
         <Image
           row="4"

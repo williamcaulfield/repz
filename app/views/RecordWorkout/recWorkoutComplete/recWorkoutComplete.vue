@@ -32,7 +32,7 @@
         columns="*,auto,auto,auto,auto,*"
         verticalAlignment="center"
         horizontalAlignment="center"
-        marginTop="-18"
+        marginTop="-34"
       >
         <Image
           row="4"

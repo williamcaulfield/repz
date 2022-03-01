@@ -6,24 +6,29 @@
         text="Total: 00:27"
         class="workoutrecord--heading -h4 -default"
         height="10%"
+        horizontalAlignment="center"
       ></Label>
       <Label
         row="1"
         text="Hold"
         class="workoutrecord--heading -h3 -primary"
         height="10%"
+        horizontalAlignment="center"
       />
       <Label
         row="2"
         :text="exercise.exerciseHeading"
         class="workoutrecord--heading -h3 -default"
         height="5%"
+        marginTop="-2%"
+        horizontalAlignment="center"
       ></Label>
       <Label
         row="3"
         :text="exercise.exerciseSubType"
         class="workoutrecord--heading -h4 -secondary"
-        height="4%"
+        height="5%"
+        horizontalAlignment="center"
       ></Label>
       <GridLayout
         row="4"
@@ -33,9 +38,18 @@
         verticalAlignment="center"
         horizontalAlignment="center"
         v-show="exerciseStarted == 0"
-        marginTop="-18"
+        marginTop="2"
       >
-        <Image
+        <Button
+          row="4"
+          col="2"
+          colspan="2"
+          class="icon-progress-wheel"
+          horizontalAlignment="center"
+          backgroundImage="~/assets/images/icons/icon_target_large.png"
+          @tap="startExercise"
+        />
+        <!-- <Image
           row="4"
           col="2"
           colspan="2"
@@ -44,7 +58,7 @@
           horizontalAlignment="center"
           src="~/assets/images/icons/icon_target_large.png"
           @tap="startExercise"
-        />
+        /> -->
         <Label
           col="2"
           row="0"
@@ -143,7 +157,7 @@
         row="5"
         :text="targetTime + ' seconds'"
         class="workoutrecord--heading -h3 -default"
-        height="10%"
+        height="9%"
         v-show="exerciseStarted == 0"
       ></Label>
       <GridLayout
@@ -156,7 +170,7 @@
         <Button
           col="1"
           row="0"
-          dropzone="~/assets/images/icons/icon_play_filled_red.png"
+          backgroundImage="~/assets/images/icons/icon_play_filled_red.png"
           class="icon-controls"
           @tap="startExercise"
         />
@@ -170,7 +184,7 @@
         <Button
           col="3"
           row="0"
-          dropzone="~/assets/images/icons/icon_repeat_filled_red.png"
+          backgroundImage="~/assets/images/icons/icon_repeat_filled_red.png"
           class="icon-controls"
           @tap="countdownReset"
         />
@@ -183,7 +197,7 @@
         columns="*,auto,auto,auto,auto,*"
         verticalAlignment="center"
         horizontalAlignment="center"
-        marginTop="-18"
+        marginTop="2"
         v-show="exerciseCompleted == true"
       >
         <Image
@@ -472,8 +486,16 @@ export default {
   height: 60;
 }
 .icon-progress-wheel {
-  height: 30%;
-  margin: 20;
+  height: 271;
+  width: 271;
+  background-size: 271 271;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: center;
+}
+
+.icon-progress-wheel:highlighted {
+  opacity: 0.6;
 }
 .icon-start {
   height: 30;

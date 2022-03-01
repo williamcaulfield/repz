@@ -33,16 +33,15 @@
         verticalAlignment="center"
         horizontalAlignment="center"
         v-show="exerciseStarted == 0"
-        marginTop="-18"
+        marginTop="-6"
       >
-        <Image
+        <Button
           row="4"
           col="2"
           colspan="2"
-          height="271"
           class="icon-progress-wheel"
           horizontalAlignment="center"
-          src="~/assets/images/icons/icon_target_large.png"
+          backgroundImage="~/assets/images/icons/icon_target_large.png"
           @tap="startExercise"
         />
         <Label
@@ -73,6 +72,7 @@
         verticalAlignment="center"
         horizontalAlignment="center"
         v-show="exerciseStarted == 1"
+        marginTop="-6"
       >
         <Label
           col="2"
@@ -402,8 +402,16 @@ export default {
   height: 60;
 }
 .icon-progress-wheel {
-  height: 30%;
-  margin: 20;
+  height: 271;
+  width: 271;
+  background-size: 271 271;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: center;
+}
+
+.icon-progress-wheel:highlighted {
+  opacity: 0.6;
 }
 .icon-start {
   height: 30;
