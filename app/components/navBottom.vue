@@ -83,7 +83,7 @@
       row="0"
       width="20%"
     >
-      <Image
+      <!-- <Image
         :class="selectedTab == 3 ? 'active' : ''"
         row="0"
         class="navIcon"
@@ -93,30 +93,47 @@
             : '~/assets/images/icons/icon_workouts_grey.png'
         "
       />
-      <Label row="1" text="Workouts" class="navText"></Label>
+      <Label row="1" text="Workouts" class="navText"></Label> -->
+      <Button
+        :class="selectedTab == 4 ? 'active' : ''"
+        row="0"
+        class="navIcon_workouts"
+        :backgroundImage="
+          selectedTab == 3
+            ? '~/assets/images/icons/icon_workouts_red.png'
+            : '~/assets/images/icons/icon_workouts_grey.png'
+        "
+      >
+        <FormattedString>
+          <Span text="Workouts" class="navText_workouts" />
+        </FormattedString>
+      </Button>
     </GridLayout>
 
     <GridLayout
       :class="selectedTab == 4 ? 'active' : ''"
       @tap="navigateToBuddies"
-      rows="*,auto"
+      rows="auto"
       cols="auto"
       class="nav"
       col="4"
       row="0"
       width="20%"
     >
-      <Image
+      <Button
         :class="selectedTab == 4 ? 'active' : ''"
         row="0"
-        class="navIcon"
-        :src="
+        class="navIcon_buddies"
+        :backgroundImage="
           selectedTab == 4
             ? '~/assets/images/icons/icon_buddies_red.png'
             : '~/assets/images/icons/icon_buddies_grey.png'
         "
-      />
-      <Label row="1" text="Buddies" class="navText"></Label>
+      >
+        <FormattedString>
+          <Span text="Buddies" class="navText_buddies" />
+        </FormattedString>
+      </Button>
     </GridLayout>
   </GridLayout>
 </template>
@@ -146,13 +163,42 @@ export default {
 }
 
 .navIcon {
-  text-align: center;
-  vertical-align: center;
-  height: 18;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 55 29;
+  margin-top: 0;
+  height: 80;
+}
+.navIcon_buddies {
+  background-repeat: no-repeat;
+  background-position: 14 6;
+  background-size: 55 30;
+  margin-bottom: -90;
 }
 
-.navIcon.active {
-  vertical-align: bottom;
+.navText_buddies {
+  font-size: 12;
+  color: rgb(210, 210, 210);
+}
+
+.navIcon_buddies:highlighted {
+  opacity: 0.6;
+}
+.navIcon_workouts {
+  background-repeat: no-repeat;
+  background-position: 22 6;
+  text-align: center;
+  background-size: 40 30;
+  margin-bottom: -43;
+}
+
+.navText_workouts {
+  font-size: 12;
+  color: rgb(210, 210, 210);
+}
+
+.navIcon_workouts:highlighted {
+  opacity: 0.6;
 }
 
 .recordIcon {
@@ -170,5 +216,6 @@ export default {
   font-size: 12;
   color: rgb(210, 210, 210);
   text-align: center;
+  vertical-align: bottom;
 }
 </style>
