@@ -61,7 +61,41 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    pageLoaded(args) {
+      const page = args.object;
+    },
+
+    onActionBarLoaded(args) {
+      if (isIOS) {
+        const navigationBar = Frame.topmost().ios.controller.navigationBar;
+
+        const gradient = CAGradientLayer.layer();
+        const bounds = navigationBar.bounds;
+        gradient.frame = bounds;
+
+        gradient.colors = [
+          new Color("red").ios.CGColor,
+          new Color("hsl(352.5, 100%, 25%)").ios.CGColor,
+        ];
+        gradient.startPoint = CGPointMake(0, 0);
+        gradient.endPoint = CGPointMake(1, 0);
+        const size = CGSizeMake(bounds.size.width, bounds.size.height);
+        UIGraphicsBeginImageContext(size);
+        gradient.renderInContext(UIGraphicsGetCurrentContext());
+        const gradientImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        // doesn't work without this setTimeout
+        setTimeout(() => {
+          navigationBar.setBackgroundImageForBarMetrics(
+            gradientImage,
+            UIBarMetrics.default
+          );
+        });
+      }
+    },
+  },
 };
 </script>
 
