@@ -237,7 +237,7 @@ export default {
         setTimeout(() => {
           navigationBar.setBackgroundImageForBarMetrics(
             gradientImage,
-            UIBarMetrics.de
+            UIBarMetrics.default
           );
         });
       }
