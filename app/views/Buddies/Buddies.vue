@@ -57,7 +57,7 @@
         <ScrollView>
        
           <ListView
-                  ref="listview"
+                  ref="listviewfollowing"
                   for="user in usersFollowing"
                   :key="index"
                   backgroundColor="transparent"
@@ -97,7 +97,7 @@
 
               <GridLayout>
                 <ListView
-                  ref="listview"
+                  ref="listviewusers"
                   for="user in users"
                   :key="index"
                   backgroundColor="transparent"
@@ -190,6 +190,8 @@ export default {
         this.followUser(user);
         user.following = true;
       }
+      this.$refs.listviewusers.refresh();
+      this.$refs.listviewfollowing.refresh();
     },
     followUser(payload) {
       const userId = ApplicationSettings.getNumber("userId");
