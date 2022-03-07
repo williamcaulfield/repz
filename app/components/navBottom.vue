@@ -79,7 +79,7 @@
       <Label row="1" text="Record" class="navText"></Label> -->
 
       <Button
-        @tap="navigateToExercises"
+        @tap="navigateToRecordWorkout"
         :class="selectedTab == 2 ? 'active' : ''"
         row="0"
         class="navIcon_record"
