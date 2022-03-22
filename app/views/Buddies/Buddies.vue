@@ -67,7 +67,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @toggleFollowing="toggleFollowing(user)"
+                      @addFollowing="addFollowing($event, $index)"
+                      @removeFollowing="removeFollowing($event, $index)"
                     />
                   </v-template>
                 </ListView>
@@ -107,7 +108,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @toggleFollowing="toggleFollowing(user)"
+                      @addFollowing="addFollowing($event, $index)"
+                      @removeFollowing="removeFollowing($event, $index)"
                     />
                   </v-template>
                 </ListView>
@@ -181,6 +183,83 @@ export default {
     );
   },
   methods: {
+    addFollowUsers(event, index) {
+      //let position = this.selectedItems.indexOf(index);
+      if (this.users[index].following == false) {
+        this.users[index].following = true;
+        var user = this.users[index];
+        this.followUser(user);
+        this.refreshUsersFollowingList();
+      }
+    },
+
+    removeFollowUsers(event, index) {
+      if (this.users[index].following == true) {
+        this.users[index].following = false;
+        var user = this.users[index];
+        this.unfollowUser(user);
+        this.refreshUsersFollowingList();
+      }
+    },
+
+    addFollowFollowing(event, index) {
+      if (this.usersFollowing[index].following == false) {
+        this.usersFollowing[index].following = true;
+        var user = this.usersFollowing[index];
+        this.followUser(user);
+        this.refreshUsersList();
+      }
+    },
+
+    removeFollowFollowing(event, index) {
+      if (this.usersFollowing[index].following == true) {
+        this.usersFollowing[index].following = false;
+        var user = this.usersFollowing[index];
+        this.unfollowUser(user);
+        this.refreshUsersList();
+      }
+    },
+
+    refreshUsersList() {
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+
+      Http.request({
+        url: "https://api.repz.app/user/" + userId + "/users",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          this.users = response.content.toJSON();
+          console.log(this.users);
+        },
+        (e) => {}
+      );
+    },
+
+    refreshUsersFollowingList() {
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken");
+
+      Http.request({
+        url: "https://api.repz.app/user/" + userId + "/users/following",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          this.usersFollowing = response.content.toJSON();
+          console.log(this.usersFollowing);
+        },
+        (e) => {}
+      );
+    },
+
     toggleFollowing(payload) {
       var user = payload;
       if (user.following == true) {
