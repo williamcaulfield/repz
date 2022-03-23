@@ -106,14 +106,19 @@ export default {
       this.$emit("clicked");
     },
     toggleFollowing() {
-      this.$emit("toggleFollowing");
+      if (this.following) {
+        this.removeFollowing();
+      } else {
+        this.addFollowing();
+      }
+      // this.$emit("toggleFollowing");
     },
-    // addFollowing(args) {
-    //   this.$emit("clicked");
-    // },
-    // removeFollowing(args) {
-    //   this.$emit("clicked");
-    // },
+    addFollowing(args) {
+      this.$emit("addFollowing");
+    },
+    removeFollowing(args) {
+      this.$emit("removeFollowing");
+    },
   },
   data() {
     return {};

@@ -67,8 +67,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @addFollowing="addFollowing($event, $index)"
-                      @removeFollowing="removeFollowing($event, $index)"
+                      @addFollowing="addFollowFollowing($event, $index)"
+                      @removeFollowing="removeFollowFollowing($event, $index)"
                     />
                   </v-template>
                 </ListView>
@@ -108,8 +108,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @addFollowing="addFollowing($event, $index)"
-                      @removeFollowing="removeFollowing($event, $index)"
+                      @addFollowing="addFollowUsers($event, $index)"
+                      @removeFollowing="removeFollowUsers($event, $index)"
                     />
                   </v-template>
                 </ListView>
@@ -184,9 +184,12 @@ export default {
   },
   methods: {
     addFollowUsers(event, index) {
+      console.log("addFollowUsers " + index);
+      console.log(this.users[index]);
       //let position = this.selectedItems.indexOf(index);
       if (this.users[index].following == false) {
         this.users[index].following = true;
+
         var user = this.users[index];
         this.followUser(user);
         this.refreshUsersFollowingList();
@@ -194,8 +197,11 @@ export default {
     },
 
     removeFollowUsers(event, index) {
+      console.log("removeFollowUsers " + index);
+      console.log(this.users[index]);
       if (this.users[index].following == true) {
         this.users[index].following = false;
+
         var user = this.users[index];
         this.unfollowUser(user);
         this.refreshUsersFollowingList();
@@ -203,8 +209,11 @@ export default {
     },
 
     addFollowFollowing(event, index) {
+      console.log("addFollowUsers " + index);
+      console.log(this.usersFollowing[index]);
       if (this.usersFollowing[index].following == false) {
         this.usersFollowing[index].following = true;
+
         var user = this.usersFollowing[index];
         this.followUser(user);
         this.refreshUsersList();
@@ -212,8 +221,11 @@ export default {
     },
 
     removeFollowFollowing(event, index) {
+      console.log("removeFollowFollowing " + index);
+      console.log(this.usersFollowing[index]);
       if (this.usersFollowing[index].following == true) {
         this.usersFollowing[index].following = false;
+
         var user = this.usersFollowing[index];
         this.unfollowUser(user);
         this.refreshUsersList();
