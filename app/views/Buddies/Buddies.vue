@@ -54,12 +54,11 @@
       </GridLayout>
 
       <GridLayout v-show="selectedTabview == 0" row="1" width="100%">
-        <ScrollView>
-       
+        <ScrollView>   
           <ListView
                   ref="listviewfollowing"
                   for="user in usersFollowing"
-                  :key="index"
+                  @itemTap="toggleFollowingFollower"
                   backgroundColor="transparent"
                 >
                   <v-template>
@@ -67,9 +66,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @addFollowing="addFollowFollowing($event, $index)"
-                      @removeFollowing="removeFollowFollowing($event, $index)"
                     />
+                    <!-- @clicked="showUser(user)" -->
                   </v-template>
                 </ListView>
               
@@ -99,8 +97,8 @@
               <GridLayout>
                 <ListView
                   ref="listviewusers"
-                  for="user in users"
-                  :key="index"
+                  for="user in users"            
+                  @itemTap="toggleFollowingUser"
                   backgroundColor="transparent"
                 >
                   <v-template>
@@ -108,9 +106,8 @@
                       :user="user"
                       :following="user.following"
                       @clicked="showUser(user)"
-                      @addFollowing="addFollowUsers($event, $index)"
-                      @removeFollowing="removeFollowUsers($event, $index)"
                     />
+                    <!-- @clicked="showUser(user)" -->
                   </v-template>
                 </ListView>
               </GridLayout>
@@ -183,54 +180,93 @@ export default {
     );
   },
   methods: {
-    addFollowUsers(event, index) {
-      console.log("addFollowUsers " + index);
-      console.log(this.users[index]);
+    toggleFollowingUser(event) {
+      console.log("addFollowUsers " + event.index);
+      console.log(this.users[event.index]);
       //let position = this.selectedItems.indexOf(index);
-      if (this.users[index].following == false) {
-        this.users[index].following = true;
+      if (this.users[event.index].following === false) {
+        this.users[event.index].following = true;
 
-        var user = this.users[index];
+        // this.$refs.listviewusers.refresh();
+        // this.forceRerender();
+
+        var user = this.users[event.index];
         this.followUser(user);
         this.refreshUsersFollowingList();
-      }
-    },
-
-    removeFollowUsers(event, index) {
-      console.log("removeFollowUsers " + index);
-      console.log(this.users[index]);
-      if (this.users[index].following == true) {
-        this.users[index].following = false;
-
-        var user = this.users[index];
+      } else {
+        this.users[event.index].following = false;
+        var user = this.users[event.index];
         this.unfollowUser(user);
         this.refreshUsersFollowingList();
       }
     },
 
-    addFollowFollowing(event, index) {
-      console.log("addFollowUsers " + index);
-      console.log(this.usersFollowing[index]);
-      if (this.usersFollowing[index].following == false) {
-        this.usersFollowing[index].following = true;
+    toggleFollowingFollower(event) {
+      console.log("addFollowUsers " + event.index);
+      console.log(this.users[event.index]);
+      //let position = this.selectedItems.indexOf(index);
+      if (this.usersFollowing[event.index].following === false) {
+        this.usersFollowing[event.index].following = true;
 
-        var user = this.usersFollowing[index];
+        // this.$refs.listviewusers.refresh();
+        // this.forceRerender();
+
+        var user = this.users[event.index];
         this.followUser(user);
         this.refreshUsersList();
-      }
-    },
-
-    removeFollowFollowing(event, index) {
-      console.log("removeFollowFollowing " + index);
-      console.log(this.usersFollowing[index]);
-      if (this.usersFollowing[index].following == true) {
-        this.usersFollowing[index].following = false;
-
-        var user = this.usersFollowing[index];
+      } else {
+        this.usersFollowing[event.index].following = false;
+        var user = this.usersFollowing[event.index];
         this.unfollowUser(user);
         this.refreshUsersList();
       }
     },
+
+    // removeFollowUsers(event) {
+    //   console.log("removeFollowUsers " + event.index);
+    //   console.log(this.users[event.index]);
+    //   if (this.users[event.index].following == true) {
+    //     this.users[event.index].following = false;
+
+    //     // this.$refs.listviewusers.refresh();
+    //     // this.forceRerender();
+
+    //     // var user = this.users[event.index];
+    //     // this.unfollowUser(user);
+    //     //this.refreshUsersFollowingList();
+    //   }
+    // },
+
+    // addFollowFollowing(event) {
+    //   console.log("addFollowUsers " + event.index);
+    //   console.log(this.usersFollowing[event.index]);
+    //   if (this.usersFollowing[event.index].following === false) {
+    //     this.usersFollowing[event.index].following = true;
+
+    //     // this.$refs.listviewfollowing.refresh();
+    //     // this.forceRerender();
+
+    //     // var user = this.usersFollowing[event.index];
+    //     // this.followUser(user);
+    //     //this.refreshUsersList();
+    //   }
+    // },
+
+    // removeFollowFollowing(event) {
+    //   console.log("removeFollowFollowing " + event.index);
+    //   console.log(this.usersFollowing[event.index]);
+    //   if (this.usersFollowing[event.index].following === true) {
+    //     this.usersFollowing[event.index].following = false;
+
+    //     // this.$refs.listviewfollowing.refresh();
+    //     // this.forceRerender();
+
+    //     // var user = this.usersFollowing[index];
+    //     // this.unfollowUser(user);
+
+    //     //this.refreshUsersList();
+    //   }
+    // },
 
     refreshUsersList() {
       const userId = ApplicationSettings.getNumber("userId");
@@ -272,18 +308,18 @@ export default {
       );
     },
 
-    toggleFollowing(payload) {
-      var user = payload;
-      if (user.following == true) {
-        this.unfollowUser(user);
-        user.following = false;
-      } else {
-        this.followUser(user);
-        user.following = true;
-      }
-      this.$refs.listviewusers.refresh();
-      this.$refs.listviewfollowing.refresh();
-    },
+    // toggleFollowing(payload) {
+    //   var user = payload;
+    //   if (user.following == true) {
+    //     this.unfollowUser(user);
+    //     user.following = false;
+    //   } else {
+    //     this.followUser(user);
+    //     user.following = true;
+    //   }
+    //   this.$refs.listviewusers.refresh();
+    //   this.$refs.listviewfollowing.refresh();
+    // },
     followUser(payload) {
       const userId = ApplicationSettings.getNumber("userId");
       const authToken = ApplicationSettings.getString("userToken");

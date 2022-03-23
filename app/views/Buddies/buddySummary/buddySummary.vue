@@ -24,7 +24,6 @@
           :text="user.userName"
           marginTop="5"
           marginLeft="7"
-          @tap="onClickButton()"
         />
         <Label
           row="1"
@@ -34,7 +33,6 @@
           marginTop="0"
           marginLeft="7"
           verticalAlignment="top"
-          @tap="onClickButton()"
         />
         <GridLayout
           rows="auto"
@@ -44,21 +42,18 @@
           marginLeft="7"
           marginBottom="5"
           verticalAlignment="bottom"
-          @tap="onClickButton()"
         >
           <Label
             row="0"
             col="0"
             class="text -small -default -left"
             text="Workouts: "
-            @tap="onClickButton()"
           />
           <Label
             row="0"
             col="1"
             class="text -small -primary -bold -left"
             :text="user.workoutsCount"
-            @tap="onClickButton()"
           />
         </GridLayout>
         <GridLayout
@@ -85,7 +80,6 @@
             color="rgb(194, 194, 194)"
             backgroundColor="red"
             horizontalAlignment="right"
-            @tap="toggleFollowing()"
           />
         </GridLayout>
       </GridLayout>
@@ -105,21 +99,22 @@ export default {
     onClickButton() {
       this.$emit("clicked");
     },
-    toggleFollowing() {
-      if (this.following) {
-        this.removeFollowing();
-      } else {
-        this.addFollowing();
-      }
-      // this.$emit("toggleFollowing");
-    },
-    addFollowing(args) {
-      this.$emit("addFollowing");
-    },
-    removeFollowing(args) {
-      this.$emit("removeFollowing");
-    },
+    // toggleFollowing() {
+    //   this.$emit("toggleFollowing");
+    // if (this.following) {
+    //   this.removeFollowing();
+    // } else {
+    //   this.addFollowing();
+    // }
+    // // this.$emit("toggleFollowing");
   },
+  // addFollowing() {
+  //   this.$emit("addFollowing");
+  // },
+  // removeFollowing() {
+  //   this.$emit("removeFollowing");
+  // },
+  // },
   data() {
     return {};
   },
