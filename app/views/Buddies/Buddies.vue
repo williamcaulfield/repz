@@ -198,6 +198,7 @@ export default {
         var user = this.users[event.index];
         this.unfollowUser(user);
         this.refreshUsersFollowingList();
+        this.$refs.listviewfollowing.refresh();
       }
     },
 
@@ -219,6 +220,7 @@ export default {
         var user = this.usersFollowing[event.index];
         this.unfollowUser(user);
         this.refreshUsersList();
+        this.$refs.listviewusers.refresh();
       }
     },
 
