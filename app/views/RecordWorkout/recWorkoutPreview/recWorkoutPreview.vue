@@ -220,7 +220,7 @@ export default {
   @extend .wpdetail-heading;
   font-size: 20;
   font-weight: normal;
-  border-bottom-color: $text-color-primary;
+  border-bottom-color: $text-color;
   border-bottom-width: 2;
   margin-top: 0;
   margin-bottom: 10;
@@ -244,11 +244,11 @@ export default {
 
 .navText {
   font-size: 24;
-  color: $text-color;
+  color: white;
   font-weight: 900;
   text-align: right;
   margin-right: 10;
-  margin-bottom: 8;
+  margin-bottom: 20;
 }
 
 .icon-back {
