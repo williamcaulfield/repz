@@ -180,6 +180,7 @@ import recWorkoutAnalysis from "../recWorkoutAnalysis/recWorkoutAnalysis";
 import navControls from "../../../mixins/navControls";
 
 import { Http, ApplicationSettings } from "@nativescript/core";
+import { dateProperty } from "@nativescript/core/ui/date-picker";
 
 export default {
   props: ["workoutPlan"],
@@ -226,6 +227,8 @@ export default {
 
       (e) => {}
     );
+
+    this.currentExercise.timeStart = new Date();
   },
   methods: {
     saveExerciseResult(args) {
@@ -306,7 +309,7 @@ export default {
         this.currentExerciseIndex++;
         this.currentExercise =
           this.workoutRecord.exercisesRecorded[this.currentExerciseIndex];
-
+        this.currentExercise.timeStart = new Date();
         if (
           this.currentExerciseIndex <
           this.workoutRecord.exercisesRecorded.length - 1
@@ -331,6 +334,8 @@ export default {
 
     saveWorkoutCompleted() {
       this.workoutRecord.timeEnd = new Date();
+
+      console.log(this.workoutRecord);
 
       const userId = ApplicationSettings.getNumber("userId");
       const authToken = ApplicationSettings.getString("userToken");

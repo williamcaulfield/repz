@@ -319,7 +319,7 @@ export default {
     },
     resetExerciseData() {
       this.exerciseResult.completedCount = 0;
-      this.exerciseResult.timeStart = 0;
+      this.exerciseResult.timeStart = new Date();
       this.exerciseResult.timeEnd = 0;
       this.exerciseResult.duration = 0;
       this.exercise.completedCount = this.exercise.exerciseTargetCount;
