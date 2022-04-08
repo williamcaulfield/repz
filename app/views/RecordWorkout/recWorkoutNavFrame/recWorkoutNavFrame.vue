@@ -222,6 +222,7 @@ export default {
         console.log(this.workoutRecord);
         this.currentExercise =
           this.workoutRecord.exercisesRecorded[this.currentExerciseIndex];
+        this.currentExercise.timeStart = new Date();
         this.selectedTabviewRw = 1;
       },
 
