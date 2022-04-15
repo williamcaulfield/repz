@@ -351,7 +351,7 @@ export default {
     }).then(
       (response) => {
         this.workoutPlansAll = response.content.toJSON();
-        //console.log(this.workoutPlansAll);
+        console.log(this.workoutPlansAll);
       },
       (e) => {}
     );

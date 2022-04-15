@@ -124,7 +124,7 @@
           row="0"
           col="2"
           class="icon-play"
-          @tap="navigateToRecWorkoutNavFrame()"
+          @tap="navigateToRecWorkoutNavFrame(workoutPlan)"
         />
         <!-- src="~/assets/images/icons/icon_play_red.png"s -->
       </GridLayout>

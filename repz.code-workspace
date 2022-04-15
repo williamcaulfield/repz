@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"NativescriptExtend.fileAssociations": [
+			{
+				"systemId": "/Users/williamcaulfield/NativeScriptProjects/repz/schema/tns.xsd",
+				"pattern": "**/**/*.xml"
+			},
+			{
+				"systemId": "http://www.w3.org/2001/XMLSchema.xsd",
+				"pattern": "/Users/williamcaulfield/NativeScriptProjects/repz/schema/tns.xsd"
+			}
+		],
+		"NativescriptExtend.format.enabled": true,
+		"NativescriptExtend.validation.enabled": true,
+		"files.exclude": {
+			"schema": true
+		},
+		"typescript.tsdk": "node_modules/typescript/lib"
+	}
+}

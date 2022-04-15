@@ -26,7 +26,6 @@
         width="100%"
         rows="auto"
         columns="auto,auto"
-        ~
         row="0"
       >
         <GridLayout

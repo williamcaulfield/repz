@@ -112,7 +112,8 @@ export default {
     const authToken = ApplicationSettings.getString("userToken");
 
     Http.request({
-      url: "https://api.repz.app/user/" + userId + "/workoutplans",
+      //url: "https://api.repz.app/user/" + userId + "/workoutplans",
+      url: "https://api.repz.app/workoutplans",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

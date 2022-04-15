@@ -318,7 +318,7 @@ export default {
       );
     },
     resetExerciseData() {
-      this.exerciseResult.completedCount = 0;
+      //this.exerciseResult.completedCount = 0;
       this.exerciseResult.timeStart = new Date();
       this.exerciseResult.timeEnd = 0;
       this.exerciseResult.duration = 0;
