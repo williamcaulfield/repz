@@ -57,8 +57,9 @@
         </GridLayout>
       </GridLayout>
 
-      <GridLayout v-show="selectedTabview == 0" row="1" width="98%">
-        <ListView
+      <!-- <GridLayout v-show="selectedTabview == 0" row="1" width="98%"> -->
+      <!-- <ListView
+          :v-if="dataReady"
           ref="listviewfollow"
           for="workout in workoutRecordSummariesFollowing"
           :key="index"
@@ -70,11 +71,23 @@
               @clicked="showWorkout(workout)"
             />
           </v-template>
-        </ListView>
-      </GridLayout>
+        </ListView> -->
+      <GridLayout row="1" width="100%" v-show="selectedTabview == 0">
+        <ScrollView>
+          <StackLayout :v-if="dataReady" width="98%">
+            <workoutRecordSummary
+              ref="listviewfollow"
+              :workout="workout"
+              v-for="(workout, index) of workoutRecordSummariesFollowing"
+              v-bind:key="index"
+              @clicked="showWorkout(workout)"
+            />
+          </StackLayout>
+          <!-- </GridLayout> -->
 
-      <GridLayout v-show="selectedTabview == 1" row="1" width="98%">
-        <ListView
+          <!-- <GridLayout v-show="selectedTabview == 1" row="1" width="98%"> -->
+          <!-- <ListView
+          :v-if="dataReady"
           ref="listviewyou"
           for="workout in workoutRecordSummaries"
           :key="index"
@@ -86,9 +99,28 @@
               @clicked="showWorkout(workout)"
             />
           </v-template>
-        </ListView>
+        </ListView> -->
+        </ScrollView>
       </GridLayout>
 
+      <GridLayout row="1" width="100%" v-show="selectedTabview == 1">
+        <ScrollView>
+          <StackLayout
+            :v-if="dataReady"
+            v-show="selectedTabview == 1"
+            width="98%"
+          >
+            <workoutRecordSummary
+              ref="listviewfollow"
+              :workout="workout"
+              v-for="(workout, index) of workoutRecordSummaries"
+              v-bind:key="index"
+              @clicked="showWorkout(workout)"
+            />
+          </StackLayout>
+          <!-- </GridLayout> -->
+        </ScrollView>
+      </GridLayout>
       <navBottom row="2"></navBottom>
     </GridLayout>
   </Page>

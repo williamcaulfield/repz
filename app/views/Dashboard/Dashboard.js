@@ -21,11 +21,11 @@ export default {
   },
   computed: {},
 
-  mounted() {
+  async mounted() {
     const userId = ApplicationSettings.getNumber("userId");
     const authToken = ApplicationSettings.getString("userToken");
 
-    Http.request({
+    await Http.request({
       url:
         "https://api.repz.app/user/" +
         userId +
@@ -43,7 +43,7 @@ export default {
       (e) => {}
     );
 
-    Http.request({
+    await Http.request({
       url:
         "https://api.repz.app/user/" +
         userId +
@@ -61,9 +61,12 @@ export default {
       },
       (e) => {}
     );
+
+    this.dataReady = true;
   },
   data() {
     return {
+      dataReady: false,
       index: 0,
       lastDelY: 0,
       headerCollapsed: false,
