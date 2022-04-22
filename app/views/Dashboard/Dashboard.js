@@ -9,7 +9,7 @@ import {
   isIOS,
   ApplicationSettings,
   Frame,
-  Color,
+  Color
 } from "@nativescript/core";
 
 export default {
@@ -23,7 +23,7 @@ export default {
 
   async mounted() {
     const userId = ApplicationSettings.getNumber("userId");
-    const authToken = ApplicationSettings.getString("userToken");
+    const authToken = ApplicationSettings.getString("userToken")
 
     await Http.request({
       url:
@@ -56,8 +56,8 @@ export default {
     }).then(
       (response) => {
         this.workoutRecordSummaries = response.content.toJSON();
-        this.$refs.listviewfollow.refresh();
-        this.forceRerender();
+        //this.$refs.listviewfollow.refresh();
+        //this.forceRerender();
       },
       (e) => {}
     );
@@ -80,6 +80,7 @@ export default {
     };
   },
   methods: {
+
     async showWorkout(payload) {
       console.log(payload.workoutRecordedID);
 
