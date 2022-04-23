@@ -98,13 +98,13 @@ export default {
 
     if (this.users[index].following == false) {
         this.users[index].following = true;
-        this.unfollowUser(this.users[index]);
+        this.followUser(this.users[index]);
         console.log("followed")
     //this.$forceUpdate();
     }
     else {
         this.users[index].following = false;
-        this.followUser(this.users[index]);
+        this.unfollowUser(this.users[index]);
         console.log("unfollowed")
         //this.$forceUpdate();
 
@@ -215,13 +215,13 @@ export default {
 
     if (this.usersFollowing[index].following == false) {
         this.usersFollowing[index].following = true;
-        this.unfollowUser(this.usersFollowing[index]);
+        this.followUser(this.usersFollowing[index]);
         console.log("followed")
     //this.$forceUpdate();
     }
     else {
         this.usersFollowing[index].following = false;
-        this.followUser(this.usersFollowing[index]);
+        this.unfollowUser(this.usersFollowing[index]);
         console.log("unfollowed")
     }},
 
