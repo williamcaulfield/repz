@@ -74,13 +74,15 @@
           <Switch
             row="0"
             col="1"
-            :checked="following"
-            loaded="onSwitchLoaded"
+            ref="switch"
+            v-model="thisfollowing"
             offBackgroundColor="hsl(0, 4.2%, 40%)"
             color="rgb(194, 194, 194)"
             backgroundColor="red"
             horizontalAlignment="right"
+            @tap="onCheckedChange()"
           />
+          <!-- @checkedChangeEvent="switched()" -->
         </GridLayout>
       </GridLayout>
     </ContentView>
@@ -96,8 +98,14 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // switched() {
+    //   this.$refs.switch.checked = this.$refs.switch.checked;
+    // },
     onClickButton() {
       this.$emit("clicked");
+    },
+    onCheckedChange() {
+      this.$emit("toggle");
     },
     // toggleFollowing() {
     //   this.$emit("toggleFollowing");
@@ -116,7 +124,9 @@ export default {
   // },
   // },
   data() {
-    return {};
+    return {
+      thisfollowing: this.following,
+    };
   },
 };
 </script>
