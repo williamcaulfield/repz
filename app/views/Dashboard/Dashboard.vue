@@ -79,7 +79,7 @@
               :v-if="dataReady"
               ref="listviewfollow"
               :workout="workout"
-              v-for="(workout, index) of workoutRecordSummariesFollowing"
+              v-for="(workout, index) in getWorkoutRecordSummariesFollowing"
               v-bind:key="index"
               @clicked="showWorkout(workout)"
             />
@@ -115,7 +115,7 @@
               :v-if="dataReady"
               ref="listviewfollow"
               :workout="workout"
-              v-for="(workout, index) of workoutRecordSummaries"
+              v-for="(workout, index) in getWorkoutRecordSummaries"
               v-bind:key="index"
               @clicked="showWorkout(workout)"
             />

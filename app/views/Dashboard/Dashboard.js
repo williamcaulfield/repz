@@ -9,7 +9,8 @@ import {
   isIOS,
   ApplicationSettings,
   Frame,
-  Color
+  Color,
+  Utils
 } from "@nativescript/core";
 
 export default {
@@ -22,47 +23,24 @@ export default {
   computed: {},
 
   async mounted() {
-    const userId = ApplicationSettings.getNumber("userId");
-    const authToken = ApplicationSettings.getString("userToken")
+    this.getWorkoutSummariesFollowing();
+    this.getWorkoutSummaries();
 
-    await Http.request({
-      url: "https://api.repz.app/user/" +
-        userId +
-        "/workoutrecorded/workoutrecordsfollowing",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + authToken,
-      },
-    }).then(
-      (response) => {
-        this.workoutRecordSummariesFollowing = response.content.toJSON();
-        console.log(this.workoutRecordSummariesFollowing);
-      },
-      (e) => {}
-    );
 
-    await Http.request({
-      url: "https://api.repz.app/user/" +
-        userId +
-        "/workoutrecorded/workoutrecords",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + authToken,
-      },
-    }).then(
-      (response) => {
-        this.workoutRecordSummaries = response.content.toJSON();
-        //this.$refs.listviewfollow.refresh();
-        //this.forceRerender();
-      },
-      (e) => {}
-    );
+    setTimeout(() => {
+      if (this.workoutRecordSummaries.length < 1) {
+        this.getWorkoutSummariesFollowing();
+        this.getWorkoutSummaries();
+        this.dataReady = true;
+      }
+    }, 220);
 
-    this.dataReady = true;
-    this.$refs.listviewfollow.refresh();
-    this.forceRerender();
+    if (this.workoutRecordSummaries.length < 1) {
+      this.dataReady = true;
+    }
+
+    // this.dataReady = true;
+
   },
   data() {
     return {
@@ -80,6 +58,52 @@ export default {
     };
   },
   methods: {
+
+    async getWorkoutSummaries() {
+
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken")
+
+      await Http.request({
+        url: "https://api.repz.app/user/" +
+          userId +
+          "/workoutrecorded/workoutrecords",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          this.workoutRecordSummaries = response.content.toJSON();
+        },
+        (e) => {}
+      );
+    },
+
+    async getWorkoutSummariesFollowing() {
+
+      const userId = ApplicationSettings.getNumber("userId");
+      const authToken = ApplicationSettings.getString("userToken")
+
+      await Http.request({
+        url: "https://api.repz.app/user/" +
+          userId +
+          "/workoutrecorded/workoutrecordsfollowing",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authToken,
+        },
+      }).then(
+        (response) => {
+          this.workoutRecordSummariesFollowing = response.content.toJSON();
+          console.log(this.workoutRecordSummariesFollowing);
+        },
+        (e) => {}
+      );
+
+    },
 
     async showWorkout(payload) {
       console.log(payload.workoutRecordedID);
@@ -216,4 +240,22 @@ export default {
       this.selectedTab = 0;
     },
   },
+
+  computed: {
+    getWorkoutRecordSummariesFollowing: {
+
+      get: function () {
+        return this.workoutRecordSummariesFollowing;
+      },
+
+    },
+    getWorkoutRecordSummaries: {
+
+      get: function () {
+        return this.workoutRecordSummaries;
+      },
+
+    },
+
+  }
 };
