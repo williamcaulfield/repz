@@ -74,8 +74,9 @@
         </ListView> -->
       <GridLayout row="1" width="100%" v-show="selectedTabview == 0">
         <ScrollView>
-          <StackLayout :v-if="dataReady" width="98%">
+          <StackLayout :v-if="dataReady" width="100%">
             <workoutRecordSummary
+              :v-if="dataReady"
               ref="listviewfollow"
               :workout="workout"
               v-for="(workout, index) of workoutRecordSummariesFollowing"
@@ -108,9 +109,10 @@
           <StackLayout
             :v-if="dataReady"
             v-show="selectedTabview == 1"
-            width="98%"
+            width="100%"
           >
             <workoutRecordSummary
+              :v-if="dataReady"
               ref="listviewfollow"
               :workout="workout"
               v-for="(workout, index) of workoutRecordSummaries"

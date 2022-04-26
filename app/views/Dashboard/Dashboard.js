@@ -26,8 +26,7 @@ export default {
     const authToken = ApplicationSettings.getString("userToken")
 
     await Http.request({
-      url:
-        "https://api.repz.app/user/" +
+      url: "https://api.repz.app/user/" +
         userId +
         "/workoutrecorded/workoutrecordsfollowing",
       method: "GET",
@@ -44,8 +43,7 @@ export default {
     );
 
     await Http.request({
-      url:
-        "https://api.repz.app/user/" +
+      url: "https://api.repz.app/user/" +
         userId +
         "/workoutrecorded/workoutrecords",
       method: "GET",
@@ -63,6 +61,8 @@ export default {
     );
 
     this.dataReady = true;
+    this.$refs.listviewfollow.refresh();
+    this.forceRerender();
   },
   data() {
     return {
@@ -90,8 +90,7 @@ export default {
       var tempWorkoutRecorded;
 
       await Http.request({
-        url:
-          "https://api.repz.app/user/" +
+        url: "https://api.repz.app/user/" +
           userId +
           "/workoutrecorded/" +
           payload.workoutRecordedID +
