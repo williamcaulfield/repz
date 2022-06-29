@@ -1,5 +1,5 @@
 <template>
-  <StackLayout class="main" @tap="onClickButton()">
+  <StackLayout class="main" @tap="onTap()">
     <StackLayout>
       <GridLayout rows="auto,*" columns="auto,auto,*" width="95%">
         <Image
@@ -9,7 +9,6 @@
           col="0"
           colSpan="3"
           stretch="aspectFill"
-          @tap="onClickButton()"
           :src="workout.workoutImages[0]"
         />
         <ContentView
@@ -138,8 +137,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    onClickButton() {
-      this.$emit("clicked", this.workout);
+    onTap() {
+      this.$emit("itemTap", this.workout);
     },
   },
   data() {

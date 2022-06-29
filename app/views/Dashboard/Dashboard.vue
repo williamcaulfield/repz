@@ -81,7 +81,7 @@
               :workout="workout"
               v-for="(workout, index) in getWorkoutRecordSummariesFollowing"
               v-bind:key="index"
-              @clicked="showWorkout(workout)"
+              @itemTap="showWorkout(workout)"
             />
           </StackLayout>
           <!-- </GridLayout> -->
@@ -117,7 +117,7 @@
               :workout="workout"
               v-for="(workout, index) in getWorkoutRecordSummaries"
               v-bind:key="index"
-              @clicked="showWorkout(workout)"
+              @itemTap="showWorkout(workout)"
             />
           </StackLayout>
           <!-- </GridLayout> -->

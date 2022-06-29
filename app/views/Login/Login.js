@@ -1,5 +1,9 @@
 import routes from "../../routes";
-import { Http, ApplicationSettings } from "@nativescript/core";
+import {
+  Http,
+  ApplicationSettings,
+  Utils
+} from "@nativescript/core";
 var firebase = require("@nativescript/firebase").firebase;
 
 var validator = require("email-validator");
@@ -60,32 +64,36 @@ const userService = {
       })
       .then(
         async function (result) {
-          // for both platforms
-          var authToken = result.token;
+            // for both platforms
+            var authToken = result.token;
 
-          var fbUserId = result.claims.user_id;
-          var email = result.claims.email;
-          ApplicationSettings.setString("fbUserId", fbUserId);
-          ApplicationSettings.setString("userToken", authToken);
-          console.log("Firebase UserId retrieved: " + fbUserId);
-          console.log("Auth token retrieved: " + authToken);
-          if (newUser) {
-            return await userService.registerNewRepzUser(
-              fbUserId,
-              email,
-              authToken
-            );
-          } else {
-            return await userService.getRepzUserId(fbUserId, authToken);
+            var fbUserId = result.claims.user_id;
+            var email = result.claims.email;
+            ApplicationSettings.setString("fbUserId", fbUserId);
+            ApplicationSettings.setString("userToken", authToken);
+            console.log("Firebase UserId retrieved: " + fbUserId);
+            console.log("Auth token retrieved: " + authToken);
+            if (newUser) {
+              return await userService.registerNewRepzUser(
+                fbUserId,
+                email,
+                authToken
+              );
+            } else {
+
+              setTimeout(() => {
+                //return await userService.getRepzUserId(fbUserId, authToken);
+              }, 3000);
+              return await userService.getRepzUserId(fbUserId, authToken);
+            }
+            //ApplicationSettings.setString("userId", userId);
+            // console.log(
+            //   "App Settings set userToken: " + userService.getAuthToken()
+            // );
+          },
+          function (errorMessage) {
+            console.log("Auth result retrieval error: " + errorMessage);
           }
-          //ApplicationSettings.setString("userId", userId);
-          // console.log(
-          //   "App Settings set userToken: " + userService.getAuthToken()
-          // );
-        },
-        function (errorMessage) {
-          console.log("Auth result retrieval error: " + errorMessage);
-        }
       );
   },
 
@@ -127,23 +135,23 @@ const userService = {
   async getRepzUserId(fbUserId, authToken) {
 
 
-    var fbUser = '{'
-       +'"fbUserID": "' + fbUserId
-       +'"}';
+    var fbUser = '{' +
+      '"fbUserID": "' + fbUserId +
+      '"}';
 
     // var id = new string(fbUserId);
-//     var fbUser = {
-//   "fbUserID": id }
+    //     var fbUser = {
+    //   "fbUserID": id }
     try {
       let userId = await Http.request({
         url: "https://api.repz.app/user/repzuser",
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf-8" ,
+          "Content-Type": "application/json; charset=utf-8",
           "Authorization": "Bearer " + authToken,
         },
         // body: JSON.stringify(fbUser),
-                content: JSON.stringify({
+        content: JSON.stringify({
           fbUserID: fbUserId
         }),
       }).then(
@@ -203,7 +211,7 @@ export default {
         return;
       }
 
-      this.processing = true;   
+      this.processing = true;
       if (this.isLoggingIn) {
         this.login();
       } else {
@@ -292,8 +300,7 @@ export default {
     forgotPassword() {
       prompt({
         title: "Forgot Password",
-        message:
-          "Enter the email address you used to register for repz to reset your password.",
+        message: "Enter the email address you used to register for repz to reset your password.",
         inputType: "email",
         defaultText: "",
         okButtonText: "Ok",

@@ -33,7 +33,7 @@ export default {
         this.getWorkoutSummaries();
         this.dataReady = true;
       }
-    }, 220);
+    }, 1000);
 
     if (this.workoutRecordSummaries.length < 1) {
       this.dataReady = true;
