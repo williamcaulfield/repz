@@ -19,7 +19,7 @@
           row="0"
           col="1"
           class="text -medium -default -bold -left"
-          :text="exercise.exerciseName"
+          :text="exercise.exerciseName + ' - ' + exercise.exerciseSubType"
           marginTop="0"
           marginLeft="5"
         />
