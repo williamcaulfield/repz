@@ -103,7 +103,9 @@ export default {
     loadExerciseBrowser() {
       this.showExerciseBrowser();
     },
-    onPullToRefreshInitiated({ object }) {
+    onPullToRefreshInitiated({
+      object
+    }) {
       console.log("Pulling...");
       // in order to avoid race conditions (only on iOS),
       // in which the UI may not be completely updated here
@@ -145,7 +147,7 @@ export default {
       //   console.log(exercise, index);
       // });
       var i = 0;
-      this.workoutPlanDetail.exercisesPlanned.forEach((element) =>  {
+      this.workoutPlanDetail.exercisesPlanned.forEach((element) => {
         element.seqNum = i;
         console.log(element, i);
         i++;
@@ -164,7 +166,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
       this.updateSummaries();
     },
@@ -183,7 +185,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
       this.updateSummaries();
     },
@@ -198,7 +200,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
       this.updateSummaries();
     },
@@ -213,7 +215,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
       this.updateSummaries();
     },
@@ -225,7 +227,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
@@ -239,7 +241,7 @@ export default {
       this.$refs.listView.refresh();
       console.log(
         "Exercises Planned: " +
-          JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
+        JSON.stringify(this.workoutPlanDetail.exercisesPlanned)
       );
     },
 
@@ -259,10 +261,10 @@ export default {
     editExercise(index, exerciseTargetCount, exercisePace, weightExtra) {
       (this.workoutPlanDetail.exercisesPlanned[index].exerciseTargetCount =
         exerciseTargetCount),
-        (this.workoutPlanDetail.exercisesPlanned[index].exercisePace =
-          exercisePace),
-        (this.workoutPlanDetail.exercisesPlanned[index].weightExtra =
-          weightExtra);
+      (this.workoutPlanDetail.exercisesPlanned[index].exercisePace =
+        exercisePace),
+      (this.workoutPlanDetail.exercisesPlanned[index].weightExtra =
+        weightExtra);
     },
 
     editRest(index, restTargetCount) {
@@ -504,7 +506,9 @@ export default {
     showEditExerciseReps(args) {
       this.$showModal(wbEditExerciseReps, {
         fullscreen: true,
-        props: { exercisePlanned: args },
+        props: {
+          exercisePlanned: args
+        },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -516,7 +520,9 @@ export default {
     showEditExerciseHold(args) {
       this.$showModal(wbEditExerciseHold, {
         fullscreen: true,
-        props: { exercisePlanned: args },
+        props: {
+          exercisePlanned: args
+        },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -529,7 +535,9 @@ export default {
     showEditRest(args) {
       this.$showModal(wbEditRest, {
         fullscreen: true,
-        props: { exercisePlanned: args },
+        props: {
+          exercisePlanned: args
+        },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -542,7 +550,9 @@ export default {
     showEditWarmup(args) {
       this.$showModal(wbEditWarmup, {
         fullscreen: true,
-        props: { exercisePlanned: args },
+        props: {
+          exercisePlanned: args
+        },
         animated: true,
         stretched: false,
         dimAmount: 0.5,
@@ -593,7 +603,7 @@ export default {
       for (var i = 1; i <= repeatSettings.repeatCount; i++) {
         //Add restSet if needed
         if (repeatSettings.addRestSets) {
-            let restSetToAdd = Object.assign({}, this.restSet); //copy object
+          let restSetToAdd = Object.assign({}, this.restSet); //copy object
           //var restSetToAdd = this.restSet;
 
           this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
@@ -613,7 +623,7 @@ export default {
 
           exercise.exerciseTargetCount = Math.round(
             Math.pow(repeatSettings.multiplierRepsTime, i) *
-              exercise.exerciseTargetCount
+            exercise.exerciseTargetCount
           );
 
           exercise.weightExtra = Math.round(
@@ -706,7 +716,11 @@ export default {
       });
     },
 
-    onItemTap({ index, data, object }) {
+    onItemTap({
+      index,
+      data,
+      object
+    }) {
       console.log(
         `Tapped on ${this.workoutPlanDetail.exercisesPlanned[index].exerciseHeading} at index ${index}`
       );
@@ -732,12 +746,19 @@ export default {
       }
     },
 
-    onItemReordered({ index, data, object }) {
+    onItemReordered({
+      index,
+      data,
+      object
+    }) {
       console.log(`Item reordered from index ${index} to ${data.targetIndex}`);
       this.updateSelected();
     },
 
-    onSwipeStarted({ data, object }) {
+    onSwipeStarted({
+      data,
+      object
+    }) {
       console.log(`Swipe started`);
       const swipeLimits = data.swipeLimits;
       const swipeView = object;
@@ -753,7 +774,9 @@ export default {
       this.duplicateExercise(this.exercise);
       this.$refs.listView.notifySwipeToExecuteFinished();
     },
-    onRightSwipeClick({ object }) {
+    onRightSwipeClick({
+      object
+    }) {
       console.log("right action tapped");
       // remove item
       this.itemList.splice(this.itemList.indexOf(object.bindingContext), 1);
@@ -781,27 +804,25 @@ export default {
         objectivesDescription: "",
         projectedDuration: 0,
         projectedCalories: 0,
-        exercisesPlanned: [
-          {
-            workoutPlanID: null,
-            seqNum: 0,
-            exerciseID: 0,
-            repsOrHold: "Warmup",
-            exerciseSet: 0,
-            exerciseHeading: "Warmup & Stretch",
-            exerciseSubType: "Get those muscles ready",
-            exerciseTargetCount: 0,
-            exercisePace: "Normal",
-            weightExtra: 0,
-            weightDisplayImperial: false,
-            estimateDuration: 90,
-            estimateCalories: 20,
-            exerciseType: "Warmup",
-            displayType: "Warmup",
-            isSetHeader: true,
-            exerciseImage: "LinkToStreches",
-          },
-        ],
+        exercisesPlanned: [{
+          workoutPlanID: null,
+          seqNum: 0,
+          exerciseID: 0,
+          repsOrHold: "Warmup",
+          exerciseSet: 0,
+          exerciseHeading: "Warmup & Stretch",
+          exerciseSubType: "Get those muscles ready",
+          exerciseTargetCount: 0,
+          exercisePace: "Normal",
+          weightExtra: 0,
+          weightDisplayImperial: false,
+          estimateDuration: 90,
+          estimateCalories: 20,
+          exerciseType: "Warmup",
+          displayType: "Warmup",
+          isSetHeader: true,
+          exerciseImage: "LinkToStreches",
+        }, ],
       },
 
       rest: {
@@ -816,7 +837,7 @@ export default {
         exercisePace: "Normal",
         weightExtra: 0,
         weightDisplayImperial: false,
-        estimateDuration: 30,
+        estimateDuration: 120,
         estimateCalories: 0,
         exerciseType: "Rest",
         displayType: "Rest",
@@ -835,7 +856,7 @@ export default {
         exercisePace: "Normal",
         weightExtra: 0,
         weightDisplayImperial: false,
-        estimateDuration: 90,
+        estimateDuration: 120,
         estimateCalories: 0,
         exerciseType: "Restset",
         displayType: "Restset",

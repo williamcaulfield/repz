@@ -16,10 +16,21 @@
           :src="exercise.exerciseImage"
         />
         <Label
+          v-show="exercise.exerciseSubType != ''"
           row="0"
           col="1"
           class="text -medium -default -bold -left"
           :text="exercise.exerciseName + ' - ' + exercise.exerciseSubType"
+          marginTop="0"
+          marginLeft="5"
+        />
+
+        <Label
+          v-show="exercise.exerciseSubType == ''"
+          row="0"
+          col="1"
+          class="text -medium -default -bold -left"
+          :text="exercise.exerciseName"
           marginTop="0"
           marginLeft="5"
         />
@@ -95,7 +106,7 @@
             row="0"
             col="4"
             class="text -small -primary -right -bold"
-            text="Intermediate"
+            :text="exercise.difficultyLevel"
           />
         </GridLayout>
       </GridLayout>
