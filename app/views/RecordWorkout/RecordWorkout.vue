@@ -46,7 +46,7 @@
                 <Button row="0" col="3" text="Sort" class="btn-list" />
               </GridLayout>
 
-              <Label
+              <!-- <Label
                 text="Scheduled"
                 class="text -large -bold -primary -left"
                 marginLeft="20"
@@ -56,7 +56,7 @@
               <workoutPlanSummary
                 :workoutPlan="workoutPlanScheduled"
                 @clicked="navigateToWorkoutPreview(workoutPlan)"
-              />
+              /> -->
 
               <Label
                 text="Favourites"

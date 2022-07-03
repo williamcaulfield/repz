@@ -81,7 +81,7 @@
           row="3"
           col="1"
           class="wp-summary__text -h3 -primary"
-          :text="workoutPlan.projectedDuration"
+          :text="Math.round(workoutPlan.projectedDuration / 60)"
         />
         <Label row="0" class="line" col="1" rowSpan="5"></Label>
       </GridLayout>

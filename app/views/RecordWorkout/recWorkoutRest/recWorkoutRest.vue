@@ -96,7 +96,7 @@
             startAngle="-80"
             sweepAngle="340"
             minimum="0"
-            :maximum="targetTime"
+            :maximum="exercise.estimateDuration"
             radius="0.8"
           >
             <ScaleStyle
@@ -110,7 +110,7 @@
             <RadialBarIndicator
               v-tkRadialScaleIndicators
               minimum="0"
-              :maximum="targetTime"
+              :maximum="exercise.estimateDuration"
               location="1"
             >
               <BarIndicatorStyle
@@ -141,7 +141,7 @@
 
       <Label
         row="5"
-        :text="targetTime + ' seconds'"
+        :text="exercise.estimateDuration + ' seconds'"
         class="workoutrecord--heading -h3 -default"
         height="9%"
         v-show="exerciseStarted == 0"
@@ -251,7 +251,12 @@ var countId;
 
 export default {
   props: ["exercise", "nextExerciseName"],
+
   components: {},
+  mounted() {
+    this.exercise.estimateDuration = this.exercise.estimateDuration;
+  },
+
   methods: {
     saveExerciseResult() {
       this.writeExerciseResult();
@@ -284,6 +289,8 @@ export default {
     togglePlay() {
       if (player.isAudioPlaying()) {
         player.pause();
+        player.playFromFile(playerOptions);
+        player.resume();
       } else {
         player.playFromFile(playerOptions);
       }
@@ -296,14 +303,17 @@ export default {
     },
     restTimeMinus() {
       if (
-        this.targetTime > this.timeChangeIncrement &&
-        this.targetTime - this.timeChangeIncrement > this.timeCompleted
+        this.exercise.estimateDuration > this.timeChangeIncrement &&
+        this.exercise.estimateDuration - this.timeChangeIncrement >
+          this.timeCompleted
       ) {
-        this.targetTime = this.targetTime - this.timeChangeIncrement;
+        this.exercise.estimateDuration =
+          this.exercise.estimateDuration - this.timeChangeIncrement;
       }
     },
     restTimeAdd() {
-      this.targetTime = this.targetTime + this.timeChangeIncrement;
+      this.exercise.estimateDuration =
+        this.exercise.estimateDuration + this.timeChangeIncrement;
     },
     countdownStart() {
       if (this.timerActive == false) {
@@ -311,7 +321,7 @@ export default {
         this.togglePlay();
 
         countId = Utils.setInterval(() => {
-          if (this.timeCompleted < this.targetTime) {
+          if (this.timeCompleted < this.exercise.estimateDuration) {
             this.timeCompleted++;
           } else {
             this.togglePlay();
@@ -356,7 +366,7 @@ export default {
     return {
       isTouched: false,
       timerHoldDelayStart: 500,
-      targetTime: 30,
+      //targetTime: 30,
       timeCompleted: 0,
       timerActive: false,
       exerciseStarted: 0,

@@ -59,7 +59,7 @@
 
           <v-template if="exercise.displayType == 'Reps'">
             <GridLayout rows="auto,*" columns="*">
-              <Label
+              <!-- <Label
                 row="0"
                 col="0"
                 :text="'Set ' + exercise.exerciseSet"
@@ -67,7 +67,7 @@
                 marginTop="5"
                 marginBottom="5"
                 v-show="exercise.isSetHeader"
-              />
+              /> -->
               <workoutPlanExercise
                 row="1"
                 col="0"

@@ -96,7 +96,7 @@
             startAngle="-80"
             sweepAngle="340"
             minimum="0"
-            :maximum="targetTime"
+            :maximum="exercise.estimateDuration"
             radius="0.8"
           >
             <ScaleStyle
@@ -110,7 +110,7 @@
             <RadialBarIndicator
               v-tkRadialScaleIndicators
               minimum="0"
-              :maximum="targetTime"
+              :maximum="exercise.estimateDuration"
               location="1"
             >
               <BarIndicatorStyle
@@ -141,7 +141,7 @@
 
       <Label
         row="5"
-        :text="targetTime + ' seconds'"
+        :text="exercise.estimateDuration + ' seconds'"
         class="workoutrecord--heading -h3 -default"
         height="10%"
         v-show="exerciseStarted == 0"
@@ -281,7 +281,7 @@ export default {
         this.togglePlay();
 
         countId = Utils.setInterval(() => {
-          if (this.timeCompleted < this.targetTime) {
+          if (this.timeCompleted < this.exercise.estimateDuration) {
             this.timeCompleted++;
           } else {
             this.togglePlay();
@@ -339,7 +339,7 @@ export default {
     return {
       isTouched: false,
       timerHoldDelayStart: 500,
-      targetTime: 120,
+      //exercise.estimateDuration: 120,
       timeCompleted: 0,
       timerActive: false,
       exerciseStarted: 0,
