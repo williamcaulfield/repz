@@ -97,7 +97,7 @@
 
         <v-template if="exercise.displayType == 'Reps_complete'">
           <GridLayout rows="auto,*" columns="*">
-            <Label
+            <!-- <Label
               row="0"
               col="0"
               :text="'Set ' + exercise.exerciseSet"
@@ -105,7 +105,7 @@
               marginTop="5"
               marginBottom="5"
               v-show="exercise.isSetHeader"
-            />
+            /> -->
             <rwProgressExerciseDone
               row="1"
               col="0"
@@ -116,7 +116,7 @@
 
         <v-template if="exercise.displayType == 'Reps'">
           <GridLayout rows="auto,*" columns="*">
-            <Label
+            <!-- <Label
               row="0"
               col="0"
               :text="'Set ' + exercise.exerciseSet"
@@ -124,14 +124,14 @@
               marginTop="5"
               marginBottom="5"
               v-show="exercise.isSetHeader"
-            />
+            /> -->
             <workoutPlanExercise row="1" col="0" :exercisePlanned="exercise" />
           </GridLayout>
         </v-template>
 
         <v-template if="exercise.displayType == 'Hold_complete'">
           <GridLayout rows="auto,*" columns="*">
-            <Label
+            <!-- <Label
               row="0"
               col="0"
               :text="'Set ' + exercise.exerciseSet"
@@ -139,7 +139,7 @@
               marginTop="5"
               marginBottom="5"
               v-show="exercise.isSetHeader"
-            />
+            /> -->
             <rwProgressExerciseDone
               row="1"
               col="0"
@@ -150,7 +150,7 @@
 
         <v-template if="exercise.displayType == 'Hold'">
           <GridLayout rows="auto,*" columns="*">
-            <Label
+            <!-- <Label
               row="0"
               col="0"
               :text="'Set ' + exercise.isSetHeader"
@@ -158,7 +158,7 @@
               marginTop="5"
               marginBottom="5"
               v-show="exercise.isSetHeader"
-            />
+            /> -->
             <workoutPlanExercise row="1" col="0" :exercisePlanned="exercise" />
           </GridLayout>
         </v-template>

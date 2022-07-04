@@ -78,7 +78,7 @@
 
           <v-template if="exercise.displayType == 'Hold'">
             <GridLayout rows="auto,*" columns="*">
-              <Label
+              <!-- <Label
                 row="0"
                 col="0"
                 :text="'Set ' + exercise.isSetHeader"
@@ -86,7 +86,7 @@
                 marginTop="5"
                 marginBottom="5"
                 v-show="exercise.isSetHeader"
-              />
+              /> -->
               <workoutPlanExercise
                 row="1"
                 col="0"

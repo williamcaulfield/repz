@@ -264,8 +264,16 @@ export default {
     togglePlay() {
       if (player.isAudioPlaying()) {
         player.pause();
+        player.playFromFile(playerOptions);
+        player.resume();
+        setTimeout(() => {
+          player.dispose();
+        }, 500);
       } else {
         player.playFromFile(playerOptions);
+        setTimeout(() => {
+          player.dispose();
+        }, 500);
       }
     },
     searchBarLoaded(args) {
