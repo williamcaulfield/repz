@@ -292,7 +292,7 @@ export default {
       }
     },
 
-    setAmountRestTime() {
+    setRestTime() {
       this.dataChanged = true;
       this.restTime = parseInt(this.$refs.input_restTimeCount.nativeView.text);
     },
@@ -309,6 +309,7 @@ export default {
         this.restTime = 10;
       }
     },
+
 
     onSliderValueChangeRepsMultiplier(args) {
       const step = 0.1;

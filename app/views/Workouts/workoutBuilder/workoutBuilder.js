@@ -122,7 +122,9 @@ export default {
     },
     addSelection(event, index) {
       console.log("Item selected: " + index);
-      this.selectedItems.push(index);
+      if (this.selectedItems.indexOf(index) === -1) {
+        this.selectedItems.push(index);
+      }
       console.log("Selected Items: " + this.selectedItems);
     },
     removeSelection(event, index) {
@@ -173,7 +175,7 @@ export default {
     addExercise(exerciseToAdd) {
       //Default reps/hold - Replace with user setting
       if (exerciseToAdd.exerciseType == "Reps") {
-        exerciseToAdd.exerciseTargetCount = 9;
+        exerciseToAdd.exerciseTargetCount = 10;
       } else if (exerciseToAdd.exerciseType == "Hold") {
         exerciseToAdd.exerciseTargetCount = 30;
       }
@@ -207,7 +209,7 @@ export default {
 
     addRestSet(restSetToAdd) {
       //Default rest time
-      restSetToAdd.estimateDuration = 91;
+      restSetToAdd.estimateDuration = 120;
       this.workoutPlanDetail.exercisesPlanned.push(restSetToAdd);
       console.log("RestSet added: " + JSON.stringify(restSetToAdd));
       this.clearSelectedItems();
@@ -221,7 +223,7 @@ export default {
     },
 
     deleteExercise(index) {
-      this.selectedItems.splice(index, 1);
+      this.workoutPlanDetail.exercisesPlanned.splice(index, 1);
       this.clearSelectedItems();
       this.updateSeqNum();
       this.$refs.listView.refresh();
@@ -363,8 +365,7 @@ export default {
           // Difficulty Levels
           if (
             this.workoutPlanDetail.difficultyLevels.indexOf(
-              exercise.difficultyLevel === -1
-            )
+              exercise.difficultyLevel) === -1
           ) {
             this.workoutPlanDetail.difficultyLevels.push(
               exercise.difficultyLevel
@@ -769,17 +770,19 @@ export default {
       swipeLimits.threshold = leftItem.getMeasuredWidth() / 2;
     },
 
-    onLeftSwipeClick(event) {
+    onLeftSwipeClick(args) {
+      var index = this.workoutPlanDetail.exercisesPlanned.indexOf(args.object.bindingContext)
       console.log("left action tapped");
-      this.duplicateExercise(this.exercise);
+      this.deleteExercise(index);
+      // this.duplicateExercise(this.exercise);
       this.$refs.listView.notifySwipeToExecuteFinished();
     },
-    onRightSwipeClick({
-      object
-    }) {
+    onRightSwipeClick(args) {
+      var index = this.workoutPlanDetail.exercisesPlanned.indexOf(args.object.bindingContext)
       console.log("right action tapped");
       // remove item
-      this.itemList.splice(this.itemList.indexOf(object.bindingContext), 1);
+      this.deleteExercise(index);
+      // this.itemList.splice(this.itemList.indexOf(object.bindingContext), 1);
       this.$refs.listView.notifySwipeToExecuteFinished();
     },
   },
@@ -833,11 +836,11 @@ export default {
         exerciseSet: 0,
         exerciseHeading: "Rest",
         exerciseSubType: "Let those muscles recover",
-        exerciseTargetCount: 0,
+        exerciseTargetCount: 90,
         exercisePace: "Normal",
         weightExtra: 0,
         weightDisplayImperial: false,
-        estimateDuration: 120,
+        estimateDuration: 90,
         estimateCalories: 0,
         exerciseType: "Rest",
         displayType: "Rest",
@@ -852,7 +855,7 @@ export default {
         exerciseSet: 0,
         exerciseHeading: "Rest Between Sets",
         exerciseSubType: "Take a breather",
-        exerciseTargetCount: 0,
+        exerciseTargetCount: 120,
         exercisePace: "Normal",
         weightExtra: 0,
         weightDisplayImperial: false,

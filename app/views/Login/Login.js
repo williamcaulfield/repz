@@ -63,37 +63,44 @@ const userService = {
         forceRefresh: false,
       })
       .then(
-        async function (result) {
-            // for both platforms
-            var authToken = result.token;
+        function (result) {
+          // for both platforms
+          var authToken = result.token;
 
-            var fbUserId = result.claims.user_id;
-            var email = result.claims.email;
-            ApplicationSettings.setString("fbUserId", fbUserId);
-            ApplicationSettings.setString("userToken", authToken);
-            console.log("Firebase UserId retrieved: " + fbUserId);
-            console.log("Auth token retrieved: " + authToken);
-            if (newUser) {
-              return await userService.registerNewRepzUser(
-                fbUserId,
-                email,
-                authToken
-              );
-            } else {
+          var fbUserId = result.claims.user_id;
+          var email = result.claims.email;
+          ApplicationSettings.setString("fbUserId", fbUserId);
+          ApplicationSettings.setString("userToken", authToken);
+          console.log("Firebase UserId retrieved: " + fbUserId);
+          console.log("Auth token retrieved: " + authToken);
+          if (newUser) {
+            return userService.registerNewRepzUser(
+              fbUserId,
+              email,
+              authToken
+            );
+          } else {
+            //var repzUserId = -1;
+            do {
+              repzUserId = userService.getRepzUserId(fbUserId, authToken);
 
-              setTimeout(() => {
-                //return await userService.getRepzUserId(fbUserId, authToken);
-              }, 3000);
-              return await userService.getRepzUserId(fbUserId, authToken);
             }
-            //ApplicationSettings.setString("userId", userId);
-            // console.log(
-            //   "App Settings set userToken: " + userService.getAuthToken()
-            // );
-          },
-          function (errorMessage) {
-            console.log("Auth result retrieval error: " + errorMessage);
+            while (ApplicationSettings.getNumber("userId") == undefined)
+            //while (repzUserId == -1 || repzUserId == undefined);
+            //return repzUserId;
+            // setTimeout(() => {
+            //   //return await userService.getRepzUserId(fbUserId, authToken);
+            // }, 3000);
+            // return await userService.getRepzUserId(fbUserId, authToken);
           }
+          //ApplicationSettings.setString("userId", userId);
+          // console.log(
+          //   "App Settings set userToken: " + userService.getAuthToken()
+          // );
+        },
+        function (errorMessage) {
+          console.log("Auth result retrieval error: " + errorMessage);
+        }
       );
   },
 
@@ -132,7 +139,7 @@ const userService = {
     );
   },
 
-  async getRepzUserId(fbUserId, authToken) {
+  getRepzUserId(fbUserId, authToken) {
 
 
     var fbUser = '{' +
@@ -143,7 +150,7 @@ const userService = {
     //     var fbUser = {
     //   "fbUserID": id }
     try {
-      let userId = await Http.request({
+      let userId = Http.request({
         url: "https://api.repz.app/user/repzuser",
         method: "POST",
         headers: {
@@ -167,11 +174,13 @@ const userService = {
         },
         (e) => {
           console.log("could not retrieve Repz userid");
+          return -1;
         }
       );
     } catch (e) {
       // just in case if an error thrown for whatever reason, can be handled / logged here
       console.log(error);
+      return -1;
     }
 
     // return await Http
