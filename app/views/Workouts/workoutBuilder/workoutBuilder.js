@@ -194,7 +194,7 @@ export default {
 
     addRest(restToAdd) {
       //Default rest time
-      restToAdd.estimateDuration = 31;
+      restToAdd.estimateDuration = 90;
       this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
       console.log("Rest added: " + JSON.stringify(restToAdd));
       this.clearSelectedItems();
@@ -481,7 +481,7 @@ export default {
           ) {
             let restToAdd = Object.assign({}, this.rest); //copy object
             //var restToAdd = this.rest;
-            restToAdd.estimateDuration = 31;
+            restToAdd.estimateDuration = 90;
             this.workoutPlanDetail.exercisesPlanned.push(restToAdd);
           }
 

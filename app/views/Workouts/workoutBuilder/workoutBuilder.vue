@@ -184,7 +184,7 @@
                 col="1"
                 row="0"
                 class="icon-swipe"
-                src="~/assets/images/icons/icon_add_white.png"
+                src="~/assets/images/icons/icon_delete-circle.png"
                 horizontalAlignment="center"
               />
             </StackLayout>
@@ -199,7 +199,7 @@
                 col="1"
                 row="0"
                 class="icon-swipe"
-                src="~/assets/images/icons/icon_minus_grey.png"
+                src="~/assets/images/icons/icon_delete-circle.png"
                 horizontalAlignment="center"
               />
             </StackLayout>
