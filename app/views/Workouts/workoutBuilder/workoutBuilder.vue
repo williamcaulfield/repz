@@ -167,19 +167,19 @@
               col="0"
               class="swipe-item left"
               orientation="horizontal"
-              @tap="onLeftSwipeClick"
+              @tap="onLeftSwipeClick($event)"
             >
-              <TextField
+              <!-- <TextField
                 class="text -xlarge -bold -default -left"
                 editable="true"
-                text="workoutPlanDetail.workoutPlanName"
+                :text="workoutPlanDetail.workoutPlanName"
                 keyboardType="email"
                 returnKeyType="done"
                 autocorrect="false"
                 hint="New Workout Name"
                 marginTop="0"
                 maxLength="50"
-              />
+              /> -->
               <Image
                 col="1"
                 row="0"
@@ -193,13 +193,13 @@
               col="2"
               class="swipe-item right"
               orientation="horizontal"
-              @tap="onRightSwipeClick"
+              @tap="onRightSwipeClick($event)"
             >
               <Image
                 col="1"
                 row="0"
                 class="icon-swipe"
-                src="~/assets/images/icons/icon_delete_white.png"
+                src="~/assets/images/icons/icon_minus_grey.png"
                 horizontalAlignment="center"
               />
             </StackLayout>
