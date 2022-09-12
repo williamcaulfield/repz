@@ -56,7 +56,7 @@ const userService = {
     });
   },
 
-  async getAuthToken() {
+  getAuthToken() {
     firebase
       .getAuthToken({
         // default false, not recommended to set to true by Firebase but exposed for {N} devs nonetheless :)

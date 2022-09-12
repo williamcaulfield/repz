@@ -6,7 +6,7 @@
     >
       <Label
         row="0"
-        text="Total: 00:27"
+        :text="duration"
         class="workoutrecord--heading -h4 -default"
         height="10%"
       ></Label>
@@ -70,6 +70,7 @@
 import { Dialogs } from "@nativescript/core";
 
 export default {
+  props: ["duration"],
   components: {},
   methods: {
     searchBarLoaded(args) {

@@ -105,6 +105,7 @@
 </template>
 <script>
 export default {
+  props: ["duration"],
   components: {},
   methods: {
     searchBarLoaded(args) {

@@ -5,7 +5,8 @@
       <recWorkoutWarmup
         ref="tabWarmup"
         :exercise="currentExercise"
-        :nextExerciseName="nextExerciseName"
+        :duration="currentDuration"
+        :nextExerciseInSequence="nextExerciseInSequence"
         row="0"
         col="0"
         v-show="selectedTabviewRw == 1"
@@ -15,6 +16,7 @@
       <rwExerciseHold
         ref="tabHold"
         :exercise="currentExercise"
+        :duration="currentDuration"
         row="0"
         col="0"
         v-show="selectedTabviewRw == 2"
@@ -24,6 +26,7 @@
       <rwExerciseReps
         ref="tabReps"
         :exercise="currentExercise"
+        :duration="currentDuration"
         row="0"
         col="0"
         v-show="selectedTabviewRw == 3"
@@ -32,6 +35,7 @@
       />
       <recWorkoutPause
         ref="tabPause"
+        :duration="currentDuration"
         row="0"
         col="0"
         v-show="selectedTabviewRw == -1"
@@ -44,7 +48,8 @@
       <recWorkoutRest
         ref="tabRest"
         :exercise="currentExercise"
-        :nextExerciseName="nextExerciseName"
+        :duration="currentDuration"
+        :nextExerciseInSequence="nextExerciseInSequence"
         row="0"
         col="0"
         v-show="selectedTabviewRw == 4"
@@ -52,6 +57,7 @@
         v-on:exerciseComplete="saveExerciseResult($event, exerciseResult)"
       />
       <recWorkoutComplete
+        :duration="currentDuration"
         row="0"
         col="0"
         v-show="selectedTabviewRw == 5"

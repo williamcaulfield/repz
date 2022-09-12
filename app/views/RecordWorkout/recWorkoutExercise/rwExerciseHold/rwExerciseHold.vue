@@ -1,7 +1,7 @@
 <template>
     <StackLayout class="workoutPage" verticalAlignment="top">
         <GridLayout rows="auto,auto,auto,auto,auto,auto,auto,*" columns="*">
-            <Label row="0" text="Total: 00:27" class="workoutrecord--heading -h4 -default" height="10%"></Label>
+            <Label row="0" :text="duration" class="workoutrecord--heading -h4 -default" height="10%"></Label>
             <Label row="1" text="Hold" class="workoutrecord--heading -h3 -primary" height="10%" />
             <Label row="2" :text="exercise.exerciseHeading" class="workoutrecord--heading -h3 -default"
                 height="5%"></Label>
@@ -109,7 +109,7 @@ const playerOptions = {
 var countId;
 
 export default {
-    props: ["exercise"],
+    props: ["exercise","duration"],
     components: { exerciseDetail },
     methods: {
         onExerciseLoaded(args) {

@@ -3,22 +3,38 @@
     <GridLayout rows="auto,auto,auto,auto,auto,auto,auto,*" columns="*">
       <Label
         row="0"
-        text="Total: 00:27"
+        :text="duration"
         class="workoutrecord--heading -h4 -default"
         height="10%"
       ></Label>
       <Label
         row="1"
-        :text="exercise.exerciseHeading"
+        :text="exercise.exerciseHeading + ' - Up Next:'"
         class="workoutrecord--heading -h3 -primary"
         height="10%"
       />
-      <Label
+      <!-- <Label
+
         row="2"
         :text="exercise.exerciseSubType"
         class="workoutrecord--heading -h5 -secondary"
         height="5%"
-      ></Label>
+      /> -->
+            <GridLayout row="2" rows="auto,auto, auto,*" columns="auto" height="7%" horizontalAlignment="center" marginTop="-2%">
+              <!-- <Label row="0" col="0" text="Next: " class="workoutrecord--heading -h4 -secondary" /> -->
+            
+              <Label row="0" col="0" v-show="nextExerciseInSequence != ''"
+                :text="nextExerciseInSequence.exerciseHeading + ' - ' + nextExerciseInSequence.exerciseSubType"
+                class="workoutrecord--heading -h5 -bold -default" />
+            
+              <Label row="1" col="0" v-show="nextExerciseInSequence != '' && nextExerciseInSequence.weightExtra > 0"
+                :text="nextExerciseInSequence.weightExtra + 'Kg'" class="workoutrecord--heading -h5 -bold -primary" />
+            
+              <Label row="0" col="0" v-show="nextExerciseInSequence == ''" text="Workout Complete"
+                class="workoutrecord--heading -h5 -secondary" />
+            
+            </GridLayout>
+
       <Label
         row="3"
         text=" "
@@ -140,35 +156,13 @@
       </GridLayout>
 
       <Label
-        row="5"
+        row="6"
         :text="exercise.estimateDuration + ' seconds'"
         class="workoutrecord--heading -h3 -default"
         height="9%"
-        v-show="exerciseStarted == 0"
+
       />
-      <GridLayout
-        row="6"
-        rows="auto,*"
-        columns="auto"
-        height="10%"
-        horizontalAlignment="center"
-        marginTop="1%"
-      >
-        <Label
-          row="0"
-          col="0"
-          text="Next: "
-          class="workoutrecord--heading -h4 -secondary"
-          v-show="exerciseStarted == 0"
-        />
-        <Label
-          row="1"
-          col="0"
-          :text="nextExerciseName"
-          class="workoutrecord--heading -h5 -bold -primary"
-          v-show="exerciseStarted == 0"
-        />
-      </GridLayout>
+
       <GridLayout
         row="5"
         rows="auto"
@@ -250,7 +244,7 @@ const playerOptions = {
 var countId;
 
 export default {
-  props: ["exercise", "nextExerciseName"],
+  props: ["exercise", "nextExerciseInSequence", "duration"],
 
   components: {},
   mounted() {
