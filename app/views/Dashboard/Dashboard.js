@@ -23,7 +23,15 @@ export default {
   computed: {},
 
 
-  async mounted() {
+  mounted() {
+
+    var tempUserId = ApplicationSettings.getNumber("userId")
+    const authToken = ApplicationSettings.getString("userToken")
+
+    if (tempUserId == undefined || tempUserId == '') {
+      const userId = ApplicationSettings.getNumber("userId")
+    }
+
     this.getWorkoutSummariesFollowing();
     this.getWorkoutSummaries();
 
@@ -62,12 +70,7 @@ export default {
 
     async getWorkoutSummaries() {
 
-      do {
-        tempUserId = ApplicationSettings.getNumber("userId");
-      }
-      while (tempUserId == undefined)
-
-      const userId = tempUserId
+      const userId = ApplicationSettings.getNumber("userId")
       const authToken = ApplicationSettings.getString("userToken")
 
       await Http.request({

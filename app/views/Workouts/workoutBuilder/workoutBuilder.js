@@ -627,9 +627,7 @@ export default {
             exercise.exerciseTargetCount
           );
 
-          exercise.weightExtra = Math.round(
-            Math.pow(repeatSettings.multiplierWeight, i) * exercise.weightExtra
-          );
+          exercise.weightExtra = Math.round((Math.pow(repeatSettings.multiplierWeight, i) * exercise.weightExtra) / 0.5) * 0.5;
 
           //add rest if needed
           if (
@@ -835,7 +833,7 @@ export default {
         repsOrHold: "Rest",
         exerciseSet: 0,
         exerciseHeading: "Rest",
-        exerciseSubType: "Let those muscles recover",
+        exerciseSubType: "",
         exerciseTargetCount: 90,
         exercisePace: "Normal",
         weightExtra: 0,
@@ -854,7 +852,7 @@ export default {
         repsOrHold: "RestSet",
         exerciseSet: 0,
         exerciseHeading: "Rest Between Sets",
-        exerciseSubType: "Take a breather",
+        exerciseSubType: "",
         exerciseTargetCount: 120,
         exercisePace: "Normal",
         weightExtra: 0,

@@ -9,7 +9,7 @@
       ></Label>
       <Label
         row="1"
-        :text="exercise.exerciseHeading + ' - Up Next:'"
+        text="Rest Time!"
         class="workoutrecord--heading -h3 -primary"
         height="10%"
       />
@@ -24,11 +24,11 @@
               <!-- <Label row="0" col="0" text="Next: " class="workoutrecord--heading -h4 -secondary" /> -->
             
               <Label row="0" col="0" v-show="nextExerciseInSequence != ''"
-                :text="nextExerciseInSequence.exerciseHeading + ' - ' + nextExerciseInSequence.exerciseSubType"
+                :text="'>> ' + nextExerciseInSequence.exerciseHeading + ' - ' + nextExerciseInSequence.exerciseSubType"
                 class="workoutrecord--heading -h5 -bold -default" />
-            
+
               <Label row="1" col="0" v-show="nextExerciseInSequence != '' && nextExerciseInSequence.weightExtra > 0"
-                :text="nextExerciseInSequence.weightExtra + 'Kg'" class="workoutrecord--heading -h5 -bold -primary" />
+                :text="+ ' ' + nextExerciseInSequence.weightExtra + 'Kg'" class="workoutrecord--heading -h5 -bold -primary" />
             
               <Label row="0" col="0" v-show="nextExerciseInSequence == ''" text="Workout Complete"
                 class="workoutrecord--heading -h5 -secondary" />

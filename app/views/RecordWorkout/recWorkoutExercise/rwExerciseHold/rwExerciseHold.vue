@@ -74,9 +74,9 @@
             </GridLayout>
 
             <Label row="7" text="Good Job!" class="workoutrecord--heading -h2 -default" height="10%"
-                horizontalAlignment="center" v-show="exercise.completedCount == exercise.exerciseTargetCount" />
+                horizontalAlignment="center" v-show="exercise.completedCount == exercise.exerciseTargetCount&& exercise.isCompleted " />
             <Label row="7" text="Rest day is it?" class="workoutrecord--heading -h2 -default" height="10%"
-                horizontalAlignment="center" v-show="exercise.completedCount != exercise.exerciseTargetCount" />
+                horizontalAlignment="center" v-show="exercise.completedCount != exercise.exerciseTargetCount && exercise.isCompleted " />
 
             <Button row="6" class="btn-primary" text="Done" marginTop="25" verticalAlignment="bottom"
                 v-show="exerciseStarted == 1 && exercise.isCompleted == false" @tap="completeExercise()" />

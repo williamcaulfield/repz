@@ -80,12 +80,13 @@ const userService = {
               authToken
             );
           } else {
-            //var repzUserId = -1;
-            do {
-              repzUserId = userService.getRepzUserId(fbUserId, authToken);
 
-            }
-            while (ApplicationSettings.getNumber("userId") == undefined)
+            setTimeout(() => {
+              var userId = userService.getRepzUserId(fbUserId, authToken);
+            }, 3000);
+
+            ApplicationSettings.setNumber("userId", userId);
+
             //while (repzUserId == -1 || repzUserId == undefined);
             //return repzUserId;
             // setTimeout(() => {
